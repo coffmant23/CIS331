@@ -9,7 +9,7 @@ public class ValleyDepotApplication {
     public static void main(String[] args) {
         
         Scanner input = new Scanner(System.in);
-        Customer[] customerList = new Customer[1];
+        Customer[] customerList = new Customer[4];
         Item[] itemList = new Item[1];
         
         int customerTracker = 1;  
@@ -17,9 +17,9 @@ public class ValleyDepotApplication {
         int choiceSelector = 0;
         
         customerList[0]= new Customer("Nick","Coffman","12 apple wood","555-555-5555","myemail@dukes.com",0);
-        customerList[0]= new Customer("John","Good","12 apple wood","555-555-5555","myemail@dukes.com",0);
-        customerList[0]= new Customer("Adam","Zing","12 apple wood","555-555-5555","myemail@dukes.com",0);
-        customerList[0]= new Customer("Chance","ay","12 apple wood","555-555-5555","myemail@dukes.com",0);
+        customerList[1]= new Customer("John","Good","12 apple wood","555-555-5555","myemail@dukes.com",0);
+        customerList[2]= new Customer("Adam","Zing","12 apple wood","555-555-5555","myemail@dukes.com",0);
+        customerList[3]= new Customer("Chance","ay","12 apple wood","555-555-5555","myemail@dukes.com",0);
         
         do
         {
