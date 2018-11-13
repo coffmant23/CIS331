@@ -2,6 +2,16 @@
 /*
 Menu
   - Prepopulate sales, items, and vendors.
+  - Methods for Edit Items, Create Items, Create/Edit Vendors, Create Sale
   - Add print report methods
-  - Create unique ID's for: Vendors, Contracters vs Customers, Items, and Sales
-  
+  - Create unique ID's for: Vendors, Contracters vs Customers, Items, and Sales (Nick)
+Sales (SHU)
+  - be able to process multiple unique items 
+  (take each part of item class seperately storing into temp variables and piecing together at end)
+  -print receipt for any sale
+    - use custID for grouping???
+Items(Nick)
+  - Implement quantity/inventory mgmt
+  - Link to vendor
+Vendor (JD)
+  -Create and edit vendors
