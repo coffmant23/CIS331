@@ -10,13 +10,13 @@ public class Contractor extends Customer {
     protected String businessAddress;
     
 
-    public Contractor(String fname, String lname, String email, int customerId
-            , String phoneNumber, String businessName, String businessAddress
+    public Contractor(String fname, String lname, String email, 
+             String phoneNumber, String businessName, String businessAddress
             , String contractorNumber)
     {
     
             
-            super(fname, lname,email,customerId);
+            super(fname, lname,email);
             this.businessName = businessName;
             this.contractorNumber = contractorNumber;
             this.businessAddress = businessAddress;
@@ -31,4 +31,6 @@ public class Contractor extends Customer {
    
     }
     
+
+
 
