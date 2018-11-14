@@ -1,5 +1,3 @@
-
-
 package GroupProject;
 
 
@@ -13,10 +11,11 @@ public class Item  {
    private double salePrice;
    public String itemId;
    public static int counter;
+   public Vendor vendor;
    
    
    public Item(String itemName, double weight, String description,
-           double pricePaid, double salePrice)
+           double pricePaid, double salePrice,Vendor vendor)
    {
    this.itemName = itemName;
    this.weight=weight;
@@ -24,6 +23,7 @@ public class Item  {
    this.pricePaid=pricePaid;
    this.salePrice=salePrice;
    this.itemId = "i"+counter; 
+   this.vendor = vendor;
    counter++;
    }
  
@@ -53,6 +53,8 @@ public class Item  {
   
 } 
    
+
+  
 
 
 
