@@ -602,6 +602,9 @@ public class ValleyDepotApplication {
           
         System.out.println("Please enter Vendor's name: ");
         vendorName = input.next();
+          while (vendorName.isEmpty())
+          {System.out.println("Please enter vendor name again")
+            vendorName = input.next();}
         System.out.println("Please enter Vendor's address: ");
         vendorAddress = input.next();
         System.out.println("Please enter the Vendor's phone number: ");
