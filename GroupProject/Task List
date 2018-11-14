@@ -1,18 +1,26 @@
 //Task List
 /*
 Menu
-  - Prepopulate sales, items, and vendors.
+  DONE- Prepopulate sales, items, and vendors.
   - Methods for Edit Items, Create Items, Create/Edit Vendors
-  - Add print report methods
-  - print receipt for any sale
-    - use custID for grouping???
-  - Create unique ID's for: Vendors, Contracters vs Customers, Items, and Sales (Nick)
+  DONE- Add print report methods
+  DONE- print receipt for any sale
+    
+  DONE- Create unique ID's for: Vendors, Contracters vs Customers, Items, and Sales (Nick)
 Sales (SHU)
-  - be able to process multiple unique items 
+  DONE- be able to process multiple unique items 
   (take each part of item class seperately storing into temp variables and piecing together at end)
+  DONE-Print Sale Receipt
   
 Items(Nick)
-  - Implement quantity/inventory mgmt
+  DONE- Implement quantity/inventory mgmt
   - Link to vendor
 Vendor (JD)
   -Create and edit vendors
+Data Validation
+  - Menu Inputs
+  - Item Class
+  - Sale Class
+  - Vendor Class
+  - Customer/Contractor Class
+  
