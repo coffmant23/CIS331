@@ -28,16 +28,21 @@ public class ValleyDepotApplication {
         customerList[1]= new Customer("John","Good","12 apple wood","555-555-5555","myemail@dukes.com");
         customerList[2]= new Customer("Adam","Zing","12 apple wood","555-555-5555","myemail@dukes.com");
         customerList[3]= new Customer("Chance","ay","12 apple wood","555-555-5555","myemail@dukes.com");
-        itemList[0]= new Item("Whiskey", 2.0, "Drink of Choice", 10.0, 15.0,vendorList[0]);
-        itemList[1]= new Item("Gin", 2.0, "Drink of Choice", 10.0, 15.0,vendorList[0]);
-        itemList[2]= new Item("Vodka", 2.0, "Drink of Choice", 10.0, 15.0,vendorList[0]);
-        itemList[3]= new Item("Hennesy", 2.0, "Drink of Choice", 10.0, 15.0,vendorList[0]);
-        itemList[4]= new Item("Jack Daniels", 2.0, "Drink of Choice", 10.0, 15.0,vendorList[0]);
-        itemList[5]= new Item("Capitain Morgan", 2.0, "Drink of Choice", 10.0, 15.0,vendorList[0]);
-        itemList[6]= new Item("Cider", 2.0, "Drink of Choice", 10.0, 15.0,vendorList[0]);
-        itemList[7]= new Item("Beer", 2.0, "Drink of Choice", 10.0, 15.0,vendorList[0]);
-        itemList[8]= new Item("Turkey", 2.0, "Drink of Choice", 10.0, 15.0,vendorList[0]);
-        itemList[9]= new Item("Apples", 2.0, "Drink of Choice", 10.0, 15.0,vendorList[0]);
+        itemList[0]= new Item("Whiskey", 2.0, "Drink of Choice",10, 10.0, 15.0,vendorList[0]);
+        itemList[1]= new Item("Gin", 2.0, "Drink of Choice", 10,10.0, 15.0,vendorList[0]);
+        itemList[2]= new Item("Vodka", 2.0, "Drink of Choice", 10,10.0, 15.0,vendorList[0]);
+        itemList[3]= new Item("Hennesy", 2.0, "Drink of Choice", 10,10.0, 15.0,vendorList[0]);
+        itemList[4]= new Item("Jack Daniels", 2.0, "Drink of Choice", 10,10.0, 15.0,vendorList[0]);
+        itemList[5]= new Item("Capitain Morgan", 2.0, "Drink of Choice", 10,10.0, 15.0,vendorList[0]);
+        itemList[6]= new Item("Cider", 2.0, "Drink of Choice",10, 10.0, 15.0,vendorList[0]);
+        itemList[7]= new Item("Beer", 2.0, "Drink of Choice",10, 10.0, 15.0,vendorList[0]);
+        itemList[8]= new Item("Turkey", 2.0, "Drink of Choice", 10,10.0, 15.0,vendorList[0]);
+        itemList[9]= new Item("Apples", 2.0, "Drink of Choice", 10,10.0, 15.0,vendorList[0]);
+        saleList[0] = new Sale(itemList[0], 2, "10/31/18", "c0", 1, 1 );
+        saleList[1] = new Sale(itemList[1], 2, "10/31/18", "c0", 1, 2 );
+        saleList[2] = new Sale(itemList[2], 2, "10/31/18", "c1", 2, 3 );
+        saleList[3] = new Sale(itemList[3], 2, "10/31/18", "c1", 2, 4 );
+        saleList[4] = new Sale(itemList[4], 2, "10/31/18", "c1", 2, 5 );
         
         do
         {
@@ -410,6 +415,7 @@ public class ValleyDepotApplication {
         String itemName;
         double weight;
         String description;
+        int quantity;
         double pricePaid;
         double salePrice;
           
@@ -419,6 +425,8 @@ public class ValleyDepotApplication {
         weight = input.nextDouble();
         System.out.println("Please enter the item description: ");
         description = input.next();
+        System.out.println("Please enter the quantity of the item: ");
+        quantity = input.nextInt();
         System.out.println("Please enter the price paid for item: ");
         pricePaid = input.nextDouble();
         System.out.println("Please enter the sale price for item: ");
@@ -443,7 +451,7 @@ public class ValleyDepotApplication {
         {
           newArray[i] = itemList[i];
         }
-        newArray[newArray.length-1]  = new Item(itemName, weight, description, pricePaid, salePrice,vendorList[capture]);
+        newArray[newArray.length-1]  = new Item(itemName, weight, description,quantity, pricePaid, salePrice,vendorList[capture]);
         
         return newArray;
     }
