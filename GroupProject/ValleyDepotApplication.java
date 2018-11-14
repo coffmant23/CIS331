@@ -17,7 +17,7 @@ public class ValleyDepotApplication {
         int bCustomerTracker = 0;
         int itemTracker =0;
         int choiceSelector = 0;
-        int saleTracker = 5;
+        int saleTracker = 4;
         int transaction = 2;
         double editNum;
         
@@ -38,19 +38,18 @@ public class ValleyDepotApplication {
         itemList[7]= new Item("Beer", 2.0, "Drink of Choice",10, 10.0, 15.0,vendorList[0]);
         itemList[8]= new Item("Turkey", 2.0, "Drink of Choice", 10,10.0, 15.0,vendorList[0]);
         itemList[9]= new Item("Apples", 2.0, "Drink of Choice", 10,10.0, 15.0,vendorList[0]);
-        saleList[0] = new Sale(itemList[0], 2, "10/31/18", "c0", 1, 1 );
-        saleList[1] = new Sale(itemList[1], 2, "10/31/18", "c0", 1, 2 );
-        saleList[2] = new Sale(itemList[2], 2, "10/31/18", "c1", 2, 3 );
-        saleList[3] = new Sale(itemList[3], 2, "10/31/18", "c1", 2, 4 );
-        saleList[4] = new Sale(itemList[4], 2, "10/31/18", "c1", 2, 5 );
-        
+        saleList[0] = new Sale(itemList[0], 2, "10/31/18", "c0", 1, 0);
+        saleList[1] = new Sale(itemList[1], 2, "10/31/18", "c0", 1, 1 );
+        saleList[2] = new Sale(itemList[2], 2, "10/31/18", "c1", 2, 2 );
+        saleList[3] = new Sale(itemList[3], 2, "10/31/18", "c1", 2, 3 );
+        saleList[4] = new Sale(itemList[4], 2, "10/31/18", "c1", 2, 4 );
         do
         {
      
           System.out.println("Please select a Menu option\n1. Create Customer"
                   + "\n2. Edit Customer\n"
                   + "3. Create Item\n4. Edit Item\n5. Enter Sale\n6. Create Vendor"
-                  + "\n7. Edit Vendor\n8. Exit");
+                  + "\n7. Edit Vendor\n8. Print Report\n 9. Exit");
          
           choiceSelector = input.nextInt();
  
@@ -210,7 +209,7 @@ public class ValleyDepotApplication {
                   //itemName, quantity sold, date sold
                   System.out.println("How many unique items were sold? (Enter #)");
                   int sales = input.nextInt();
-                  //Retrieve itemSold name for Sale instances
+                  //Retrieve itemSold object for Sale instances
                   
                   Item[] itemSold = processItemsSold(input, itemList, sales);
                   //Quantity Sold
@@ -222,10 +221,11 @@ public class ValleyDepotApplication {
                   //Date of Sale
                   System.out.println("What date were items sold on?");
                   String saleDate = input.next();
-                  //create sales instances while creating saleID
-                  for(int i = 0; i<sales;i++){   
-                  saleList = addSale(input, saleTracker, saleList,transaction,custID, itemList, itemSold[i], numSold[i], saleDate);
-                  saleTracker++;
+                  //create sales instances
+                  for(int i = 0; i<sales;i++){
+                    saleTracker++;
+                    saleList = addSale(input, saleTracker, saleList,transaction,custID, itemList, itemSold[i], numSold[i], saleDate);
+                  
                   }
                   
                   System.out.println("Would you like a receipt of this transaction?\nType '1' for yes Type '2' for no");
@@ -238,6 +238,8 @@ public class ValleyDepotApplication {
                       { 
                         saleList[saleTracker-sales].printSale();
                       }
+                      break;
+                    case 2:
                       break;
                   }                
                   break;
@@ -292,10 +294,47 @@ public class ValleyDepotApplication {
                       }
                   }
                   break;
-                                      
+              case 8://Print Reports
+                  int report;
+                  System.out.println("Which report would you like to print?");
+                  System.out.println("1. Purchase History for a Customer\n"
+                          + "2. Purchase History of an Item\n3. Current Inventory Levels");
+                  report = input.nextInt();
+                  switch(report){
+                      case 1: //Purchase History for a Customer: Items, Quantities, Total Purchase Cost,and Dates
+                          String cChoice;
+                          displayCurrentCustomers(customerList);
+                          System.out.println("Type a customer ID: ");
+                          cChoice = input.next();
+                          for(int i = 0; i < saleList.length; i++){
+                           if(cChoice.equalsIgnoreCase(saleList[i].custID)){
+                               double tCost = saleList[i].itemSold.salePrice * saleList[i].quantity;
+                               System.out.printf("%-14s%-3.0f%$-10.2f%-8s\n",saleList[i].itemSold.itemName,saleList[i].quantity,tCost, saleList[i].date);
+                           }   
+                          }
+                          break;
+                      case 2: //Purchase History of an Item:ItemName, cust,date, quantity
+                          String iChoice;
+                          displayItems(itemList);
+                          System.out.println("Type an item ID: ");
+                          iChoice = input.next();
+                          System.out.println("Item Name\tCustomerID\tDate\tQuantity");
+                          for(int i = 0; i < saleList.length; i++){
+                           if(iChoice.equalsIgnoreCase(saleList[i].itemSold.itemId)){
+                               System.out.printf("%-14s%-15s%-8s%-3.0f\n",saleList[i].itemSold.itemName,saleList[i].custID,saleList[i].date,saleList[i].quantity);
+                           }   
+                          }
+                          break;
+                      case 3: //Current Inventory Levels
+                          System.out.println("Item Name\tQuantity");
+                          for(int i = 0; i<itemList.length;i++)
+                              System.out.printf("%-14s%-4f",itemList[i].itemName, itemList[i].quantity);
+                          break;
+                  }
+                  break;
           }
  
-        } while(choiceSelector != 8);
+        } while(choiceSelector != 9);
         
         
         
