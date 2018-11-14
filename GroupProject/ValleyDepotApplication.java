@@ -19,6 +19,7 @@ public class ValleyDepotApplication {
         int choiceSelector = 0;
         int saleTracker = 5;
         int transaction = 2;
+        int sales = 0;
         double editNum;
         
         vendorList[0] = new Vendor("CompanyA","addressA","123456789");
@@ -28,17 +29,17 @@ public class ValleyDepotApplication {
         customerList[1]= new Customer("John","Good","12 apple wood","555-555-5555","myemail@dukes.com");
         customerList[2]= new Customer("Adam","Zing","12 apple wood","555-555-5555","myemail@dukes.com");
         customerList[3]= new Customer("Chance","ay","12 apple wood","555-555-5555","myemail@dukes.com");
-        itemList[0]= new Item("Whiskey", 2.0, "Drink of Choice",10, 10.0, 15.0,vendorList[0]);
-        itemList[1]= new Item("Gin", 2.0, "Drink of Choice", 10,10.0, 15.0,vendorList[0]);
-        itemList[2]= new Item("Vodka", 2.0, "Drink of Choice", 10,10.0, 15.0,vendorList[0]);
-        itemList[3]= new Item("Hennesy", 2.0, "Drink of Choice", 10,10.0, 15.0,vendorList[0]);
-        itemList[4]= new Item("Jack Daniels", 2.0, "Drink of Choice", 10,10.0, 15.0,vendorList[0]);
-        itemList[5]= new Item("Capitain Morgan", 2.0, "Drink of Choice", 10,10.0, 15.0,vendorList[0]);
+        itemList[0]= new Item("Whiskey", 2.0, "Drink of Choice",8, 10.0, 15.0,vendorList[0]);
+        itemList[1]= new Item("Gin", 2.0, "Drink of Choice", 8,10.0, 15.0,vendorList[0]);
+        itemList[2]= new Item("Vodka", 2.0, "Drink of Choice", 8,10.0, 15.0,vendorList[0]);
+        itemList[3]= new Item("Hennesy", 2.0, "Drink of Choice", 8,10.0, 15.0,vendorList[0]);
+        itemList[4]= new Item("Jack Daniels", 2.0, "Drink of Choice", 8,10.0, 15.0,vendorList[0]);
+        itemList[5]= new Item("Captain Morgan", 2.0, "Drink of Choice", 10,10.0, 15.0,vendorList[0]);
         itemList[6]= new Item("Cider", 2.0, "Drink of Choice",10, 10.0, 15.0,vendorList[0]);
         itemList[7]= new Item("Beer", 2.0, "Drink of Choice",10, 10.0, 15.0,vendorList[0]);
         itemList[8]= new Item("Turkey", 2.0, "Drink of Choice", 10,10.0, 15.0,vendorList[0]);
         itemList[9]= new Item("Apples", 2.0, "Drink of Choice", 10,10.0, 15.0,vendorList[0]);
-        saleList[0] = new Sale(itemList[0], 2, "10/31/18", "c0", 1, 1);
+        saleList[0] = new Sale(itemList[0], 2, "10/31/18", "c0", 1, 1 );
         saleList[1] = new Sale(itemList[1], 2, "10/31/18", "c0", 1, 2 );
         saleList[2] = new Sale(itemList[2], 2, "10/31/18", "c1", 2, 3 );
         saleList[3] = new Sale(itemList[3], 2, "10/31/18", "c1", 2, 4 );
@@ -49,7 +50,7 @@ public class ValleyDepotApplication {
           System.out.println("Please select a Menu option\n1. Create Customer"
                   + "\n2. Edit Customer\n"
                   + "3. Create Item\n4. Edit Item\n5. Enter Sale\n6. Create Vendor"
-                  + "\n7. Edit Vendor\n8. Print Report\n 9. Exit");
+                  + "\n7. Edit Vendor\n8. Print Report\n9. Exit");
          
           choiceSelector = input.nextInt();
  
@@ -208,18 +209,18 @@ public class ValleyDepotApplication {
                   //Create x number of sales instances and retrieve:
                   //itemName, quantity sold, date sold
                   System.out.println("How many unique items were sold? (Enter #)");
-                  int sales = input.nextInt();
+                  sales = input.nextInt();
                   //Retrieve itemSold object for Sale instances
                   
                   Item[] itemSold = processItemsSold(input, itemList, sales);
                   //Quantity Sold
+                  double[] numSold = new double[sales];
                   System.out.println("How many of each item were sold? Integers only, in same order as items sold");
-                  int[] numSold = new int[sales];
                   for(int i = 0; i<sales;i++){
-                      numSold[i] = input.nextInt();
+                      numSold[i] = input.nextDouble();
                   }
                   //Date of Sale
-                  System.out.println("What date were items sold on?");
+                  System.out.println("What date were the items sold?");
                   String saleDate = input.next();
                   //create sales instances
                   for(int i = 0; i<sales;i++){
@@ -227,16 +228,19 @@ public class ValleyDepotApplication {
                     saleList = addSale(input, saleTracker, saleList,transaction,custID, itemList, itemSold[i], numSold[i], saleDate);
                   
                   }
-                  
+                  for(int i = 0; i<saleList.length;i++){
+                  System.out.println(saleList[i].toString());
+                  }
                   System.out.println("Would you like a receipt of this transaction?\nType '1' for yes Type '2' for no");
                   int receipt = input.nextInt();
                   
                   switch(receipt){
                       case 1:
-                       System.out.println("Item Name\t#Sold\tPrice Paid/Item\tTotal Paid\tDate\t");
+                       System.out.println("Item Name     #Sold    Item Price    Total Paid\t          Date");
+                       System.out.println("-----------------------------------------------------------------");
                         for(int i = sales; i >0; i--)
                       { 
-                        saleList[saleTracker-sales].printSale();
+                        Sale.printSale(saleList[saleList.length-i]);
                       }
                       break;
                     case 2:
@@ -249,15 +253,15 @@ public class ValleyDepotApplication {
                   
                   
                   
-              case 6:
+              case 6://Create vendor
                  vendorList = createVendor(input,vendorList);
                   break;
                   
                   
-              case 7:
+              case 7://Edit Vendors
                   displayCurrentVendors(vendorList);
                   System.out.println("Please type the ID number of which "
-                          + "customer to edit");
+                          + "vendor to edit");
                   editChoice = input.next();
                   
                   
@@ -303,32 +307,67 @@ public class ValleyDepotApplication {
                   switch(report){
                       case 1: //Purchase History for a Customer: Items, Quantities, Total Purchase Cost,and Dates
                           String cChoice;
+                          double tCost = 0;
+                          String temp = "";
                           displayCurrentCustomers(customerList);
                           System.out.println("Type a customer ID: ");
                           cChoice = input.next();
-                          for(int i = 0; i < saleList.length; i++){
-                           if(cChoice.equalsIgnoreCase(saleList[i].custID)){
-                               double tCost = saleList[i].itemSold.salePrice * saleList[i].quantity;
-                               System.out.printf("%-14s%-3.0f%$-10.2f%-8s\n",saleList[i].itemSold.itemName,saleList[i].quantity,tCost, saleList[i].date);
-                           }   
+                          for(int i = 0; i < saleList.length; i++)
+                          {
+                             temp = temp.concat(saleList[i].custID);
+                           }
+                          if(temp.indexOf(cChoice)== -1){
+                              System.out.println("This customer has not made any purchases!");
+                              break;
                           }
+                           
+                          String pos = ""+ String.valueOf(cChoice.charAt(1));
+                          int pos1 = Integer.parseInt(pos);
+                          System.out.println("Purchase History for: "+customerList[pos1].fname+" "+customerList[pos1].lname);
+                          System.out.println("-----------------------------------------------------------------");
+                          System.out.println("|Item Name|\t |Quantity Bought|\t|Total Cost|\t|Date|");
+                          System.out.println("-----------------------------------------------------------------");
+                          for(int i = 0; i < saleList.length; i++)
+                          {
+                           if(cChoice.equalsIgnoreCase(saleList[i].custID))
+                            {
+                                tCost += saleList[i].itemSold.salePrice * saleList[i].quantity;
+                               System.out.printf("%-24s%-18.0f$%-12.2f%-8s\n",saleList[i].itemSold.itemName,saleList[i].quantity, ( (saleList[i].quantity)* (saleList[i].itemSold.salePrice)), saleList[i].date);
+                            } 
+                          }
+                          System.out.println("-----------------------------------------------------------------");
+                          System.out.printf("%-42s$%-6.2f\n","Total Purchases Cost",tCost);
                           break;
+                  
+                          
                       case 2: //Purchase History of an Item:ItemName, cust,date, quantity
                           String iChoice;
+                          String itemIds = "";
                           displayItems(itemList);
                           System.out.println("Type an item ID: ");
                           iChoice = input.next();
-                          System.out.println("Item Name\tCustomerID\tDate\tQuantity");
+                          //Has item been purchased?
+                          for(int i = 0; i < saleList.length; i++)
+                          {
+                             itemIds = itemIds.concat(saleList[i].itemSold.itemId);
+                           }
+                          if(itemIds.indexOf(iChoice)== -1){
+                              System.out.println("This item has not been purchased!");
+                              break;
+                          }
+                          System.out.println("-----------------------------------------------------------------");
+                          System.out.println("|Item Name|\t|CustomerID|\t|Date|\t |Quantity|");
+                          System.out.println("-----------------------------------------------------------------");
                           for(int i = 0; i < saleList.length; i++){
                            if(iChoice.equalsIgnoreCase(saleList[i].itemSold.itemId)){
-                               System.out.printf("%-14s%-15s%-8s%-3.0f\n",saleList[i].itemSold.itemName,saleList[i].custID,saleList[i].date,saleList[i].quantity);
+                               System.out.printf("%-21s%-10s%-13s%3.0f\n",saleList[i].itemSold.itemName,saleList[i].custID,saleList[i].date,saleList[i].quantity);
                            }   
                           }
                           break;
                       case 3: //Current Inventory Levels
                           System.out.println("Item Name\tQuantity");
                           for(int i = 0; i<itemList.length;i++)
-                              System.out.printf("%-14s%-4f",itemList[i].itemName, itemList[i].quantity);
+                              System.out.printf("%-18s%-4.0f\n",itemList[i].itemName, itemList[i].quantity);
                           break;
                   }
                   break;
@@ -457,7 +496,7 @@ public class ValleyDepotApplication {
         String itemName;
         double weight;
         String description;
-        int quantity;
+        double quantity;
         double pricePaid;
         double salePrice;
           
@@ -468,7 +507,7 @@ public class ValleyDepotApplication {
         System.out.println("Please enter the item description: ");
         description = input.next();
         System.out.println("Please enter the quantity of the item: ");
-        quantity = input.nextInt();
+        quantity = input.nextDouble();
         System.out.println("Please enter the price paid for item: ");
         pricePaid = input.nextDouble();
         System.out.println("Please enter the sale price for item: ");
@@ -493,14 +532,14 @@ public class ValleyDepotApplication {
         {
           newArray[i] = itemList[i];
         }
-        newArray[newArray.length-1]  = new Item(itemName, weight, description,quantity, pricePaid, salePrice,vendorList[capture]);
+        newArray[newArray.length-1]  = new Item(itemName, weight, description,  quantity, pricePaid, salePrice,vendorList[capture]);
         
         return newArray;
     }
     
     public static void displayItems(Item[] itemList)
     {
-        System.out.println("Item Name:\tID Number:\n"
+        System.out.println("Item Names:\tID Number:\n"
                     + "-------------------------");
         for ( int i = 0; i < itemList.length; i++)
         {
@@ -523,33 +562,36 @@ public class ValleyDepotApplication {
     }
     public static Item[] processItemsSold(Scanner input, Item[] itemList, int sales){
         System.out.println("Which items were sold? Please type their IDs");
-                  displayCurrentItems(itemList);
+                  displayItems(itemList);
                   String[] itemID = new String[sales];
                   Item[] itemSold = new Item[sales];
                   for(int i = 0; i<sales;i++){
                       itemID[i] = input.next();
                   }
-                  //Store items in an array for using in addSale
+                  //Store item names in an array
                   for(int i = 0; i<sales;i++){
                       for(int j = 0; j< itemList.length; j++){
                        if(itemID[i].compareToIgnoreCase(itemList[j].itemId)==0){
-                          itemSold[i] = itemList[j];
+                          Item tempItem = itemList[j];
+                          itemSold[i] = tempItem;
                        }   
                       }
                   }
         return itemSold;
     }
-    public static Sale[] addSale( Scanner input, int saleTracker, Sale[] saleList, int transaction, String custID, Item[] itemList, Item itemSold, int numSold, String saleDate){
-    String saleID = new String("" + saleTracker);
-    Sale[] newArray = new Sale[saleTracker+1];
+    public static Sale[] addSale( Scanner input, int saleTracker, Sale[] saleList, int transaction, String custID, Item[] itemList, Item itemSold, double numSold, String saleDate)
+    {
+    Sale[] newArray = new Sale[saleList.length+1];
     for (int i = 0 ;i < saleList.length; i++ )
         {
-          newArray[i] = saleList[i];
+          Sale tempSale = saleList[i];
+          newArray[i] = tempSale;
         }
     
-    newArray[saleTracker]  = new Sale(saleID,itemSold,numSold,saleDate, custID,transaction,saleTracker);
-    itemSold.quantity -= numSold;
+    newArray[newArray.length - 1]  = new Sale(itemSold,numSold,saleDate, custID,transaction,saleTracker);
+    newArray[newArray.length-1].itemSold.quantity =- numSold;
     return newArray;
+    
     }
     
      public static Vendor[] createVendor(Scanner input, Vendor[] vendorList)
@@ -595,4 +637,3 @@ public class ValleyDepotApplication {
         System.out.println("");
     }
 }
-  
