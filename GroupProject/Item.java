@@ -10,16 +10,17 @@ public class Item  {
    private double pricePaid;
    private double salePrice;
    public String itemId;
+   public int quantity;
    public static int counter;
    public Vendor vendor;
    
    
-   public Item(String itemName, double weight, String description,
-           double pricePaid, double salePrice,Vendor vendor)
+   public Item(String itemName, double weight, String description,int quantity, double pricePaid, double salePrice,Vendor vendor)
    {
    this.itemName = itemName;
-   this.weight=weight;
+   this.weight= weight;
    this.description=description;
+   this.quantity = quantity;
    this.pricePaid=pricePaid;
    this.salePrice=salePrice;
    this.itemId = "i"+counter; 
@@ -41,7 +42,10 @@ public class Item  {
     {
         this.description = description;
     }
-
+     public void setQuantity(int quantity)
+     {
+        this.quantity = quantity;
+     }
          public void setPricePaid(double pricePaid)
     {
         this.pricePaid = pricePaid;
@@ -52,9 +56,3 @@ public class Item  {
     }
   
 } 
-   
-
-  
-
-
-
