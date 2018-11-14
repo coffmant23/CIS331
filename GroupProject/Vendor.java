@@ -1,4 +1,5 @@
 package GroupProject;
+import java.util.ArrayList;
 
 
 public class Vendor {
@@ -8,6 +9,7 @@ public class Vendor {
     private String phoneNumber;
     public String vendorId; 
     public static int counter;
+    public static ArrayList<Vendor> vendorList = new ArrayList<>();
     
     public Vendor(String name, String address, String phoneNumber)
     {
@@ -32,6 +34,17 @@ public class Vendor {
     {
         this.phoneNumber = phoneNumber;
     }
+    
+    public String toString()
+    {
+        String vendorInfo = "";
+        vendorInfo = ("Vendor ID: " + vendorID + "Vendor Name: " + this.name +
+                      "Vendor Address: " this.address + "Vendor Phone Number : " + this.phoneNumber);
+        
+        return VendorInfo
+                      
+    }
+    
 
     
     
