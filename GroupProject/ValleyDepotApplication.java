@@ -228,9 +228,7 @@ public class ValleyDepotApplication {
                     saleList = addSale(input, saleTracker, saleList,transaction,custID, itemList, itemSold[i], numSold[i], saleDate);
                   
                   }
-                  for(int i = 0; i<saleList.length;i++){
-                  System.out.println(saleList[i].toString());
-                  }
+                  
                   System.out.println("Would you like a receipt of this transaction?\nType '1' for yes Type '2' for no");
                   int receipt = input.nextInt();
                   
