@@ -615,12 +615,18 @@ public class ValleyDepotApplication {
         System.out.println("Please enter Vendor's name: ");
         vendorName = input.next();
           while (vendorName.isEmpty())
-          {System.out.println("Please enter vendor name again")
+          {System.out.println("Please enter a valid vendor name please")
             vendorName = input.next();}
         System.out.println("Please enter Vendor's address: ");
         vendorAddress = input.next();
+          while (vendorAddress.isEmpty())
+          {System.out.println("Please enter a valid address please")
+            vendorAddress = input.next();}
         System.out.println("Please enter the Vendor's phone number: ");
         phoneNumber = input.next();
+          while (phoneNumber.isEmpty())
+          {System.out.println("Please enter a valid phone number please")
+            phoneNumber = input.next();}
         
          
  
