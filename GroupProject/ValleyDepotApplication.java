@@ -202,7 +202,7 @@ public class ValleyDepotApplication {
                   
                   
               case 5://ENTER SALE
-                  
+                  boolean t = true;
                   //Identify Customer
                   String custID = findCust(input, customerList);
                   transaction++;
@@ -219,6 +219,18 @@ public class ValleyDepotApplication {
                   for(int i = 0; i<sales;i++){
                       numSold[i] = input.nextDouble();
                   }
+                  for(int i = 0; i<sales;i++)//See if there is enough inventory to make the sale
+                  {
+                      if(numSold[i] > itemSold[i].quantity)
+                      {
+                          System.out.println("Not enough inventory to make the sale!");
+                          t = false;
+                          break;
+                      }
+                      
+                  }
+                  if(t!=true)
+                          break;
                   //Date of Sale
                   System.out.println("What date were the items sold?");
                   String saleDate = input.next();
