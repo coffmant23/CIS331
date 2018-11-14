@@ -232,9 +232,12 @@ public class ValleyDepotApplication {
                   int receipt = input.nextInt();
                   
                   switch(receipt){
-                      case 1: saleList[saleTracker].printTransaction(transaction);
-                      break;
-                    case 2:
+                      case 1:
+                       System.out.println("Item Name\t#Sold\tPrice Paid/Item\tTotal Paid\tDate\t");
+                        for(int i = sales; i >0; i--)
+                      { 
+                        saleList[saleTracker-sales].printSale();
+                      }
                       break;
                   }                
                   break;
@@ -506,6 +509,7 @@ public class ValleyDepotApplication {
         }
     
     newArray[saleTracker]  = new Sale(saleID,itemSold,numSold,saleDate, custID,transaction,saleTracker);
+    itemSold.quantity -= numSold;
     return newArray;
     }
     
