@@ -1,5 +1,3 @@
-
-//Main Menu
 package GroupProject;
 import java.util.*;
 
@@ -11,16 +9,28 @@ public class ValleyDepotApplication {
         
         Scanner input = new Scanner(System.in);
         Customer[] customerList = new Customer[4];
-        Item[] itemList = new Item[1];
+        Item[] itemList = new Item[10];
         
-        int customerTracker = 1;  
+        int customerTracker = 4;
+        int bCustomerTracker = 0;
         int itemTracker =0;
         int choiceSelector = 0;
+        double editNum;
         
-        customerList[0]= new Customer("Nick","Coffman","12 apple wood","555-555-5555","myemail@dukes.com",0);
-        customerList[1]= new Customer("John","Good","12 apple wood","555-555-5555","myemail@dukes.com",1);
-        customerList[2]= new Customer("Adam","Zing","12 apple wood","555-555-5555","myemail@dukes.com",2);
-        customerList[3]= new Customer("Chance","ay","12 apple wood","555-555-5555","myemail@dukes.com",3);
+        customerList[0]= new Customer("Nick","Coffman","12 apple wood","555-555-5555","myemail@dukes.com");
+        customerList[1]= new Customer("John","Good","12 apple wood","555-555-5555","myemail@dukes.com");
+        customerList[2]= new Customer("Adam","Zing","12 apple wood","555-555-5555","myemail@dukes.com");
+        customerList[3]= new Customer("Chance","ay","12 apple wood","555-555-5555","myemail@dukes.com");
+        itemList[0]= new Item("Whiskey", 2.0, "Drink of Choice", 10.0, 15.0);
+        itemList[1]= new Item("Gin", 2.0, "Drink of Choice", 10.0, 15.0);
+        itemList[2]= new Item("Vodka", 2.0, "Drink of Choice", 10.0, 15.0);
+        itemList[3]= new Item("Hennesy", 2.0, "Drink of Choice", 10.0, 15.0);
+        itemList[4]= new Item("Jack Daniels", 2.0, "Drink of Choice", 10.0, 15.0);
+        itemList[5]= new Item("Capitain Morgan", 2.0, "Drink of Choice", 10.0, 15.0);
+        itemList[6]= new Item("Cider", 2.0, "Drink of Choice", 10.0, 15.0);
+        itemList[7]= new Item("Beer", 2.0, "Drink of Choice", 10.0, 15.0);
+        itemList[8]= new Item("Turkey", 2.0, "Drink of Choice", 10.0, 15.0);
+        itemList[9]= new Item("Apples", 2.0, "Drink of Choice", 10.0, 15.0);
         
         do
         {
@@ -52,13 +62,15 @@ public class ValleyDepotApplication {
                   {
                     customerList = createCustomer(input,
                             customerTracker, customerList);
+                    
                   }                 
                   else if (choice ==2)
                   {
                     customerList = createBusinessCustomer(input,
                             customerTracker, customerList);
+                     
                   }            
-                  customerTracker++;
+                 customerTracker++;
                   break;
                   
                   
@@ -68,17 +80,19 @@ public class ValleyDepotApplication {
                   displayCurrentCustomers(customerList);
                   System.out.println("Please type the ID number of which "
                           + "customer to edit");
-                  int editChoice = input.nextInt();
+                  String editChoice = input.next();
+                  
                   String edit;
+                  
                   for(int i =0 ; i < customerList.length; i++)
                   {
-                      if( customerList[i].customerId == editChoice)
+                      if( customerList[i].customerId.equals(editChoice))
                       {
                           System.out.println("Please select the "
                                   + "respective number of what you would like"
                                   + " to edit\n1. Edit First Name\n2. Edit"
                                   + " Last Name\n3. Edit Address\n");
-                          int attEdit = input.nextByte();
+                          int attEdit = input.nextInt();
                           
                           switch ( attEdit)
                           {
@@ -115,9 +129,67 @@ public class ValleyDepotApplication {
                   
                   itemTracker++;
                   break;
-              case 4:
                   
+                  
+                  
+                  
+                  
+              case 4:
+                  displayItems(itemList);
+                  System.out.println("Please type the ID number of which "
+                          + "customer to edit");
+                  
+                  editChoice = input.next();
+               
+                  
+                  for(int i =0 ; i < itemList.length; i++)
+                  {
+                      if( itemList[i].itemId.equals(editChoice))
+                      {
+                          System.out.println("Please select the "
+                                  + "respective number of what you would like"
+                                  + " to edit\n1. Edit Item Name\n2. Edit weight"
+                                  + "\n3. Edit description\n4. Edit purchase price");
+                          int attEdit = input.nextInt();
+                          
+                          switch ( attEdit)
+                          {
+                              case 1:
+                                  System.out.println("Please type the correct version");
+                                  edit = input.next();
+                                  itemList[i].setItemName(edit);
+                                  break;
+                              case 2:
+                                  System.out.println("Please type the correct version");
+                                  editNum = input.nextDouble();
+                                  itemList[i].setWeight(editNum);
+                                  break;
+                              case 3:
+                                  System.out.println("Please type the correct version");
+                                  edit = input.next();
+                                  itemList[i].setDescription(edit);
+                                  break;
+                              case 4:
+                                  System.out.println("Please type the correct version");
+                                  editNum = input.nextDouble();
+                                  itemList[i].setPricePaid(editNum);
+                                  break;
+                              case 5:
+                                  System.out.println("Please type the correct version");
+                                  editNum = input.nextDouble();
+                                  itemList[i].setSalePrice(editNum);
+                                  break;
+                                  
+                          }            
+                      }
+                  }
                   break;
+                  
+                  
+                  
+                  
+                  
+                  
               case 5:
                   
                   break;
@@ -162,7 +234,7 @@ public class ValleyDepotApplication {
         if (customerTracker == 0 )
         {
             
-            newArray[0] = new Customer(fname,lname,address,phoneNumber,email,customerTracker);
+            newArray[0] = new Customer(fname,lname,address,phoneNumber,email);
         }
         else{
         for (int i = 0 ;i < customerArray.length; i++ )
@@ -170,7 +242,7 @@ public class ValleyDepotApplication {
           newArray[i] = customerArray[i];
         }
         newArray[customerTracker]  = new Customer(fname,lname,address,
-                phoneNumber,email, customerTracker);
+                phoneNumber,email);
         
         
         }
@@ -212,14 +284,16 @@ public class ValleyDepotApplication {
         if (customerTracker == 0 )
         {
             
-            newArray[0] = new Contractor(fname,lname,email,customerTracker,phoneNumber,businessName, businessAddress , contractorNumber);
+            newArray[0] = new Contractor(fname,lname,email,phoneNumber,businessName, businessAddress , contractorNumber);
         }
+        
+        
         else{
         for (int i = 0 ;i < customerArray.length; i++ )
         {
           newArray[i] = customerArray[i];
         }
-        newArray[customerTracker]  = new Contractor(fname,lname,email,customerTracker,
+        newArray[customerTracker]  = new Contractor(fname,lname,email,
                 phoneNumber,businessName, businessAddress, contractorNumber);
         }
         
@@ -235,7 +309,7 @@ public class ValleyDepotApplication {
         for ( int i = 0; i < customerList.length; i++)
         {
             
-            System.out.printf("%-20s\t%d\t\n",
+            System.out.printf("%-20s\t%s\t\n",
                   customerList[i].fname+" "+customerList[i].lname,
                     customerList[i].customerId);
             
@@ -247,7 +321,7 @@ public class ValleyDepotApplication {
     public static Item[] createItem(Scanner input, int customerTracker, Item[] itemList)
     {
         
-       Item[] newArray = new Item[customerTracker+1];
+       Item[] newArray = new Item[itemList.length+1];
         String itemName;
         double weight;
         String description;
@@ -265,26 +339,33 @@ public class ValleyDepotApplication {
         System.out.println("Please enter the sale price for item: ");
         salePrice = input.nextDouble();
          
-        if (customerTracker == 0 )
-        {
-            
-            newArray[0] = new Item(itemName, weight, description, pricePaid, salePrice);
-        }
-        else{
+ 
        
         for (int i = 0 ;i < itemList.length; i++ )
         {
           newArray[i] = itemList[i];
         }
-        newArray[0]  = new Item(itemName, weight, description, pricePaid, salePrice);
-        }
+        newArray[newArray.length-1]  = new Item(itemName, weight, description, pricePaid, salePrice);
+        
         return newArray;
     }
     
-    public static void initialMethod()
+    public static void displayItems(Item[] itemList)
     {
-        Customer a = new Customer("Nick","Coffman","12 apple wood","555-555-5555","myemail@dukes.com",0);
+        System.out.println("Customer Name:\tID Number:\n"
+                    + "-------------------------");
+        for ( int i = 0; i < itemList.length; i++)
+        {
+            
+            System.out.printf("%-20s\t%s\t\n",
+                  itemList[i].itemName,
+                    itemList[i].itemId);
+            
+          
+        }
+        System.out.println("");
     }
 }
+
 
   
