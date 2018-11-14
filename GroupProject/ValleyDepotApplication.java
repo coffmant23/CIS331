@@ -193,7 +193,42 @@ public class ValleyDepotApplication {
                   
                   
                   
-              case 5:                
+              case 5://ENTER SALE
+                  
+                  //Identify Customer
+                  String custID = findCust(input, customerList);
+                  transaction++;
+                  //Create x number of sales instances and retrieve:
+                  //itemName, quantity sold, date sold
+                  System.out.println("How many unique items were sold? (Enter #)");
+                  int sales = input.nextInt();
+                  //Retrieve itemSold name for Sale instances
+                  
+                  Item[] itemSold = processItemsSold(input, itemList, sales);
+                  //Quantity Sold
+                  System.out.println("How many of each item were sold? Integers only, in same order as items sold");
+                  int[] numSold = new int[sales];
+                  for(int i = 0; i<sales;i++){
+                      numSold[i] = input.nextInt();
+                  }
+                  //Date of Sale
+                  System.out.println("What date were items sold on?");
+                  String saleDate = input.next();
+                  //create sales instances while creating saleID
+                  for(int i = 0; i<sales;i++){   
+                  saleList = addSale(input, saleTracker, saleList,transaction,custID, itemList, itemSold[i], numSold[i], saleDate);
+                  saleTracker++;
+                  }
+                  
+                  System.out.println("Would you like a receipt of this transaction?\nType '1' for yes Type '2' for no");
+                  int receipt = input.nextInt();
+                  
+                  switch(receipt){
+                      case 1: saleList[saleTracker].printTransaction(transaction);
+                      break;
+                    case 2:
+                      break;
+                  }                
                   break;
                   
                   
@@ -424,6 +459,43 @@ public class ValleyDepotApplication {
           
         }
         System.out.println("");
+    }
+    public static String findCust(Scanner input, Customer[] customerList ){
+        System.out.println("For which customer? ");
+                  displayCurrentCustomers(customerList);
+                  System.out.println("Please type the ID number of "
+                          + "customer");
+                  String custID = input.next();
+                  return custID;
+    }
+    public static Item[] processItemsSold(Scanner input, Item[] itemList, int sales){
+        System.out.println("Which items were sold? Please type their IDs");
+                  displayCurrentItems(itemList);
+                  String[] itemID = new String[sales];
+                  Item[] itemSold = new Item[sales];
+                  for(int i = 0; i<sales;i++){
+                      itemID[i] = input.next();
+                  }
+                  //Store item names in an array
+                  for(int i = 0; i<sales;i++){
+                      for(int j = 0; j< itemList.length; j++){
+                       if(itemID[i].compareToIgnoreCase(itemList[j].itemID)==0){
+                          itemSold[i] = itemList[j];
+                       }   
+                      }
+                  }
+        return itemSold;
+    }
+    public static Sale[] addSale( Scanner input, int saleTracker, Sale[] saleList, int transaction, String custID, Item[] itemList, Item itemSold, int numSold, String saleDate){
+    String saleID = new String("" + saleTracker);
+    Sale[] newArray = new Sale[saleTracker+1];
+    for (int i = 0 ;i < saleList.length; i++ )
+        {
+          newArray[i] = saleList[i];
+        }
+    
+    newArray[saleTracker]  = new Sale(saleID,itemSold,numSold,saleDate, custID,transaction,saleTracker);
+    return newArray;
     }
     
      public static Vendor[] createVendor(Scanner input, Vendor[] vendorList)
