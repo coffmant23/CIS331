@@ -41,7 +41,7 @@ public class Vendor {
         vendorInfo = ("Vendor ID: " + vendorID + "Vendor Name: " + this.name +
                       "Vendor Address: " this.address + "Vendor Phone Number : " + this.phoneNumber);
         
-        return VendorInfo
+        return vendorInfo
                       
     }
     
