@@ -10,6 +10,7 @@ public class ValleyDepotApplication {
         Scanner input = new Scanner(System.in);
         Customer[] customerList = new Customer[4];
         Item[] itemList = new Item[10];
+        Vendor[] vendorList = new Vendor[3];
         
         int customerTracker = 4;
         int bCustomerTracker = 0;
@@ -17,20 +18,23 @@ public class ValleyDepotApplication {
         int choiceSelector = 0;
         double editNum;
         
+        vendorList[0] = new Vendor("CompanyA","addressA","123456789");
+        vendorList[1] = new Vendor("CompanyB","addressB","987654321");
+        vendorList[2] = new Vendor("CompanyC","addressC","543216789");
         customerList[0]= new Customer("Nick","Coffman","12 apple wood","555-555-5555","myemail@dukes.com");
         customerList[1]= new Customer("John","Good","12 apple wood","555-555-5555","myemail@dukes.com");
         customerList[2]= new Customer("Adam","Zing","12 apple wood","555-555-5555","myemail@dukes.com");
         customerList[3]= new Customer("Chance","ay","12 apple wood","555-555-5555","myemail@dukes.com");
-        itemList[0]= new Item("Whiskey", 2.0, "Drink of Choice", 10.0, 15.0);
-        itemList[1]= new Item("Gin", 2.0, "Drink of Choice", 10.0, 15.0);
-        itemList[2]= new Item("Vodka", 2.0, "Drink of Choice", 10.0, 15.0);
-        itemList[3]= new Item("Hennesy", 2.0, "Drink of Choice", 10.0, 15.0);
-        itemList[4]= new Item("Jack Daniels", 2.0, "Drink of Choice", 10.0, 15.0);
-        itemList[5]= new Item("Capitain Morgan", 2.0, "Drink of Choice", 10.0, 15.0);
-        itemList[6]= new Item("Cider", 2.0, "Drink of Choice", 10.0, 15.0);
-        itemList[7]= new Item("Beer", 2.0, "Drink of Choice", 10.0, 15.0);
-        itemList[8]= new Item("Turkey", 2.0, "Drink of Choice", 10.0, 15.0);
-        itemList[9]= new Item("Apples", 2.0, "Drink of Choice", 10.0, 15.0);
+        itemList[0]= new Item("Whiskey", 2.0, "Drink of Choice", 10.0, 15.0,vendorList[0]);
+        itemList[1]= new Item("Gin", 2.0, "Drink of Choice", 10.0, 15.0,vendorList[0]);
+        itemList[2]= new Item("Vodka", 2.0, "Drink of Choice", 10.0, 15.0,vendorList[0]);
+        itemList[3]= new Item("Hennesy", 2.0, "Drink of Choice", 10.0, 15.0,vendorList[0]);
+        itemList[4]= new Item("Jack Daniels", 2.0, "Drink of Choice", 10.0, 15.0,vendorList[0]);
+        itemList[5]= new Item("Capitain Morgan", 2.0, "Drink of Choice", 10.0, 15.0,vendorList[0]);
+        itemList[6]= new Item("Cider", 2.0, "Drink of Choice", 10.0, 15.0,vendorList[0]);
+        itemList[7]= new Item("Beer", 2.0, "Drink of Choice", 10.0, 15.0,vendorList[0]);
+        itemList[8]= new Item("Turkey", 2.0, "Drink of Choice", 10.0, 15.0,vendorList[0]);
+        itemList[9]= new Item("Apples", 2.0, "Drink of Choice", 10.0, 15.0,vendorList[0]);
         
         do
         {
@@ -125,12 +129,11 @@ public class ValleyDepotApplication {
                   
                   
               case 3:
-                  itemList = createItem(input, itemTracker,itemList);
+                  itemList = createItem(input,itemList,vendorList);
                   
-                  itemTracker++;
+                  
                   break;
-                  
-                  
+
                   
                   
                   
@@ -190,14 +193,58 @@ public class ValleyDepotApplication {
                   
                   
                   
-              case 5:
-                  
+              case 5:                
                   break;
+                  
+                  
+                  
+                  
+                  
+                  
               case 6:
-                 
+                 vendorList = createVendor(input,vendorList);
                   break;
-              case 7:
                   
+                  
+              case 7:
+                  displayCurrentVendors(vendorList);
+                  System.out.println("Please type the ID number of which "
+                          + "customer to edit");
+                  editChoice = input.next();
+                  
+                  
+                  
+                  for(int i =0 ; i < vendorList.length; i++)
+                  {
+                      if( vendorList[i].vendorId.equals(editChoice))
+                      {
+                          System.out.println("Please select the "
+                                  + "respective number of what you would like"
+                                  + " to edit\n1. Edit Vendor name\n2. Edit"
+                                  + " Vendor Address\n3. Edit Vendor phone number\n");
+                          int attEdit = input.nextInt();
+                          
+                          switch ( attEdit)
+                          {
+                              case 1:
+                                  System.out.println("Please type the correct version");
+                                  edit = input.next();
+                                  vendorList[i].setName(edit);
+                                  break;
+                              case 2:
+                                  System.out.println("Please type the correct version");
+                                  edit = input.next();
+                                  vendorList[i].setAddress(edit);
+                                  break;
+                              case 3:
+                                  System.out.println("Please type the correct version");
+                                  edit = input.next();
+                                  vendorList[i].setPhoneNumber(edit);
+                                  break;
+                              
+                          }            
+                      }
+                  }
                   break;
                                       
           }
@@ -318,7 +365,7 @@ public class ValleyDepotApplication {
         System.out.println("");
     }
     
-    public static Item[] createItem(Scanner input, int customerTracker, Item[] itemList)
+    public static Item[] createItem(Scanner input, Item[] itemList, Vendor[] vendorList)
     {
         
        Item[] newArray = new Item[itemList.length+1];
@@ -339,13 +386,26 @@ public class ValleyDepotApplication {
         System.out.println("Please enter the sale price for item: ");
         salePrice = input.nextDouble();
          
+        System.out.println("Please enter the id of the vendor for the item: ");
+        displayCurrentVendors(vendorList);
+        
+        String vendorChecker = input.next();
+        int capture =0;
+        for (int i = 0; i < vendorList.length; i++)
+        {
+            if (vendorChecker == vendorList[i].vendorId)
+            {
+                capture = i; 
+            }
+        }
+        
  
        
         for (int i = 0 ;i < itemList.length; i++ )
         {
           newArray[i] = itemList[i];
         }
-        newArray[newArray.length-1]  = new Item(itemName, weight, description, pricePaid, salePrice);
+        newArray[newArray.length-1]  = new Item(itemName, weight, description, pricePaid, salePrice,vendorList[capture]);
         
         return newArray;
     }
@@ -365,7 +425,48 @@ public class ValleyDepotApplication {
         }
         System.out.println("");
     }
+    
+     public static Vendor[] createVendor(Scanner input, Vendor[] vendorList)
+    {
+        
+       Vendor[] newArray = new Vendor[vendorList.length+1];
+            String vendorName;
+            String vendorAddress;
+            String phoneNumber;
+          
+        System.out.println("Please enter Vendor's name: ");
+        vendorName = input.next();
+        System.out.println("Please enter Vendor's address: ");
+        vendorAddress = input.next();
+        System.out.println("Please enter the Vendor's phone number: ");
+        phoneNumber = input.next();
+        
+         
+ 
+       
+        for (int i = 0 ;i < vendorList.length; i++ )
+        {
+          newArray[i] = vendorList[i];
+        }
+        newArray[newArray.length-1]  = new Vendor(vendorName, vendorAddress, phoneNumber);
+        
+        return newArray;
+    }
+     
+     public static void displayCurrentVendors(Vendor[] vendorList)
+        {
+        System.out.println("Vendor Name:\tID Number:\n"
+                    + "-------------------------");
+        for ( int i = 0; i < vendorList.length; i++)
+        {
+            
+            System.out.printf("%-20s\t%s\t\n",
+                  vendorList[i].name,
+                    vendorList[i].vendorId);
+            
+          
+        }
+        System.out.println("");
+    }
 }
-
-
   
