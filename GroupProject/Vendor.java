@@ -38,10 +38,10 @@ public class Vendor {
     public String toString()
     {
         String vendorInfo = "";
-        vendorInfo = ("Vendor ID: " + vendorID + "Vendor Name: " + this.name +
+        vendorInfo = ("Vendor ID: " + vendorId + "Vendor Name: " + this.name +
                       "Vendor Address: " this.address + "Vendor Phone Number : " + this.phoneNumber);
         
-        return vendorInfo
+        return vendorInfo;
                       
     }
     
