@@ -9,15 +9,16 @@ public class Customer {
     protected String address;
     protected String phoneNumber;
     protected String email;
-    public int customerId;
-    
+    public String customerId;
+    public static int counter;
+    public static int bCounter;
     
     public Customer(String fname
             , String lname
             , String email
             , String address
             , String phoneNumber
-            , int customerId
+            
             )
             
     {
@@ -26,15 +27,17 @@ public class Customer {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.customerId = customerId;
+        this.customerId = "c"+counter;
+        counter++;
     }
             
-    public Customer( String fname , String lname,String email,int customerId )
+    public Customer( String fname , String lname,String email )
     {
         this.fname = fname;
         this.lname = lname;
         this.email = email;
-        this.customerId= customerId;
+        this.customerId= "b"+bCounter;
+        bCounter++;
     }
     
     
@@ -54,9 +57,10 @@ public class Customer {
         this.address = address;
     }
         
-            public void setPhoneNumber(String phoneNumber)
+        public void setPhoneNumber(String phoneNumber)
     {
         this.phoneNumber = phoneNumber;
     }
         
 }
+
