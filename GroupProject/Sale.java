@@ -4,14 +4,14 @@ package GroupProject;
 public class Sale {
     public Item itemSold;
     public String saleID;
-    public int quantity;
+    public double quantity;
     public String date;
     public String custID;
     public int transaction;
 
     
 
-    public Sale(Item itemSold, int quantity, String date, String custID, int transaction,int saleTracker){
+    public Sale(Item itemSold, double quantity, String date, String custID, int transaction,int saleTracker){
         this.quantity = quantity;
         this.itemSold = itemSold;
         this.date = date;
@@ -20,11 +20,17 @@ public class Sale {
         this.saleID = "s" + saleTracker;
     }
 
-    public void printSale(){//might need to fix the formatting here
-        double quantity = itemSold.quantity;
-        double total = quantity* itemSold.salePrice;
-        System.out.printf("%-11s\t%-5.0f\t$%-10.2f\t-8.2f\t%-8s",itemSold.itemName,quantity,itemSold.salePrice,total,date);
+    public static void printSale(Sale sale){//might need to fix the formatting here
+        double q1 = sale.quantity;
+        String name = sale.itemSold.itemName;
+        double salePrice = sale.itemSold.salePrice;
+        double total = q1*salePrice ;
+        System.out.printf("%-11s\t%-7.0f\t$%-10.2f\t$%-9.2f\t%-8s\n",name,q1,salePrice,total,sale.date);
     }
 
-    
+    public String toString(){
+        String saleString = new String("");
+        saleString += itemSold.itemName + " " + saleID + " " + quantity + " " + date + " " + custID + " " + transaction;
+        return saleString;
+    }
 }
