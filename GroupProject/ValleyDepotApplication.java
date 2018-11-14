@@ -137,7 +137,7 @@ public class ValleyDepotApplication {
               case 4:
                   displayItems(itemList);
                   System.out.println("Please type the ID number of which "
-                          + "customer to edit");
+                          + "item to edit");
                   
                   editChoice = input.next();
                
