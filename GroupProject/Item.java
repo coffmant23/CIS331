@@ -10,12 +10,12 @@ public class Item  {
    private double pricePaid;
    private double salePrice;
    public String itemId;
-   public int quantity;
+   public double quantity;
    public static int counter;
    public Vendor vendor;
    
    
-   public Item(String itemName, double weight, String description,int quantity, double pricePaid, double salePrice,Vendor vendor)
+   public Item(String itemName, double weight, String description,double quantity, double pricePaid, double salePrice,Vendor vendor)
    {
    this.itemName = itemName;
    this.weight= weight;
