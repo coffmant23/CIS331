@@ -17,7 +17,7 @@ public class ValleyDepotApplication {
         int bCustomerTracker = 0;
         int itemTracker =0;
         int choiceSelector = 0;
-        int saleTracker = 4;
+        int saleTracker = 5;
         int transaction = 2;
         double editNum;
         
@@ -38,11 +38,11 @@ public class ValleyDepotApplication {
         itemList[7]= new Item("Beer", 2.0, "Drink of Choice",10, 10.0, 15.0,vendorList[0]);
         itemList[8]= new Item("Turkey", 2.0, "Drink of Choice", 10,10.0, 15.0,vendorList[0]);
         itemList[9]= new Item("Apples", 2.0, "Drink of Choice", 10,10.0, 15.0,vendorList[0]);
-        saleList[0] = new Sale(itemList[0], 2, "10/31/18", "c0", 1, 0);
-        saleList[1] = new Sale(itemList[1], 2, "10/31/18", "c0", 1, 1 );
-        saleList[2] = new Sale(itemList[2], 2, "10/31/18", "c1", 2, 2 );
-        saleList[3] = new Sale(itemList[3], 2, "10/31/18", "c1", 2, 3 );
-        saleList[4] = new Sale(itemList[4], 2, "10/31/18", "c1", 2, 4 );
+        saleList[0] = new Sale(itemList[0], 2, "10/31/18", "c0", 1, 1);
+        saleList[1] = new Sale(itemList[1], 2, "10/31/18", "c0", 1, 2 );
+        saleList[2] = new Sale(itemList[2], 2, "10/31/18", "c1", 2, 3 );
+        saleList[3] = new Sale(itemList[3], 2, "10/31/18", "c1", 2, 4 );
+        saleList[4] = new Sale(itemList[4], 2, "10/31/18", "c1", 2, 5 );
         do
         {
      
