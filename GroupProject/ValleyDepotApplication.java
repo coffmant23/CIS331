@@ -10,12 +10,15 @@ public class ValleyDepotApplication {
         Scanner input = new Scanner(System.in);
         Customer[] customerList = new Customer[4];
         Item[] itemList = new Item[10];
+        Sale[] saleList = new Sale[5];
         Vendor[] vendorList = new Vendor[3];
         
         int customerTracker = 4;
         int bCustomerTracker = 0;
         int itemTracker =0;
         int choiceSelector = 0;
+        int saleTracker = 5;
+        int transaction = 2;
         double editNum;
         
         vendorList[0] = new Vendor("CompanyA","addressA","123456789");
