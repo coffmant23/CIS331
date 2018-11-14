@@ -450,7 +450,7 @@ public class ValleyDepotApplication {
     
     public static void displayItems(Item[] itemList)
     {
-        System.out.println("Customer Name:\tID Number:\n"
+        System.out.println("Item Name:\tID Number:\n"
                     + "-------------------------");
         for ( int i = 0; i < itemList.length; i++)
         {
@@ -479,10 +479,10 @@ public class ValleyDepotApplication {
                   for(int i = 0; i<sales;i++){
                       itemID[i] = input.next();
                   }
-                  //Store item names in an array
+                  //Store items in an array for using in addSale
                   for(int i = 0; i<sales;i++){
                       for(int j = 0; j< itemList.length; j++){
-                       if(itemID[i].compareToIgnoreCase(itemList[j].itemID)==0){
+                       if(itemID[i].compareToIgnoreCase(itemList[j].itemId)==0){
                           itemSold[i] = itemList[j];
                        }   
                       }
