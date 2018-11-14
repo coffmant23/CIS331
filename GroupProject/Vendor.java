@@ -1,4 +1,3 @@
-
 package GroupProject;
 
 
@@ -31,10 +30,11 @@ public class Vendor {
      
      public void setPhoneNumber(String phoneNumber )
     {
-        this.address = phoneNumber;
+        this.phoneNumber = phoneNumber;
     }
 
     
     
 }
+
 
