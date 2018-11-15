@@ -39,7 +39,7 @@ public class Vendor {
     {
         String vendorInfo = "";
         vendorInfo = ("Vendor ID: " + vendorId + "Vendor Name: " + this.name +
-                      "Vendor Address: " this.address + "Vendor Phone Number : " + this.phoneNumber);
+                      "Vendor Address: " + this.address + "Vendor Phone Number : " + this.phoneNumber);
         
         return vendorInfo;
                       
