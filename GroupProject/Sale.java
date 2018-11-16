@@ -1,4 +1,5 @@
 
+
 package GroupProject;
 
 public class Sale {
@@ -18,6 +19,7 @@ public class Sale {
         this.custID = custID;
         this.transaction = transaction;
         this.saleID = "s" + saleTracker;
+        this.itemSold.sale(quantity);
     }
 
     public static void printSale(Sale sale){//might need to fix the formatting here
