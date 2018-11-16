@@ -8,7 +8,7 @@ public class Item  {
    public double weight;
    public String description;
    private double pricePaid;
-   private double salePrice;
+   public double salePrice;
    public String itemId;
    public double quantity;
    public static int counter;
@@ -54,5 +54,9 @@ public class Item  {
     {
         this.salePrice = salePrice;
     }
-  
-} 
+         
+  public void sale(double quantity)
+  {
+      this.quantity = this.quantity - quantity;
+  }
+}
