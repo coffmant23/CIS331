@@ -1,5 +1,10 @@
-
-
+/*
+Nicholas Coffman
+Jonathan Doan
+Manfred Hueskes
+Pierre Giaon
+Shuvam Mishra
+*/
 package GroupProject;
 
 public class Sale {
@@ -9,17 +14,18 @@ public class Sale {
     public String date;
     public String custID;
     public int transaction;
-
+    public int saleNumber;
     
 
-    public Sale(Item itemSold, double quantity, String date, String custID, int transaction,int saleTracker){
+    public Sale(Item itemSold, double quantity, String date, String custID, int transaction){
         this.quantity = quantity;
         this.itemSold = itemSold;
         this.date = date;
         this.custID = custID;
         this.transaction = transaction;
-        this.saleID = "s" + saleTracker;
+        this.saleID = "s" + saleNumber;
         this.itemSold.sale(quantity);
+        saleNumber++;
     }
 
     public static void printSale(Sale sale){//might need to fix the formatting here
