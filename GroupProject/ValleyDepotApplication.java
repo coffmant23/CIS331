@@ -1,3 +1,11 @@
+/*
+Nicholas Coffman
+Jonathan Doan
+Manfred Hueskes
+Pierre Giaon
+Shuvam Mishra
+*/
+
 package GroupProject;
 import java.util.*;
 
@@ -22,7 +30,7 @@ public class ValleyDepotApplication {
         int sales = 0;
         double editNum;
         
-        
+        //Prepopulated data
         vendorList[0] = new Vendor("Wal-Mart","128 Wallaby Way","123-445-6789");
         vendorList[1] = new Vendor("Target","67 Rummy Ln","987-654-8321");
         vendorList[2] = new Vendor("CompanyC"," 400 Ovaltine Dr.","543-216-0789");
@@ -40,212 +48,225 @@ public class ValleyDepotApplication {
         itemList[7]= new Item("Beer", 5.0, "Drink of Choice",10, 10.0, 15.0,vendorList[0]);
         itemList[8]= new Item("Turkey", 3.0, "Thanksgiving bird", 10,10.0, 15.0,vendorList[0]);
         itemList[9]= new Item("Apples", 1.0, "Quality healthy snack", 10,10.0, 15.0,vendorList[0]);
-        saleList[0] = new Sale(itemList[0], 2, "7/30/18", "c0", 1, 1 );
-        saleList[1] = new Sale(itemList[1], 2, "8/20/18", "c0", 1, 2 );
-        saleList[2] = new Sale(itemList[2], 2, "9/21/18", "c1", 2, 3 );
-        saleList[3] = new Sale(itemList[3], 2, "10/22/18", "c1", 2, 4 );
-        saleList[4] = new Sale(itemList[4], 2, "11/1/18", "c1", 2, 5 );
+        saleList[0] = new Sale(itemList[0], 2, "7/30/18", "c0", 1);
+        saleList[1] = new Sale(itemList[1], 2, "8/20/18", "c0", 1);
+        saleList[2] = new Sale(itemList[2], 2, "9/21/18", "c1", 2);
+        saleList[3] = new Sale(itemList[3], 2, "10/22/18", "c1", 2);
+        saleList[4] = new Sale(itemList[4], 2, "11/1/18", "c1", 2);
+        //Begin menu loop
         do
         {
-          System.out.println("Please select a Menu option\n1. Create Customer"
-                  + "\n2. Edit Customer\n"
-                  + "3. Create Item\n4. Edit Item\n5. Enter Sale\n6. Create Vendor"
-                  + "\n7. Edit Vendor\n8. Print Report\n9. Exit");
+          System.out.println("Please select a Menu option\n1. Manager Customers\n"
+                  + "2. Manage Items\n3. Enter Sale\n4. Manage Vendors\n5. Print Report\n6. Exit");
        
-          choiceSelector = inputCheck(input,"Please select a Menu option\n1. Create Customer"
-                  + "\n2. Edit Customer\n"
-                  + "3. Create Item\n4. Edit Item\n5. Enter Sale\n6. Create Vendor"
-                  + "\n7. Edit Vendor\n8. Print Report\n9. Exit",1,9);
+          choiceSelector = inputCheck(input,"Please select a Menu option\n1. Manage Customers\n"
+                  + "2. Manage Items\n3. Enter Sale\n4. Manage Vendors\n5. Print Report\n6. Exit",1,6);
+          //switch to chose menu option
           switch(choiceSelector)
-          {           
-              case 1: 
-                  int choice; 
-                  String phrase = "Please type in the corresponding number"
-                          + "for the type of customer\n1. Individual Customer\n"
-                          + "2. Business Customer";
-                  System.out.println(phrase);               
-                  choice = inputCheck(input,phrase,1,2); 
-                  if (choice ==1)
+          {    
+              //Create customer choice
+              case 1:
+                  System.out.println("Please select an option\n1. Create Customer\n2. Edit Customer\n");
+                  choiceSelector = inputCheck(input,"Please select an option\\n1. Create Customer\n2. Edit Customer\n",1,2 );
+                  switch(choiceSelector)
                   {
-                    customerList = createCustomer(input,
-                            customerTracker, customerList);                  
-                  }                 
-                  else if (choice ==2)
-                  {
-                    customerList = createBusinessCustomer(input,
-                            customerTracker, customerList);                   
-                  }            
-                 customerTracker++;
-                  break;
-                
+                     
+                      case 1:
+
+                            int choice; 
+                            String phrase = "Please type in the corresponding number"
+                                    + "for the type of customer\n1. Individual Customer\n"
+                                    + "2. Business Customer";
+                            System.out.println(phrase);               
+                            choice = inputCheck(input,phrase,1,2); 
+                            if (choice ==1)
+                            {
+                              customerList = createCustomer(input,
+                                      customerTracker, customerList);                  
+                            }                 
+                            else if (choice ==2)
+                            {
+                              customerList = createBusinessCustomer(input,
+                                      customerTracker, customerList);                   
+                            }            
+                           customerTracker++;
+                            break;
+
+
+                         // Edit customer choice 
+                        case 2:
+
+                            //show exisiting customers
+                            displayCurrentCustomers(customerList);
+                            System.out.println("Please type the ID number of which "
+                                    + "customer to edit");
+                            String editChoice = input.next();
+
+                            String edit;
+
+                            for(int i =0 ; i < customerList.length; i++)
+                            {
+                                if( customerList[i].customerId.equals(editChoice))
+                                {
+                                    System.out.println("Please select the "
+                                            + "respective number of what you would like"
+                                            + " to edit\n1. Edit First Name\n2. Edit"
+                                            + " Last Name\n3. Edit Address\n4. Edit Phone Number");
+                                    int attEdit = inputCheck(input,"Please select the "
+                                            + "respective number of what you would like"
+                                            + " to edit\n1. Edit First Name\n2. Edit"
+                                            + " Last Name\n3. Edit Address\n4. Edit Phone Number",1,4); 
+
+                                    System.out.println("Please type the correct version\n");
+                                    switch ( attEdit)
+                                    {
+                                        //Choose which to edit
+                                        case 1:
+                                            //System.out.println("Please type the correct version");
+                                            edit = input.next();
+                                            customerList[i].setFname(edit);
+                                            break;
+                                        case 2:
+                                            //System.out.println("Please type the correct version");
+                                            edit = input.next();
+                                            customerList[i].setLname(edit);
+                                            break;
+                                        case 3:
+                                           // System.out.println("Please type the correct version");
+                                            edit = input.next();
+                                            customerList[i].setAddress(edit);
+                                            break;
+                                        case 4:
+                                           // System.out.println("Please type the correct version");
+                                            edit = input.next();
+                                            customerList[i].setPhoneNumber(edit);
+                                            break;
+
+                                    }  
+                                    editChoice = "itWasFound";
+                                }
+
+                            }
+                            if (!editChoice.equals("itWasFound"))
+                            {
+                            System.out.println("-------------------\n"
+                                            + "Id was not found\n-------------------\n");
+                            }
+                            break;
+                            }
+                            break;
+
+                             //Call to create item        
               case 2:
-                  displayCurrentCustomers(customerList);
-                  System.out.println("Please type the ID number of which "
-                          + "customer to edit");
-                  String editChoice = input.next();
                   
-                  String edit;
-                  
-                  for(int i =0 ; i < customerList.length; i++)
+                  System.out.println("Please select an option\n"
+                          + "1. Create Item\n2. Edit Item");
+                  choiceSelector = inputCheck(input,"Please select an option\\n1. Create Item\n2. Edit Item\n",1,2 );
+        
+                  switch(choiceSelector)
                   {
-                      if( customerList[i].customerId.equals(editChoice))
-                      {
-                          System.out.println("Please select the "
-                                  + "respective number of what you would like"
-                                  + " to edit\n1. Edit First Name\n2. Edit"
-                                  + " Last Name\n3. Edit Address\n4. Edit Phone Number");
-                          int attEdit = inputCheck(input,"Please select the "
-                                  + "respective number of what you would like"
-                                  + " to edit\n1. Edit First Name\n2. Edit"
-                                  + " Last Name\n3. Edit Address\n4. Edit Phone Number",1,4); 
-                          
-                          System.out.println("Please type the correct version\n");
-                          switch ( attEdit)
-                          {
-                              case 1:
-                                  //System.out.println("Please type the correct version");
-                                  edit = input.next();
-                                  customerList[i].setFname(edit);
-                                  break;
-                              case 2:
-                                  //System.out.println("Please type the correct version");
-                                  edit = input.next();
-                                  customerList[i].setLname(edit);
-                                  break;
-                              case 3:
-                                 // System.out.println("Please type the correct version");
-                                  edit = input.next();
-                                  customerList[i].setAddress(edit);
-                                  break;
-                              case 4:
-                                 // System.out.println("Please type the correct version");
-                                  edit = input.next();
-                                  customerList[i].setPhoneNumber(edit);
-                                  break;
-                                                            
-                          }  
-                          editChoice = "itWasFound";
-                      }
                       
-                  }
-                  if (!editChoice.equals("itWasFound"))
-                  {
-                  System.out.println("-------------------\n"
-                                  + "Id was not found\n-------------------\n");
-                  }
-                  break;
-                           
-              case 3:
-                  itemList = createItem(input,itemList,vendorList);                 
-                  break;              
-              case 4:
-                  displayItems(itemList);
-                  System.out.println("Please type the ID number of which "
-                          + "item to edit"); 
-                  
-                  editChoice = itemVerify(input, itemList);                 
-                  for(int i =0 ; i < itemList.length; i++)
-                  {
-                      if( itemList[i].itemId.equals(editChoice))
-                      {
-                           phrase = "Please select the "
-                                  + "respective number of what you would like"
-                                  + " to edit\n1. Edit Item Name\n2. Edit weight"
-                                  + "\n3. Edit description\n4. Edit purchase "
-                                  + "price\n5. Edit Sale Price";
-                          System.out.println(phrase);
-                          int attEdit = inputCheck(input,phrase,1,5);                                                                               
-                          switch ( attEdit)
-                          {
-                              case 1:
-                                  System.out.println("Please type the correct version");
-                                  edit = input.next();
-                                  itemList[i].setItemName(edit);
-                                  break;
-                              case 2:
-                                  System.out.println("Please type the correct weight");
-                                  editNum = inputCheck(input,"Use only numbers to type the correct weight");
-                                  itemList[i].setWeight(editNum);
-                                  break;
-                              case 3:
-                                  System.out.println("Please type the correct version");
-                                  edit = input.next();
-                                  itemList[i].setDescription(edit);
-                                  break;
-                              case 4:
-                                  System.out.println("Please type the correct Price Paid");
-                                  editNum = inputCheck(input,"Use only numbers to type the correct Price Paid");
-                                  itemList[i].setPricePaid(editNum);
-                                  break;
-                              case 5:
-                                  System.out.println("Please type the correct version");
-                                  editNum = inputCheck(input,"Use only numbers to type the correct sale price");
-                                  itemList[i].setSalePrice(editNum);
-                                  break;
-                                  
-                          }            
-                      }
-                  }
-                  break;
-                                          
-              case 5://ENTER SALE
+                        case 1:
+                            itemList = createItem(input,itemList,vendorList);                 
+                            break; 
+                        //Edit item after viewing all existing items
+                       case 2:
+                            String phrase = "";
+                            String editChoice;
+                            String edit;
+                            displayItems(itemList);
+                            System.out.println("Please type the ID number of which "
+                                    + "item to edit"); 
+
+                            editChoice = itemVerify(input, itemList);                 
+                            for(int i =0 ; i < itemList.length; i++)
+                            {
+                                if( itemList[i].itemId.equals(editChoice))
+                                {
+                                     phrase = "Please select the "
+                                            + "respective number of what you would like"
+                                            + " to edit\n1. Edit Item Name\n2. Edit weight"
+                                            + "\n3. Edit description\n4. Edit purchase "
+                                            + "price\n5. Edit Sale Price";
+                                    System.out.println(phrase);
+                                    int attEdit = inputCheck(input,phrase,1,5);                                                                               
+                                    switch ( attEdit)
+                                    {
+                                        case 1:
+                                            System.out.println("Please type the correct version");
+                                            edit = input.next();
+                                            itemList[i].setItemName(edit);
+                                            break;
+                                        case 2:
+                                            System.out.println("Please type the correct weight");
+                                            editNum = inputCheck(input,"Use only numbers to type the correct weight");
+                                            itemList[i].setWeight(editNum);
+                                            break;
+                                        case 3:
+                                            System.out.println("Please type the correct version");
+                                            edit = input.next();
+                                            itemList[i].setDescription(edit);
+                                            break;
+                                        case 4:
+                                            System.out.println("Please type the correct Price Paid");
+                                            editNum = inputCheck(input,"Use only numbers to type the correct Price Paid");
+                                            itemList[i].setPricePaid(editNum);
+                                            break;
+                                        case 5:
+                                            System.out.println("Please type the correct version");
+                                            editNum = inputCheck(input,"Use only numbers to type the correct sale price");
+                                            itemList[i].setSalePrice(editNum);
+                                            break;
+
+                                    }            
+                                }
+                            }
+                        break;
+                        } 
+                        break;
+              case 3://ENTER SALE
                   boolean t = true;
                   //Identify Customer
                   String custID = findCust(input, customerList);
                   transaction++;
                   //Create x number of sales instances and retrieve:
                   //itemName, quantity sold, date sold
-                  System.out.println("How many unique items were sold? (Enter #)");
+                 /* System.out.println("How many unique items were sold? (Enter #)");
                   sales = inputCheck(input,"Please use a number to represent the amount of items sold");
                   //Retrieve itemSold object for Sale instances
-                  
-                  Item[] itemSold = processItemsSold(input, itemList, sales);
+                  */
+                  Item[] itemSold = processItemsSold(input, itemList);
                   //Quantity Sold
-                  double[] numSold = new double[sales];
+                  double[] numSold = new double[itemSold.length];
                   System.out.println("How many of each item were sold? Integers only, in same order as items sold");
-                  for(int i = 0; i<sales;i++){
+                  for(int i = 0; i<itemSold.length;i++){
                       System.out.print("Number of " + itemSold[i].itemName + " sold: ");
-                      numSold[i] = inputCheck(input, "Please use only numbers");
+                      numSold[i] = inventoryCheck(input, itemSold,i);
                               
                   }
-                  for(int i = 0; i<sales;i++)//See if there is enough inventory to make the sale
-                  {
-                      if(numSold[i] > itemSold[i].quantity)
-                      {
-                          System.out.println("Not enough inventory to make the sale!");
-                          t = false;
-                          break;
-                      }
-                      
-                  }
+
                   //if(t!=true)
                      //     break;
                   //Date of Sale
                   System.out.println("What date were the items sold?");
                   String saleDate = input.next();
+
                   //create sales instances
-                  for(int i = 0; i<sales;i++){
+                  for(int i = 0; i<itemSold.length;i++){
                     saleTracker++;
-                    saleList = addSale(input, saleTracker, saleList,transaction,custID, itemList, itemSold[i], numSold[i], saleDate);
-                  
-                  }
-                  
+                    saleList = addSale(input, saleTracker, saleList,transaction,custID, itemList, itemSold[i], numSold[i], saleDate);           
+                  }               
                   //reduceInventory(itemSold , numSold);
-                  
-                  
-                  
+
                   System.out.println("Would you like a receipt of this"
                           + " transaction?\nType '1' for yes Type '2' for no");
                   int receipt = inputCheck(input,"Would you like a receipt of this "
-                          + "transaction?\nType '1' for yes Type '2' for no",1,2); 
-                  
-                  
-                  
+                          + "transaction?\nType '1' for yes Type '2' for no",1,2);                 
                   switch(receipt){
                       case 1:
                        System.out.println("Item Name     #Sold    Item Price    Total Paid\t          Date");
                        System.out.println("-----------------------------------------------------------------");
-                        for(int i = sales; i >0; i--)
+                        for(int i = itemSold.length; i >0; i--)
                       { 
                         Sale.printSale(saleList[saleList.length-i]);
                       }
@@ -253,60 +274,65 @@ public class ValleyDepotApplication {
                     case 2:
                       break;
                   }                
-                  break;
+                  break;               
+              case 4://Create vendor
+                  
+                  System.out.println("Please select an option\n"
+                          + "1. Create Vendor\n2. Edit Vendor");
+                  choiceSelector = inputCheck(input,"Please select an option\\n1. Create Vendor\n2. Edit Vendor\n",1,2 );
+                  
+                 switch(choiceSelector)
+                 {
+                     case 1:                
+                    vendorList = createVendor(input,vendorList);
+                     break;
                   
                   
-                  
-                  
-                  
-                  
-              case 6://Create vendor
-                 vendorList = createVendor(input,vendorList);
-                  break;
-                  
-                  
-              case 7://Edit Vendors
-                  displayCurrentVendors(vendorList);
-                  System.out.println("Please type the ID number of which "
-                          + "vendor to edit");
-                  editChoice = vendorVerify(input, vendorList);     
-                  for(int i =0 ; i < vendorList.length; i++)
-                  {
-                      if( vendorList[i].vendorId.equals(editChoice))
-                      {
-                          System.out.println("Please select the "
-                                  + "respective number of what you would like"
-                                  + " to edit\n1. Edit Vendor name\n2. Edit"
-                                  + " Vendor Address\n3. Edit Vendor phone number\n");
-                          int attEdit = inputCheck(input,"Please select the "
-                                  + "respective number of what you would like"
-                                  + " to edit\n1. Edit Vendor name\n2. Edit"
-                                  + " Vendor Address\n3. Edit Vendor phone number\n",1,3); 
-                          
-                          
-                          switch ( attEdit)
-                          {
-                              case 1:
-                                  System.out.println("Please type the correct version");
-                                  edit = input.next();
-                                  vendorList[i].setName(edit);
-                                  break;
-                              case 2:
-                                  System.out.println("Please type the correct version");
-                                  edit = input.next();
-                                  vendorList[i].setAddress(edit);
-                                  break;
-                              case 3:
-                                  System.out.println("Please type the correct version");
-                                  edit = input.next();
-                                  vendorList[i].setPhoneNumber(edit);
-                                  break;
-                              
-                          }            
-                      }
-                  }
-                  break;
-              case 8://Print Reports
+                    case 2://Edit Vendors
+                        String editChoice;
+                        String edit;
+                        displayCurrentVendors(vendorList);
+                        System.out.println("Please type the ID number of which "
+                                + "vendor to edit");
+                        editChoice = vendorVerify(input, vendorList);     
+                        for(int i =0 ; i < vendorList.length; i++)
+                        {
+                            if( vendorList[i].vendorId.equals(editChoice))
+                            {
+                                System.out.println("Please select the "
+                                        + "respective number of what you would like"
+                                        + " to edit\n1. Edit Vendor name\n2. Edit"
+                                        + " Vendor Address\n3. Edit Vendor phone number\n");
+                                int attEdit = inputCheck(input,"Please select the "
+                                        + "respective number of what you would like"
+                                        + " to edit\n1. Edit Vendor name\n2. Edit"
+                                        + " Vendor Address\n3. Edit Vendor phone number\n",1,3); 
+
+                                switch ( attEdit)
+                                {
+                                    case 1:
+                                        System.out.println("Please type the correct version");
+                                        edit = input.next();
+                                        vendorList[i].setName(edit);
+                                        break;
+                                    case 2:
+                                        System.out.println("Please type the correct version");
+                                        edit = input.next();
+                                        vendorList[i].setAddress(edit);
+                                        break;
+                                    case 3:
+                                        System.out.println("Please type the correct version");
+                                        edit = input.next();
+                                        vendorList[i].setPhoneNumber(edit);
+                                        break;
+                                }            
+                            }
+                        }
+                        break;
+                       }
+                break;
+
+              case 5://Print Reports
                   
                   System.out.println("Which report would you like to print?");
                   System.out.println("1. Purchase History for a Customer\n"
@@ -383,16 +409,13 @@ public class ValleyDepotApplication {
                   }
                   System.out.println();
                   break;
+              
           }
  
-        } while(choiceSelector != 9);
-        
-        
-        
-       
+        } while(choiceSelector != 6);
+     
     }
-    
-    
+   
     public static Customer[] createCustomer(Scanner input, int customerTracker,
             Customer[] customerArray)
     {
@@ -566,7 +589,7 @@ public class ValleyDepotApplication {
                   String custID = custVerify(input, customerList);
                   return custID;
     }
-    public static Item[] processItemsSold(Scanner input, Item[] itemList, int sales){
+    /*public static Item[] processItemsSold(Scanner input, Item[] itemList, int sales){
         System.out.println("Which items were sold? Please type their IDs");
                   displayItems(itemList);
                   String[] itemID = new String[sales];
@@ -586,6 +609,51 @@ public class ValleyDepotApplication {
                   }
         return itemSold;
     }
+    */
+    
+     public static Item[] processItemsSold(Scanner input, Item[] itemList){
+        Item[] itemID = new Item[1];
+        Item[] temp = new Item[1];
+        String selectedItem;
+        int tracker =0;
+        int keepGoing = 0;
+         do {
+             if (tracker==0)
+             {
+               temp = new Item[1];  
+             }
+             else
+             {
+             temp = new Item[itemID.length+1];
+                for ( int i=0; i < itemID.length; i++)
+                {
+                   temp[i] = itemID[i]; 
+                }
+             }
+             System.out.println("Please enter the ID of the item sold:");
+             displayItems(itemList);
+            
+             selectedItem = itemVerify(input,itemList);
+             
+             for(int i =0; i < itemList.length;i++)
+             {
+                 if ( selectedItem.equalsIgnoreCase(itemList[i].itemId))
+                 {
+                     temp[tracker] = itemList[i];
+                     tracker++;
+                 }
+                 
+             }
+             itemID = temp;
+             
+             System.out.println("Would you like to add another item to the sale?\n 1 = Yes \n2 = No");
+             keepGoing = input.nextInt();
+             
+         }while(keepGoing==1);
+         return itemID;
+     }
+         
+   
     public static Sale[] addSale( Scanner input, int saleTracker, Sale[] saleList, int transaction, String custID, Item[] itemList, Item itemSold, double numSold, String saleDate)
     {
     Sale[] newArray = new Sale[saleList.length+1];
@@ -595,7 +663,7 @@ public class ValleyDepotApplication {
           newArray[i] = tempSale;
         }
     
-    newArray[newArray.length - 1]  = new Sale(itemSold,numSold,saleDate, custID,transaction,saleTracker);
+    newArray[newArray.length - 1]  = new Sale(itemSold,numSold,saleDate, custID,transaction);
     //newArray[newArray.length-1].itemSold.quantity =- numSold; -- Taken out by Nick, wasnt working. Made a method in constructor.
     return newArray;
     
@@ -793,4 +861,27 @@ public class ValleyDepotApplication {
          }while(track == 0);
          return custInput;
      }
+
+
+
+public static double inventoryCheck(Scanner input,Item[] itemSold , int counter)
+{
+   
+    String userInput = input.next();
+         
+             while (Character.isAlphabetic(userInput.charAt(0)))  
+             {
+                 System.out.println("-----------\nInvalid Input\n-----------");
+                 
+             userInput = input.next();            
+             }    
+             
+             while ( itemSold[counter].quantity < Double.parseDouble(userInput))
+             {
+                 System.out.println("Quantity amount not availble\nPlease enter another quantity");
+                 userInput = input.next();  
+             }
+       return Double.parseDouble(userInput);
 }
+}
+           
