@@ -38,8 +38,7 @@ public class GUI extends Application {
         Label lblAddress = new Label("Adress: ");
         Label lblemail = new Label("Email: ");
         Label lblbusName = new Label("Business Name: ");
-        Label lblcontractorNumber = new Label("Contractor Number: ");
-        
+        Label lblcontractorNumber = new Label("Contractor Number: ");   
         Button btnCus = new Button("Manage Customers");
         Button btnItem = new Button("Manage Items");
         Button btnSale = new Button("Enter Sale");
@@ -55,11 +54,12 @@ public class GUI extends Application {
         Button btnEditLname = new Button("Last Name");
         Button btnEditAddress = new Button("Address");
         Button btnPhoneNumber = new Button("Phone Number");
-        
+        Button btnReport1 = new Button("Purchase History for a Customer");
+        Button btnReport2 = new Button("Purchase History of an Item");
+        Button btnReport3 = new Button("Current Inventory Levels");     
         CheckBox businessCust = new CheckBox("Business Customer");
         Button submit = new Button("Submit");
-        
-        
+        Label display2 = new Label("");
         Label display = new Label("");
         Label extra = new Label("");
         TextField inputField = new TextField();
@@ -71,9 +71,12 @@ public class GUI extends Application {
         TextField email = new TextField();
         TextField busName = new TextField();
         TextField contractorNumber = new TextField();
-        
-        
+        TextField reportOneField = new TextField();
+        TextField reportTwoField = new TextField();
+        TextField reportThreeField = new TextField();
         //Creating a Pane
+        
+        
         GridPane primaryPane = new GridPane();
         primaryPane.setAlignment(Pos.CENTER);   //Set alignment for the form
         primaryPane.add(lblMenu, 0, 0);    //first number is column, second is row
@@ -83,29 +86,84 @@ public class GUI extends Application {
         primaryPane.add(btnVendor, 0, 4);
         primaryPane.add(btnPrint, 0, 5);
         primaryPane.add(btnExit, 0, 6);
-        
         //Create a Scene
-        Scene primaryScene = new Scene(primaryPane, 400, 400);
-        
-       
-                
+        Scene primaryScene = new Scene(primaryPane, 400, 400);      
         //Set properties for the stage
         primaryStage.setTitle("Valley Depot");     
         primaryStage.setScene(primaryScene);
         primaryStage.show();
-        
         primaryPane.setHgap(10);
         primaryPane.setVgap(15);
-        
-       
-        
+        btnPrint.setOnAction(e ->{
+           primaryPane.getChildren().clear();
+           display2.setText(" Please select the report you would like to view");
+           primaryPane.add(display2, 0, 1);  
+           primaryPane.add(btnReport1, 0, 2); 
+           primaryPane.add(btnReport2, 0, 3);
+           primaryPane.add(btnReport3, 0, 4);
+        });
+        btnReport1.setOnAction( e-> {
+          primaryPane.getChildren().clear();
+          primaryPane.setAlignment(Pos.CENTER);
+          lblMenu.setText("Please select the ID of the customer:");
+          primaryPane.add(lblMenu,0,0);
+            displayCurrentCustomers(customerList,display);
+            primaryPane.add(display,0,1);
+            primaryPane.add(reportOneField,0,2);
+            primaryPane.add(extra,0,4);
+            extra.setText("");
+        });
+        reportOneField.setOnAction(e -> { 
+        int check = checkInput(customerList,reportOneField);
+              if (check == 1)  {
+                primaryPane.getChildren().clear();
+                primaryPane.setAlignment(Pos.CENTER);
+                lblMenu.setText("");
+                primaryPane.add(lblMenu,0,0);
+                 reportOne(reportOneField.getText(), primaryPane, lblMenu , btnMain, reportOneField); 
+              }
+                else{
+                  extra.setText("Not found. Please try again");
+              }       
+        });
+          btnReport2.setOnAction( e-> {
+          primaryPane.getChildren().clear();
+          primaryPane.setAlignment(Pos.CENTER);
+          lblMenu.setText("Please select the ID of the item:");
+          primaryPane.add(lblMenu,0,0);
+            displayItems(display);
+            primaryPane.add(display,0,1);
+            primaryPane.add(reportTwoField,0,2);
+            primaryPane.add(extra,0,4);
+            extra.setText("");
+        });
+          reportTwoField.setOnAction( e-> {
+             int check = checkInput(itemList , reportTwoField);
+             if (check == 1){
+                 primaryPane.getChildren().clear();
+                primaryPane.setAlignment(Pos.CENTER);
+                lblMenu.setText("");
+                primaryPane.add(lblMenu,0,0);
+                 reportTwo(reportTwoField.getText(), primaryPane, lblMenu , btnMain, reportOneField); 
+             }
+             else{
+                  extra.setText("Not found. Please try again");
+              }       
+          });
+          btnReport3.setOnAction( e -> {
+              primaryPane.getChildren().clear();
+          primaryPane.setAlignment(Pos.CENTER);
+          primaryPane.add(lblMenu,0,0);
+          reportThree( primaryPane, lblMenu , btnMain);
+          
+          
+          });
         btnCus.setOnAction(e -> {
           primaryPane.getChildren().clear();
           primaryPane.setAlignment(Pos.CENTER);   //Set alignment for the form
           primaryPane.add(btnManCust, 0, 1);  
         primaryPane.add(btnCreateCust, 0, 2);
-        });
-        
+        }); 
         btnCreateCust.setOnAction(e -> {
           primaryPane.getChildren().clear();
           primaryPane.setAlignment(Pos.CENTER);   //Set alignment for the form
@@ -129,14 +187,10 @@ public class GUI extends Application {
           busName.setVisible(false);
           contractorNumber.setVisible(false);
           lblbusName.setVisible(false);
-          lblcontractorNumber.setVisible(false);
-               
-          
+          lblcontractorNumber.setVisible(false); 
         });
-        
         businessCust.setOnAction( e -> {
-            if (busName.isVisible() == false)
-                    {
+            if (busName.isVisible() == false){
                         busName.setVisible(true);
                         contractorNumber.setVisible(true);
                         lblbusName.setVisible(true);
@@ -147,19 +201,15 @@ public class GUI extends Application {
                         busName.setVisible(false);
                         contractorNumber.setVisible(false);
                         lblbusName.setVisible(false);
-                        lblcontractorNumber.setVisible(false);}
-                
+                        lblcontractorNumber.setVisible(false);}   
         });
-        
         submit.setOnAction(e -> {
-            if (businessCust.isSelected())
-            {
+            if (businessCust.isSelected()){
             customerList = createCustomer(customerList,firstName.getText(),lastName.getText(), address.getText(), 
               phoneNumber.getText(), email.getText(), businessCust.isSelected(), busName.getText(), contractorNumber.getText());
             customerTracker++;
             }
-            else 
-            {
+            else {
               customerList = createCustomer(customerList,firstName.getText(),lastName.getText(), address.getText(), 
               phoneNumber.getText(), email.getText(), businessCust.isSelected());
               customerTracker++;
@@ -168,16 +218,9 @@ public class GUI extends Application {
             primaryPane.getChildren().clear();
             lblMenu.setText("Successful\nSelect to return to main menu");
             primaryPane.add(btnMain,0,2);
-            primaryPane.add(lblMenu,0,1);
-            
-            
+            primaryPane.add(lblMenu,0,1);    
         });
-        
-    
-
-          
-          btnManCust.setOnAction(e -> {
-              
+          btnManCust.setOnAction(e -> { 
           primaryPane.getChildren().clear();
           primaryPane.setAlignment(Pos.CENTER);
           lblMenu.setText("Please select the ID of the customer to edit:");
@@ -186,14 +229,12 @@ public class GUI extends Application {
           primaryPane.add(display,0,1);
           primaryPane.add(btnMain, 0, 2);
           primaryPane.add(inputField,0,3);
+          extra.setText("");
           primaryPane.add(extra,0,4);
           });
-          
           inputField.setOnAction(e ->{
               int check = checkInput(customerList,inputField);
-              if (check == 1)
-                  
-              {
+              if (check == 1)  {
                   inputField.clear();
                  primaryPane.getChildren().clear();
                  primaryPane.setAlignment(Pos.CENTER);
@@ -202,15 +243,12 @@ public class GUI extends Application {
                  primaryPane.add(btnEditFname,0,1);
                  primaryPane.add(btnEditLname,0,2);
                  primaryPane.add(btnEditAddress,0,3);
-                 primaryPane.add(btnPhoneNumber,0,4);
-                
+                 primaryPane.add(btnPhoneNumber,0,4); 
               }
-              else
-              {
+              else{
                   extra.setText("Not found. Please try again");
               }
-          });
-          
+          }); 
           btnEditFname.setOnAction(e -> {
             primaryPane.getChildren().clear();
             primaryPane.setAlignment(Pos.CENTER);
@@ -227,7 +265,7 @@ public class GUI extends Application {
             primaryPane.add(inputField2,0,3);
             updated = "last";
           });
-              btnEditAddress.setOnAction(e -> {
+            btnEditAddress.setOnAction(e -> {
             primaryPane.getChildren().clear();
             primaryPane.setAlignment(Pos.CENTER);
             lblMenu.setText("Please type in the updated version:");
@@ -235,7 +273,7 @@ public class GUI extends Application {
             primaryPane.add(inputField2,0,3);
             updated = "address";
           });
-                btnPhoneNumber.setOnAction(e -> {
+            btnPhoneNumber.setOnAction(e -> {
             primaryPane.getChildren().clear();
             primaryPane.setAlignment(Pos.CENTER);
             lblMenu.setText("Please type in the updated version:");
@@ -243,22 +281,13 @@ public class GUI extends Application {
             primaryPane.add(inputField2,0,3);
             updated = "phone";
           });
-       
           inputField2.setOnAction(e ->{
               updateInfo(updated, customerList,inputField2);
               primaryPane.getChildren().clear();
-              primaryPane.setAlignment(Pos.CENTER);   //Set alignment for the form
-                primaryPane.add(lblMenu, 0, 0);    //first number is column, second is row
-                primaryPane.add(btnCus, 0, 1);
-                primaryPane.add(btnItem, 0, 2);
-                primaryPane.add(btnSale, 0, 3);
-                primaryPane.add(btnVendor, 0, 4);
-                primaryPane.add(btnPrint, 0, 5);
-                primaryPane.add(btnExit, 0, 6);
+              primaryPane.setAlignment(Pos.CENTER);
+              showMainMenu(lblMenu,btnCus,btnItem,btnSale,btnVendor,btnPrint,btnExit,primaryPane); 
           });
-      
-        btnMain.setOnAction(e -> {
-            
+        btnMain.setOnAction(e -> {   
         primaryPane.getChildren().clear();
         lblMenu.setText("Please select a menu option");
         primaryPane.setAlignment(Pos.CENTER);   //Set alignment for the form
@@ -269,25 +298,16 @@ public class GUI extends Application {
         primaryPane.add(btnVendor, 0, 4);
         primaryPane.add(btnPrint, 0, 5);
         primaryPane.add(btnExit, 0, 6);
-        });
-        
+        }); 
         }
-    
-
-    
     public static void main(String[] args) {
-        launch(args);
-        
-        
+        launch(args);  
     }
     public static void addInfo(){
     customerList = new Customer[4];
         itemList = new Item[10];
         saleList = new Sale[5];
         vendorList = new Vendor[3];
-        
-        
-        
         //Prepopulated data
         vendorList[0] = new Vendor("Wal-Mart","128 Wallaby Way","123-445-6789");
         vendorList[1] = new Vendor("Target","67 Rummy Ln","987-654-8321");
@@ -315,27 +335,20 @@ public class GUI extends Application {
     public static void displayCurrentCustomers(Customer[] customerList, Label display)
     {
         String current = "";
-        
-        
        current = ("Customer Name:\tID Number:\n"
                     + "-------------------------\n");
         for ( int i = 0; i < customerList.length; i++)
-        {
-            
+        { 
             current += String.format("%-20s\t%-10s\t\t\t\n",
                   customerList[i].fname+" "+customerList[i].lname,
                     customerList[i].customerId);        
         }
-        
         display.setText(current);
         }
-    
     public static int checkInput( Customer[] customerList, TextField inputField)
     {
         String editChoice = inputField.getText();
-        
         int checker = 0;
-        
         for(int i =0 ; i < customerList.length; i++)
              {
                 if( customerList[i].customerId.equals(editChoice))
@@ -347,10 +360,25 @@ public class GUI extends Application {
              }
         return checker;
     } 
+    public static int checkInput( Item[] itemList, TextField inputField)
+    {
+        String editChoice = inputField.getText();
+        int checker = 0;
+        for(int i =0 ; i < itemList.length; i++)
+             {
+                if( itemList[i].itemId.equals(editChoice))
+                  {
+                      activeId= editChoice;
+                      checker = 1;
+                    return checker;
+                   }
+             }
+        return checker;
+    } 
+    
     
     public static void updateInfo(String updated, Customer[] customerList,TextField input)
     {
-        
         for(int i =0 ; i < customerList.length; i++)
              {
                 if( customerList[i].customerId.equals(activeId))
@@ -374,20 +402,14 @@ public class GUI extends Application {
                       {
                       customerList[i].setAddress(input.getText());
                      input.clear();
-                      }
-                      
+                      } 
                    }
              } 
     }
-
- 
       public static Customer[] createCustomer( Customer[] customerArray, String fname,String lname, String address, 
               String phoneNumber, String email, boolean businessCustomer)
     {
         Customer[] newArray = new Customer[customerTracker+1];
-          
-       
-
         for (int i = 0 ;i < customerArray.length; i++ )
         {
           newArray[i] = customerArray[i];
@@ -400,17 +422,103 @@ public class GUI extends Application {
               String phoneNumber, String email, boolean businessCustomer , String businessName , String contractorNumber)
     {
         Customer[] newArray = new Customer[customerTracker+1];
-          
-       
-
         for (int i = 0 ;i < customerArray.length; i++ )
         {
           newArray[i] = customerArray[i];
         }
         newArray[customerTracker]  = new Contractor(fname,lname,email,phoneNumber,businessName, address , contractorNumber);
        return newArray;
+        }  
+      public static void showMainMenu(Label lblMenu, Button btnCus, Button btnItem, Button btnSale, 
+              Button btnVendor, Button btnPrint, Button btnExit ,GridPane primaryPane)
+      {
+                primaryPane.getChildren().clear();
+                lblMenu.setText("Please select a Menu option");
+                primaryPane.add(lblMenu, 0, 0);    //first number is column, second is row
+                primaryPane.add(btnCus, 0, 1);
+                primaryPane.add(btnItem, 0, 2);
+                primaryPane.add(btnSale, 0, 3);
+                primaryPane.add(btnVendor, 0, 4);
+                primaryPane.add(btnPrint, 0, 5);
+                primaryPane.add(btnExit, 0, 6);
+      }
+      public static void reportOne(String cChoice, GridPane primaryPane, Label lblMenu, Button btnMain, TextField reportOneField )
+      {
+                          reportOneField.clear();
+                          double tCost = 0;
+                          String temp = "";
+                          String current = "";  
+                          for(int i = 0; i < saleList.length; i++)
+                          {
+                             temp = temp.concat(saleList[i].custID);
+                           }
+                          if(temp.indexOf(cChoice)== -1){
+                              current+=("This customer has not made any purchases!");  
+                          } 
+                          String pos = ""+ String.valueOf(cChoice.charAt(1));
+                          int pos1 = Integer.parseInt(pos);
+                          current += String.format("Purchase History for: "+customerList[pos1].fname+" "+customerList[pos1].lname);
+                          current +=String.format("\n-----------------------------------------------------------------\n");
+                          current +=String.format("|Item Name|\t |Quantity Bought|\t|Total Cost|\t|Date|\n");
+                          current +=String.format("-----------------------------------------------------------------\n");
+                          for(int i = 0; i < saleList.length; i++)
+                          {
+                           if(cChoice.equalsIgnoreCase(saleList[i].custID))
+                            {
+                                tCost += saleList[i].itemSold.salePrice * saleList[i].quantity;
+                               current +=String.format("%-24s%-18.0f$%-12.2f%-8s\n",saleList[i].itemSold.itemName,saleList[i].quantity, ( (saleList[i].quantity)* (saleList[i].itemSold.salePrice)), saleList[i].date);
+                            } 
+                          }
+                          lblMenu.setText(current);
+                          
+                          primaryPane.add(btnMain, 0, 5);
+      }
+ 
+      public static void reportTwo(String iChoice, GridPane primaryPane, Label lblMenu, Button btnMain, TextField reportTwoField )
+      {
+          
+                          
+                          String current = "";
+                        reportTwoField.clear();
+                          current += String.format("-----------------------------------------------------------------\n");
+                          current += String.format("|Item Name|\t|CustomerID|\t|Date|\t |Quantity|\n");
+                          current += String.format("-----------------------------------------------------------------\n");
+                          for(int i = 0; i < saleList.length; i++){
+                           if(iChoice.equalsIgnoreCase(saleList[i].itemSold.itemId)){
+                               current += String.format("%-30s%-10s%-13s%3.0f\n",saleList[i].itemSold.itemName,saleList[i].custID,saleList[i].date,saleList[i].quantity);
+                           }   
+                          }
+                          lblMenu.setText(current);
+                          primaryPane.add(btnMain, 0,5);
+          
+      }
+      
+      public static void displayItems(Label display)
+    {
+        String current ="";
+        current += String.format("Item Names:\tID Number:\n"
+                    + "-------------------------\n");
+        for ( int i = 0; i < itemList.length; i++)
+        {   
+            current += String.format("%-20s\t%s\t\n",
+                  itemList[i].itemName,
+                    itemList[i].itemId);     
         }
-       
+        display.setText(current);
+    }
+      
+      public static void reportThree(GridPane primaryPane, Label lblMenu, Button btnMain)
+      {
+          String current= "";
+          current += String.format("-----------------------------\nItem Name\tQuantity\n"
+                                  + "-----------------------------\n");
+                          for(int i = 0; i<itemList.length;i++)
+                          {
+                              current += String.format("%-18s%-4.0f\n",itemList[i].itemName, itemList[i].quantity);
+                          }
+                          lblMenu.setText(current);
+                          
+      }
     }
     
     
