@@ -10,17 +10,68 @@ import javafx.stage.Stage;
 
 
 public class GUI extends Application {
+    static Customer[] customerList;
+    static Item[] itemList;
+    static Sale[] saleList;
+    static Vendor[] vendorList;
+    static int customerTracker = 4;
+    static int bCustomerTracker = 0;
+    static int itemTracker =0;
+    static int choiceSelector = 0;
+    static int saleTracker = 5;
+    static int transaction = 2;
+    static int sales = 0;
+    static double editNum;
+    static String updated ="";
+    static String activeId = "";
     
+    
+            
     @Override
     public void start(Stage primaryStage) {
         //Create your controls
+        addInfo();
         Label lblMenu = new Label("Please select a menu option");
+        Label lblFirstName = new Label("First Name");
+        Label lblLastName = new Label("Last Name:");
+        Label lblPhone = new Label("Phone Number:");
+        Label lblAddress = new Label("Adress: ");
+        Label lblemail = new Label("Email: ");
+        Label lblbusName = new Label("Business Name: ");
+        Label lblcontractorNumber = new Label("Contractor Number: ");
+        
         Button btnCus = new Button("Manage Customers");
         Button btnItem = new Button("Manage Items");
         Button btnSale = new Button("Enter Sale");
         Button btnVendor = new Button("Manage Vendors");
         Button btnPrint = new Button("Print Report");
         Button btnExit = new Button("Exit");
+        Button btnManCust = new Button("Edit Customer");
+        Button btnCreateCust = new Button("Create Customer");
+        Button btnBusCust = new Button("Business Customer");
+        Button btnIndCust = new Button("Individual Customer");
+        Button btnMain = new Button("Main Menu");
+        Button btnEditFname = new Button("First Name");
+        Button btnEditLname = new Button("Last Name");
+        Button btnEditAddress = new Button("Address");
+        Button btnPhoneNumber = new Button("Phone Number");
+        
+        CheckBox businessCust = new CheckBox("Business Customer");
+        Button submit = new Button("Submit");
+        
+        
+        Label display = new Label("");
+        Label extra = new Label("");
+        TextField inputField = new TextField();
+        TextField inputField2 = new TextField();
+        TextField firstName = new TextField();
+        TextField lastName = new TextField();
+        TextField address = new TextField();
+        TextField phoneNumber = new TextField();
+        TextField email = new TextField();
+        TextField busName = new TextField();
+        TextField contractorNumber = new TextField();
+        
         
         //Creating a Pane
         GridPane primaryPane = new GridPane();
@@ -35,6 +86,8 @@ public class GUI extends Application {
         
         //Create a Scene
         Scene primaryScene = new Scene(primaryPane, 400, 400);
+        
+       
                 
         //Set properties for the stage
         primaryStage.setTitle("Valley Depot");     
@@ -43,11 +96,321 @@ public class GUI extends Application {
         
         primaryPane.setHgap(10);
         primaryPane.setVgap(15);
-    }
+        
+       
+        
+        btnCus.setOnAction(e -> {
+          primaryPane.getChildren().clear();
+          primaryPane.setAlignment(Pos.CENTER);   //Set alignment for the form
+          primaryPane.add(btnManCust, 0, 1);  
+        primaryPane.add(btnCreateCust, 0, 2);
+        });
+        
+        btnCreateCust.setOnAction(e -> {
+          primaryPane.getChildren().clear();
+          primaryPane.setAlignment(Pos.CENTER);   //Set alignment for the form
+          primaryPane.add(businessCust, 0, 1);
+          primaryPane.add(firstName, 1, 2);
+          primaryPane.add(lastName, 1, 3);
+          primaryPane.add(address, 1, 4);
+          primaryPane.add(email, 1, 5);
+          primaryPane.add(phoneNumber, 1, 6);
+          primaryPane.add(submit,1,9,1,2);
+          primaryPane.add(btnMain, 0,9);
+          primaryPane.add(lblFirstName,0,2);
+          primaryPane.add(lblLastName,0,3);
+          primaryPane.add(lblPhone,0,4);
+          primaryPane.add(lblAddress,0,5);
+          primaryPane.add(lblemail,0,6);
+          primaryPane.add(busName,1,7);
+          primaryPane.add(contractorNumber,1,8);
+          primaryPane.add(lblbusName,0,7);
+          primaryPane.add(lblcontractorNumber,0,8);
+          busName.setVisible(false);
+          contractorNumber.setVisible(false);
+          lblbusName.setVisible(false);
+          lblcontractorNumber.setVisible(false);
+               
+          
+        });
+        
+        businessCust.setOnAction( e -> {
+            if (busName.isVisible() == false)
+                    {
+                        busName.setVisible(true);
+                        contractorNumber.setVisible(true);
+                        lblbusName.setVisible(true);
+                        lblcontractorNumber.setVisible(true);
+                    }
+            else if( busName.isVisible() == true)
+            {
+                        busName.setVisible(false);
+                        contractorNumber.setVisible(false);
+                        lblbusName.setVisible(false);
+                        lblcontractorNumber.setVisible(false);}
+                
+        });
+        
+        submit.setOnAction(e -> {
+            if (businessCust.isSelected())
+            {
+            customerList = createCustomer(customerList,firstName.getText(),lastName.getText(), address.getText(), 
+              phoneNumber.getText(), email.getText(), businessCust.isSelected(), busName.getText(), contractorNumber.getText());
+            customerTracker++;
+            }
+            else 
+            {
+              customerList = createCustomer(customerList,firstName.getText(),lastName.getText(), address.getText(), 
+              phoneNumber.getText(), email.getText(), businessCust.isSelected());
+              customerTracker++;
+                    }
+            firstName.clear();lastName.clear();address.clear();phoneNumber.clear();email.clear();businessCust.setSelected(false);contractorNumber.clear();busName.clear();
+            primaryPane.getChildren().clear();
+            lblMenu.setText("Successful\nSelect to return to main menu");
+            primaryPane.add(btnMain,0,2);
+            primaryPane.add(lblMenu,0,1);
+            
+            
+        });
+        
+    
+
+          
+          btnManCust.setOnAction(e -> {
+              
+          primaryPane.getChildren().clear();
+          primaryPane.setAlignment(Pos.CENTER);
+          lblMenu.setText("Please select the ID of the customer to edit:");
+          primaryPane.add(lblMenu,0,0);
+          displayCurrentCustomers(customerList,display);
+          primaryPane.add(display,0,1);
+          primaryPane.add(btnMain, 0, 2);
+          primaryPane.add(inputField,0,3);
+          primaryPane.add(extra,0,4);
+          });
+          
+          inputField.setOnAction(e ->{
+              int check = checkInput(customerList,inputField);
+              if (check == 1)
+                  
+              {
+                  inputField.clear();
+                 primaryPane.getChildren().clear();
+                 primaryPane.setAlignment(Pos.CENTER);
+                 lblMenu.setText("Please select which to edit:");
+                 primaryPane.add(lblMenu,0,0);
+                 primaryPane.add(btnEditFname,0,1);
+                 primaryPane.add(btnEditLname,0,2);
+                 primaryPane.add(btnEditAddress,0,3);
+                 primaryPane.add(btnPhoneNumber,0,4);
+                
+              }
+              else
+              {
+                  extra.setText("Not found. Please try again");
+              }
+          });
+          
+          btnEditFname.setOnAction(e -> {
+            primaryPane.getChildren().clear();
+            primaryPane.setAlignment(Pos.CENTER);
+            lblMenu.setText("Please type in the updated version:");
+            primaryPane.add(lblMenu, 0, 0);
+            primaryPane.add(inputField2,0,3);
+            updated = "first";
+          });
+            btnEditLname.setOnAction(e -> {
+            primaryPane.getChildren().clear();
+            primaryPane.setAlignment(Pos.CENTER);
+            lblMenu.setText("Please type in the updated version:");
+            primaryPane.add(lblMenu, 0, 0);
+            primaryPane.add(inputField2,0,3);
+            updated = "last";
+          });
+              btnEditAddress.setOnAction(e -> {
+            primaryPane.getChildren().clear();
+            primaryPane.setAlignment(Pos.CENTER);
+            lblMenu.setText("Please type in the updated version:");
+            primaryPane.add(lblMenu, 0, 0);
+            primaryPane.add(inputField2,0,3);
+            updated = "address";
+          });
+                btnPhoneNumber.setOnAction(e -> {
+            primaryPane.getChildren().clear();
+            primaryPane.setAlignment(Pos.CENTER);
+            lblMenu.setText("Please type in the updated version:");
+            primaryPane.add(lblMenu, 0, 0);
+            primaryPane.add(inputField2,0,3);
+            updated = "phone";
+          });
+       
+          inputField2.setOnAction(e ->{
+              updateInfo(updated, customerList,inputField2);
+              primaryPane.getChildren().clear();
+              primaryPane.setAlignment(Pos.CENTER);   //Set alignment for the form
+                primaryPane.add(lblMenu, 0, 0);    //first number is column, second is row
+                primaryPane.add(btnCus, 0, 1);
+                primaryPane.add(btnItem, 0, 2);
+                primaryPane.add(btnSale, 0, 3);
+                primaryPane.add(btnVendor, 0, 4);
+                primaryPane.add(btnPrint, 0, 5);
+                primaryPane.add(btnExit, 0, 6);
+          });
+      
+        btnMain.setOnAction(e -> {
+            
+        primaryPane.getChildren().clear();
+        lblMenu.setText("Please select a menu option");
+        primaryPane.setAlignment(Pos.CENTER);   //Set alignment for the form
+        primaryPane.add(lblMenu, 0, 0);    //first number is column, second is row
+        primaryPane.add(btnCus, 0, 1);
+        primaryPane.add(btnItem, 0, 2);
+        primaryPane.add(btnSale, 0, 3);
+        primaryPane.add(btnVendor, 0, 4);
+        primaryPane.add(btnPrint, 0, 5);
+        primaryPane.add(btnExit, 0, 6);
+        });
+        
+        }
+    
 
     
     public static void main(String[] args) {
         launch(args);
+        
+        
+    }
+    public static void addInfo(){
+    customerList = new Customer[4];
+        itemList = new Item[10];
+        saleList = new Sale[5];
+        vendorList = new Vendor[3];
+        
+        
+        
+        //Prepopulated data
+        vendorList[0] = new Vendor("Wal-Mart","128 Wallaby Way","123-445-6789");
+        vendorList[1] = new Vendor("Target","67 Rummy Ln","987-654-8321");
+        vendorList[2] = new Vendor("CompanyC"," 400 Ovaltine Dr.","543-216-0789");
+        customerList[0]= new Customer("Nicholas","Coffman","143 apple wood","555-555-5555","ncoffman@dukes.com");
+        customerList[1]= new Customer("Jonathan","Doan","765 pear wood","666-666-6666","jdoan@dukes.com");
+        customerList[2]= new Customer("Shu","Mishra","23 peach wood","777-777-7777","smishra@dukes.com");
+        customerList[3]= new Customer("Manfred","Hueskes","34 duke way","888-888-8888","mhueskes@dukes.com");
+        itemList[0]= new Item("Whiskey", 5.0, "Drink of Choice",10, 10.0, 15.0,vendorList[0]);
+        itemList[1]= new Item("Gin", 3.0, "Drink of Choice", 10,10.0, 15.0,vendorList[0]);
+        itemList[2]= new Item("Vodka", 4.2, "Drink of Choice", 10,10.0, 15.0,vendorList[0]);
+        itemList[3]= new Item("Hennesy", 2.1, "Drink of Choice", 10,10.0, 15.0,vendorList[0]);
+        itemList[4]= new Item("Jack Daniels", 2.7, "Drink of Choice", 10,10.0, 15.0,vendorList[0]);
+        itemList[5]= new Item("Captain Morgan", 3.1, "Drink of Choice", 10,10.0, 15.0,vendorList[0]);
+        itemList[6]= new Item("Cider", 8.4, "Drink of Choice",10, 10.0, 15.0,vendorList[0]);
+        itemList[7]= new Item("Beer", 5.0, "Drink of Choice",10, 10.0, 15.0,vendorList[0]);
+        itemList[8]= new Item("Turkey", 3.0, "Thanksgiving bird", 10,10.0, 15.0,vendorList[0]);
+        itemList[9]= new Item("Apples", 1.0, "Quality healthy snack", 10,10.0, 15.0,vendorList[0]);
+        saleList[0] = new Sale(itemList[0], 2, "7/30/18", "c0", 1);
+        saleList[1] = new Sale(itemList[1], 2, "8/20/18", "c0", 1);
+        saleList[2] = new Sale(itemList[2], 2, "9/21/18", "c1", 2);
+        saleList[3] = new Sale(itemList[3], 2, "10/22/18", "c1", 2);
+        saleList[4] = new Sale(itemList[4], 2, "11/1/18", "c1", 2);
+    }
+    public static void displayCurrentCustomers(Customer[] customerList, Label display)
+    {
+        String current = "";
+        
+        
+       current = ("Customer Name:\tID Number:\n"
+                    + "-------------------------\n");
+        for ( int i = 0; i < customerList.length; i++)
+        {
+            
+            current += String.format("%-20s\t%-10s\t\t\t\n",
+                  customerList[i].fname+" "+customerList[i].lname,
+                    customerList[i].customerId);        
+        }
+        
+        display.setText(current);
+        }
+    
+    public static int checkInput( Customer[] customerList, TextField inputField)
+    {
+        String editChoice = inputField.getText();
+        
+        int checker = 0;
+        
+        for(int i =0 ; i < customerList.length; i++)
+             {
+                if( customerList[i].customerId.equals(editChoice))
+                  {
+                      activeId= editChoice;
+                      checker = 1;
+                    return checker;
+                   }
+             }
+        return checker;
+    } 
+    
+    public static void updateInfo(String updated, Customer[] customerList,TextField input)
+    {
+        
+        for(int i =0 ; i < customerList.length; i++)
+             {
+                if( customerList[i].customerId.equals(activeId))
+                  {
+                      if (updated == "first")
+                      {
+                      customerList[i].fname= input.getText();
+                     input.clear();
+                      }
+                      else if (updated == "last")
+                      {
+                      customerList[i].lname= input.getText();
+                     input.clear();
+                      }
+                      else if (updated == "phone")
+                      {
+                      customerList[i].setPhoneNumber(input.getText());
+                     input.clear();
+                      }
+                      else if (updated == "address")
+                      {
+                      customerList[i].setAddress(input.getText());
+                     input.clear();
+                      }
+                      
+                   }
+             } 
+    }
+
+ 
+      public static Customer[] createCustomer( Customer[] customerArray, String fname,String lname, String address, 
+              String phoneNumber, String email, boolean businessCustomer)
+    {
+        Customer[] newArray = new Customer[customerTracker+1];
+          
+       
+
+        for (int i = 0 ;i < customerArray.length; i++ )
+        {
+          newArray[i] = customerArray[i];
+        }
+        newArray[customerTracker]  = new Customer(fname,lname,address,
+                phoneNumber,email); 
+       return newArray;
+        }
+      public static Customer[] createCustomer( Customer[] customerArray, String fname,String lname, String address, 
+              String phoneNumber, String email, boolean businessCustomer , String businessName , String contractorNumber)
+    {
+        Customer[] newArray = new Customer[customerTracker+1];
+          
+       
+
+        for (int i = 0 ;i < customerArray.length; i++ )
+        {
+          newArray[i] = customerArray[i];
+        }
+        newArray[customerTracker]  = new Contractor(fname,lname,email,phoneNumber,businessName, address , contractorNumber);
+       return newArray;
+        }
+       
     }
     
-}
+    
