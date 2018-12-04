@@ -7,9 +7,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 
-public class GUI extends Application {
+public class GUITest extends Application {
     static Customer[] customerList;
     static Item[] itemList;
     static Sale[] saleList;
@@ -35,7 +37,7 @@ public class GUI extends Application {
         Label lblFirstName = new Label("First Name");
         Label lblLastName = new Label("Last Name:");
         Label lblPhone = new Label("Phone Number:");
-        Label lblAddress = new Label("Adress: ");
+        Label lblAddress = new Label("Address: ");
         Label lblemail = new Label("Email: ");
         Label lblbusName = new Label("Business Name: ");
         Label lblcontractorNumber = new Label("Contractor Number: ");   
@@ -74,9 +76,21 @@ public class GUI extends Application {
         TextField reportOneField = new TextField();
         TextField reportTwoField = new TextField();
         TextField reportThreeField = new TextField();
+        
+        //Testing
+        Button btnNext1 = new Button("Next");
+        Button btnNext2 = new Button("Next");
+//        Button btnNext3 = new Button("Next");
+//        Button btnNext4 = new Button("Next");
+//        Button btnNext5 = new Button("Next");
+        Button btnSubmitChange = new Button("Submit Change");
+        ComboBox cmboCustomers = new ComboBox(Customer.obsCustomerlist);
+        ComboBox cmboCustomerReport = new ComboBox(Customer.obsCustomerlist);
+        
+        
+        
         //Creating a Pane
-        
-        
+
         GridPane primaryPane = new GridPane();
         primaryPane.setAlignment(Pos.CENTER);   //Set alignment for the form
         primaryPane.add(lblMenu, 0, 0);    //first number is column, second is row
@@ -87,13 +101,14 @@ public class GUI extends Application {
         primaryPane.add(btnPrint, 0, 5);
         primaryPane.add(btnExit, 0, 6);
         //Create a Scene
-        Scene primaryScene = new Scene(primaryPane, 400, 400);      
+        Scene primaryScene = new Scene(primaryPane, 700, 600);      
         //Set properties for the stage
         primaryStage.setTitle("Valley Depot");     
         primaryStage.setScene(primaryScene);
         primaryStage.show();
         primaryPane.setHgap(10);
         primaryPane.setVgap(15);
+       
         btnPrint.setOnAction(e ->{
            primaryPane.getChildren().clear();
            display2.setText(" Please select the report you would like to view");
@@ -107,20 +122,27 @@ public class GUI extends Application {
           primaryPane.setAlignment(Pos.CENTER);
           lblMenu.setText("Please select the ID of the customer:");
           primaryPane.add(lblMenu,0,0);
-            displayCurrentCustomers(customerList,display);
-            primaryPane.add(display,0,1);
-            primaryPane.add(reportOneField,0,2);
+          primaryPane.add(cmboCustomerReport,0,1);
+
+            primaryPane.add(reportOneField,0,2);          
             primaryPane.add(extra,0,4);
+            primaryPane.add(btnNext2,0,5);
+        
             extra.setText("");
         });
-        reportOneField.setOnAction(e -> { 
-        int check = checkInput(customerList,reportOneField);
+        btnNext2.setOnAction(e -> {                                             
+        int check = checkInput(cmboCustomerReport);
               if (check == 1)  {
                 primaryPane.getChildren().clear();
+                cmboCustomers.getSelectionModel().clearSelection();
+                
+                System.out.println("TESTING----------------"); 
+                System.out.println(activeId);
+                System.out.println("TESTING----------------");
                 primaryPane.setAlignment(Pos.CENTER);
                 lblMenu.setText("");
                 primaryPane.add(lblMenu,0,0);
-                 reportOne(reportOneField.getText(), primaryPane, lblMenu , btnMain, reportOneField); 
+                 reportOne(activeId, primaryPane, lblMenu , btnMain); 
               }
                 else{
                   extra.setText("Not found. Please try again");
@@ -144,7 +166,7 @@ public class GUI extends Application {
                 primaryPane.setAlignment(Pos.CENTER);
                 lblMenu.setText("");
                 primaryPane.add(lblMenu,0,0);
-                 reportTwo(reportTwoField.getText(), primaryPane, lblMenu , btnMain, reportOneField); 
+//                 reportTwo(reportTwoField.getText(), primaryPane, lblMenu , btnMain, reportOneField); 
              }
              else{
                   extra.setText("Not found. Please try again");
@@ -173,7 +195,7 @@ public class GUI extends Application {
           primaryPane.add(address, 1, 4);
           primaryPane.add(email, 1, 5);
           primaryPane.add(phoneNumber, 1, 6);
-          primaryPane.add(submit,1,9,1,2);
+          primaryPane.add(submit,1,9);
           primaryPane.add(btnMain, 0,9);
           primaryPane.add(lblFirstName,0,2);
           primaryPane.add(lblLastName,0,3);
@@ -220,30 +242,38 @@ public class GUI extends Application {
             primaryPane.add(btnMain,0,2);
             primaryPane.add(lblMenu,0,1);    
         });
+        
+        
+        //edit customers button 
           btnManCust.setOnAction(e -> { 
           primaryPane.getChildren().clear();
           primaryPane.setAlignment(Pos.CENTER);
           lblMenu.setText("Please select the ID of the customer to edit:");
           primaryPane.add(lblMenu,0,0);
-          displayCurrentCustomers(customerList,display);
-          primaryPane.add(display,0,1);
-          primaryPane.add(btnMain, 0, 2);
-          primaryPane.add(inputField,0,3);
+       
           extra.setText("");
           primaryPane.add(extra,0,4);
+          primaryPane.add(btnNext1,0,5);
+          
+          primaryPane.add(cmboCustomers,0,1);
           });
-          inputField.setOnAction(e ->{
-              int check = checkInput(customerList,inputField);
+          
+          //customer edit screen--------------------------------------------------------------------------------------------------------------------------------------------------
+          btnNext1.setOnAction(e ->{
+              int check = checkInput(cmboCustomers);
               if (check == 1)  {
                   inputField.clear();
+                 cmboCustomers.getSelectionModel().clearSelection();
+                 
                  primaryPane.getChildren().clear();
                  primaryPane.setAlignment(Pos.CENTER);
-                 lblMenu.setText("Please select which to edit:");
+                 lblMenu.setText("Please select edit option:");
                  primaryPane.add(lblMenu,0,0);
                  primaryPane.add(btnEditFname,0,1);
                  primaryPane.add(btnEditLname,0,2);
                  primaryPane.add(btnEditAddress,0,3);
                  primaryPane.add(btnPhoneNumber,0,4); 
+               
               }
               else{
                   extra.setText("Not found. Please try again");
@@ -255,6 +285,8 @@ public class GUI extends Application {
             lblMenu.setText("Please type in the updated version:");
             primaryPane.add(lblMenu, 0, 0);
             primaryPane.add(inputField2,0,3);
+            primaryPane.add(btnSubmitChange,0,4);
+            
             updated = "first";
           });
             btnEditLname.setOnAction(e -> {
@@ -263,6 +295,16 @@ public class GUI extends Application {
             lblMenu.setText("Please type in the updated version:");
             primaryPane.add(lblMenu, 0, 0);
             primaryPane.add(inputField2,0,3);
+            
+            
+            
+            System.out.println("TESTINNNNNNNNNNNNNNNNNNGGGGGGGGGGGGGGGGGGGGGGGG");
+            System.out.println("Testing");
+            
+            
+            
+            
+            primaryPane.add(btnSubmitChange,0,4);
             updated = "last";
           });
             btnEditAddress.setOnAction(e -> {
@@ -271,6 +313,7 @@ public class GUI extends Application {
             lblMenu.setText("Please type in the updated version:");
             primaryPane.add(lblMenu, 0, 0);
             primaryPane.add(inputField2,0,3);
+            primaryPane.add(btnSubmitChange,0,4);
             updated = "address";
           });
             btnPhoneNumber.setOnAction(e -> {
@@ -279,14 +322,17 @@ public class GUI extends Application {
             lblMenu.setText("Please type in the updated version:");
             primaryPane.add(lblMenu, 0, 0);
             primaryPane.add(inputField2,0,3);
+            primaryPane.add(btnSubmitChange,0,4);
             updated = "phone";
           });
-          inputField2.setOnAction(e ->{
+          btnSubmitChange.setOnAction(e ->{
               updateInfo(updated, customerList,inputField2);
               primaryPane.getChildren().clear();
               primaryPane.setAlignment(Pos.CENTER);
               showMainMenu(lblMenu,btnCus,btnItem,btnSale,btnVendor,btnPrint,btnExit,primaryPane); 
           });
+          
+          //create main menu
         btnMain.setOnAction(e -> {   
         primaryPane.getChildren().clear();
         lblMenu.setText("Please select a menu option");
@@ -327,10 +373,11 @@ public class GUI extends Application {
         itemList[8]= new Item("Turkey", 3.0, "Thanksgiving bird", 10,10.0, 15.0,vendorList[0]);
         itemList[9]= new Item("Apples", 1.0, "Quality healthy snack", 10,10.0, 15.0,vendorList[0]);
         saleList[0] = new Sale(itemList[0], 2, "7/30/18", "c0", 1);
-        saleList[1] = new Sale(itemList[1], 2, "8/20/18", "c0", 1);
-        saleList[2] = new Sale(itemList[2], 2, "9/21/18", "c1", 2);
-        saleList[3] = new Sale(itemList[3], 2, "10/22/18", "c1", 2);
-        saleList[4] = new Sale(itemList[4], 2, "11/1/18", "c1", 2);
+        saleList[1] = new Sale(itemList[1], 2, "8/20/18", "c1", 1);
+        saleList[2] = new Sale(itemList[2], 2, "9/21/18", "c2", 2);
+        saleList[3] = new Sale(itemList[3], 2, "10/22/18", "c3", 2);
+        saleList[4] = new Sale(itemList[4], 2, "11/1/18", "c3", 2);
+        
     }
     public static void displayCurrentCustomers(Customer[] customerList, Label display)
     {
@@ -345,21 +392,21 @@ public class GUI extends Application {
         }
         display.setText(current);
         }
-    public static int checkInput( Customer[] customerList, TextField inputField)
-    {
-        String editChoice = inputField.getText();
-        int checker = 0;
-        for(int i =0 ; i < customerList.length; i++)
-             {
-                if( customerList[i].customerId.equals(editChoice))
-                  {
-                      activeId= editChoice;
-                      checker = 1;
-                    return checker;
-                   }
-             }
-        return checker;
-    } 
+//    public static int checkInput( Customer[] customerList, TextField inputField)
+//    {
+//        String editChoice = inputField.getText();
+//        int checker = 0;
+//        for(int i =0 ; i < customerList.length; i++)
+//             {
+//                if( customerList[i].customerId.equals(editChoice))
+//                  {
+//                      activeId= editChoice;
+//                      checker = 1;
+//                    return checker;
+//                   }
+//             }
+//        return checker;
+//    } 
     public static int checkInput( Item[] itemList, TextField inputField)
     {
         String editChoice = inputField.getText();
@@ -376,6 +423,23 @@ public class GUI extends Application {
         return checker;
     } 
     
+    //checks input for customers 
+    public static int checkInput(ComboBox cmboCustomers)
+    {
+        
+        int checker = 1;
+        for(int i =0 ; i < customerList.length; i++)
+             {
+                if( customerList[i].comboBoxFormat().equals(cmboCustomers.getSelectionModel().getSelectedItem()))
+                   {
+                      activeId= customerList[i].customerId;
+                      checker = 1;
+                      return checker;
+                   }
+                
+             }
+        return checker;
+    } 
     
     public static void updateInfo(String updated, Customer[] customerList,TextField input)
     {
@@ -383,22 +447,23 @@ public class GUI extends Application {
              {
                 if( customerList[i].customerId.equals(activeId))
                   {
-                      if (updated == "first")
+                      if (updated.equals("first"))
                       {
                       customerList[i].fname= input.getText();
                      input.clear();
                       }
-                      else if (updated == "last")
+                      else if (updated.equals("last"))
                       {
-                      customerList[i].lname= input.getText();
+                      customerList[i].lname = input.getText();
+                      Customer.obsCustomerlist.set(i,customerList[i].customerId + "  " +input.getText());
                      input.clear();
                       }
-                      else if (updated == "phone")
+                      else if (updated.equals("phone"))
                       {
                       customerList[i].setPhoneNumber(input.getText());
                      input.clear();
                       }
-                      else if (updated == "address")
+                      else if (updated.equals( "address"))
                       {
                       customerList[i].setAddress(input.getText());
                      input.clear();
@@ -442,9 +507,9 @@ public class GUI extends Application {
                 primaryPane.add(btnPrint, 0, 5);
                 primaryPane.add(btnExit, 0, 6);
       }
-      public static void reportOne(String cChoice, GridPane primaryPane, Label lblMenu, Button btnMain, TextField reportOneField )
+      public static void reportOne(String cChoice, GridPane primaryPane, Label lblMenu, Button btnMain)
       {
-                          reportOneField.clear();
+                          
                           double tCost = 0;
                           String temp = "";
                           String current = "";  
@@ -457,6 +522,9 @@ public class GUI extends Application {
                           } 
                           String pos = ""+ String.valueOf(cChoice.charAt(1));
                           int pos1 = Integer.parseInt(pos);
+                          
+                          System.out.println("The active ID right now is " +activeId);
+                          System.out.println("cChoice variable is " +cChoice);
                           current += String.format("Purchase History for: "+customerList[pos1].fname+" "+customerList[pos1].lname);
                           current +=String.format("\n-----------------------------------------------------------------\n");
                           current +=String.format("|Item Name|\t |Quantity Bought|\t|Total Cost|\t|Date|\n");
@@ -472,6 +540,7 @@ public class GUI extends Application {
                           lblMenu.setText(current);
                           
                           primaryPane.add(btnMain, 0, 5);
+                          
       }
  
       public static void reportTwo(String iChoice, GridPane primaryPane, Label lblMenu, Button btnMain, TextField reportTwoField )
@@ -517,8 +586,10 @@ public class GUI extends Application {
                               current += String.format("%-18s%-4.0f\n",itemList[i].itemName, itemList[i].quantity);
                           }
                           lblMenu.setText(current);
-                          
+                   
       }
+      
+
+      
     }
-    
     
