@@ -1,4 +1,6 @@
 package GroupProject;
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 
 
 public class Item  {
@@ -13,6 +15,7 @@ public class Item  {
    public double quantity;
    public static int counter;
    public Vendor vendor;
+   public static ObservableList obsItemList = FXCollections.observableArrayList();
    
    
    public Item(String itemName, double weight, String description,double quantity, double pricePaid, double salePrice,Vendor vendor)
@@ -26,6 +29,7 @@ public class Item  {
    this.itemId = "i"+counter; 
    this.vendor = vendor;
    counter++;
+   obsItemList.add(itemId + "  " + this.itemName);
    }
  
    
@@ -58,5 +62,10 @@ public class Item  {
   public void sale(double quantity)
   {
       this.quantity = this.quantity - quantity;
+  }
+  
+  public String comboBoxFormat()
+  {
+      return itemId + "  " + itemName;
   }
 }
