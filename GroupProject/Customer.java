@@ -1,4 +1,6 @@
 package GroupProject;
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 
 
 public class Customer {
@@ -9,8 +11,9 @@ public class Customer {
     protected String phoneNumber;
     protected String email;
     public String customerId;
-    public static int counter;
-    public static int bCounter;
+    public static int counter = 0;
+    public static int bCounter = 0;
+    public static ObservableList obsCustomerlist = FXCollections.observableArrayList();
     
     public Customer(String fname
             , String lname
@@ -28,15 +31,18 @@ public class Customer {
         this.email = email;
         this.customerId = "c"+counter;
         counter++;
+        obsCustomerlist.add(customerId + "  " +this.lname);
+                
     }
             
-    public Customer( String fname , String lname,String email )
+    public Customer( String fname, String lname,String email )
     {
         this.fname = fname;
         this.lname = lname;
         this.email = email;
         this.customerId= "b"+bCounter;
         bCounter++;
+        obsCustomerlist.add(customerId + "  " +this.lname);
     }
     
     
@@ -60,6 +66,21 @@ public class Customer {
     {
         this.phoneNumber = phoneNumber;
     }
-        
+       public static int getCustomerCounter()
+       {
+           return counter;
+       }
+       public String toString()
+       {
+           String output = "";
+           output = fname;
+           return output;
+           
+       }
+       public String comboBoxFormat()
+       {
+           return customerId + "  " +lname;
+       }
+       
 }
 
