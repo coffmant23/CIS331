@@ -90,6 +90,7 @@ public class GUI extends Application {
 //        Button btnNext5 = new Button("Next");
         Button btnSubmitChange = new Button("Submit Change");
         ComboBox cmboCustomers = new ComboBox(Customer.obsCustomerlist);
+        ComboBox cmboVendor = new ComboBox(Vendor.obsVendorlist);
         ComboBox cmboCustomerReport = new ComboBox(Customer.obsCustomerlist);
         ComboBox cmboItemReport = new ComboBox(Item.obsItemList);
         TextArea txtNotes = new TextArea();
@@ -292,6 +293,19 @@ public class GUI extends Application {
             lblMenu.setText("Successful\nSelect to return to main menu");
             primaryPane.add(btnMain,0,2);
             primaryPane.add(lblMenu,0,1);    
+        });
+        
+        //Edit vendor button
+        btnEditVendor.setOnAction(e -> {
+            primaryPane.getChildren().clear();
+            primaryPane.setAlignment(Pos.CENTER);
+            lblMenu.setText("Please select the ID of the vendor to edit:");
+            primaryPane.add(lblMenu, 0, 0);
+            
+            extra.setText("");
+            primaryPane.add(extra, 0, 4);
+            primaryPane.add(btnNext1, 0, 5);
+            primaryPane.add(cmboVendor, 0 , 1);
         });
         
         
