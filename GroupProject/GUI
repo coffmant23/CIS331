@@ -203,6 +203,18 @@ public class GUI extends Application {
           primaryPane.add(btnManCust, 0, 1);  
         primaryPane.add(btnCreateCust, 0, 2);
         }); 
+        
+        //When you click the manage vendor button, it takes you to edit vendor and create vendor
+         btnVendor.setOnAction(e -> {
+            primaryPane.getChildren().clear();
+            primaryPane.setAlignment(Pos.CENTER);
+            primaryPane.add(btnEditVendor, 0, 1);
+            primaryPane.add(btnCreateVendor, 0, 2);
+        });
+        
+        
+        
+        
         btnCreateCust.setOnAction(e -> {
           primaryPane.getChildren().clear();
           primaryPane.setAlignment(Pos.CENTER);   //Set alignment for the form
