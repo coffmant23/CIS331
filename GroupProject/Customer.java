@@ -14,15 +14,9 @@ public class Customer {
     public static int counter = 0;
     public static int bCounter = 0;
     public static ObservableList obsCustomerlist = FXCollections.observableArrayList();
+    public String notes;
     
-    public Customer(String fname
-            , String lname
-            , String email
-            , String address
-            , String phoneNumber
-            
-            )
-            
+    public Customer(String fname, String lname, String email, String address , String phoneNumber)      
     {
         this.fname = fname;
         this.lname = lname;
@@ -32,7 +26,8 @@ public class Customer {
         this.customerId = "c"+counter;
         counter++;
         obsCustomerlist.add(customerId + "  " +this.lname);
-                
+        notes = "";
+          
     }
             
     public Customer( String fname, String lname,String email )
@@ -43,6 +38,7 @@ public class Customer {
         this.customerId= "b"+bCounter;
         bCounter++;
         obsCustomerlist.add(customerId + "  " +this.lname);
+        notes = "";
     }
     
     
