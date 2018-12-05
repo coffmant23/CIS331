@@ -576,7 +576,7 @@ public class GUI extends Application {
                           if(temp.indexOf(cChoice)== -1){
                               current+=("This customer has not made any purchases!");  
                           } 
-                          String pos = ""+ String.valueOf(cChoice.charAt(1));
+                          String pos = cChoice.substring(1);
                           int pos1 = Integer.parseInt(pos);
                           
                           System.out.println("The active ID right now is " +activeId);
