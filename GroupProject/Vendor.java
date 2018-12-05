@@ -1,6 +1,7 @@
 package GroupProject;
 import java.util.ArrayList;
-
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 
 public class Vendor {
     
@@ -10,6 +11,7 @@ public class Vendor {
     public String vendorId; 
     public static int counter;
     public static ArrayList<Vendor> vendorList = new ArrayList<>();
+    public static ObservableList obsVendorlist = FXCollections.observableArrayList();
     
     public Vendor(String name, String address, String phoneNumber)
     {
@@ -45,10 +47,13 @@ public class Vendor {
                       
     }
     
+    public String comboBoxFormat()
+       {
+           return vendorId + "  " +name;
+       }
 
     
     
 }
-
 
 
