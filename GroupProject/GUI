@@ -52,6 +52,8 @@ public class GUI extends Application {
         Button btnCreateCust = new Button("Create Customer");
         Button btnBusCust = new Button("Business Customer");
         Button btnIndCust = new Button("Individual Customer");
+        Button btnEditVendor = new Button("Edit Vendor");          
+        Button btnCreateVendor = new Button("Create Vendor"); 
         Button btnMain = new Button("Main Menu");
         Button btnEditFname = new Button("First Name");
         Button btnEditLname = new Button("Last Name");
@@ -60,6 +62,7 @@ public class GUI extends Application {
         Button btnReport1 = new Button("Purchase History for a Customer");
         Button btnReport2 = new Button("Purchase History of an Item");
         Button btnReport3 = new Button("Current Inventory Levels");     
+        Button btnReport4 = new Button("Purchase History of a Vendor");
         CheckBox businessCust = new CheckBox("Business Customer");
         CheckBox addNotes = new CheckBox("Add Notes");
         Button submit = new Button("Submit");
