@@ -37,6 +37,7 @@ public class GUI extends Application {
         Label lblMenu = new Label("Please select a menu option");
         Label lblFirstName = new Label("First Name");
         Label lblLastName = new Label("Last Name:");
+        Label lblVendorName = new Label("Vendor Name:");
         Label lblPhone = new Label("Phone Number:");
         Label lblAddress = new Label("Address: ");
         Label lblemail = new Label("Email: ");
@@ -213,7 +214,16 @@ public class GUI extends Application {
             primaryPane.add(btnCreateVendor, 0, 2);
         });
         
-        
+        //Create vendor button, not done
+        btnCreateVendor.setOnAction(e -> {
+            primaryPane.getChildren().clear();
+            primaryPane.setAlignment(Pos.CENTER);
+            primaryPane.add(lblVendorName,0,2);
+            primaryPane.add(lblPhone,0,3);
+            primaryPane.add(lblAddress,0,4);
+          
+            
+        });
         
         
         btnCreateCust.setOnAction(e -> {
