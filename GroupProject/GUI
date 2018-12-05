@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TextArea;
 
 
-public class GUITest extends Application {
+public class GUI extends Application {
     static Customer[] customerList;
     static Item[] itemList;
     static Sale[] saleList;
