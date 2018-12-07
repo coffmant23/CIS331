@@ -202,7 +202,7 @@ public class GUIv2 extends Application {
         
         btnSaleMore.setOnAction( e ->{
            int checker = checkInputItems(cmboItemReport);
-           for(int i = 0; i<itemList.length;){
+           for(int i = 0; i<itemList.length; i++){
                if(activeId == itemList[i].itemId){
                    itemSold = itemList[i];
                }
