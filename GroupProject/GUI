@@ -148,7 +148,7 @@ public class GUI extends Application {
            primaryPane.add(btnReport1, 0, 2); 
            primaryPane.add(btnReport2, 0, 3);
            primaryPane.add(btnReport3, 0, 4);
-           primaryPane.add(btnReport4, 0, 4);
+           primaryPane.add(btnReport4, 0, 5);
         });
         btnReport1.setOnAction( e-> {
           primaryPane.getChildren().clear();
