@@ -28,6 +28,7 @@ public class GUI extends Application {
     static String updated ="";
     static String activeId = "";
     static String activeItem = "";
+    static String activeVendor ="";
     
     
             
@@ -101,7 +102,6 @@ public class GUI extends Application {
         TextField reportOneField = new TextField();
         TextField reportTwoField = new TextField();
         TextField reportThreeField = new TextField();
-        TextField reportFourField = new TextField();
         
         //Testing
         Button btnNext1 = new Button("Next");
@@ -252,44 +252,6 @@ public class GUI extends Application {
             primaryPane.add(btnCreateVendor, 0, 2);
         });
         
-        //EditName
-         btnEditVendorName.setOnAction(e -> {
-            primaryPane.getChildren().clear();
-            primaryPane.setAlignment(Pos.CENTER);
-            lblMenu.setText("Please type in the updated version:");
-            primaryPane.add(lblMenu, 0, 0);
-            primaryPane.add(inputField2,0,3);
-            primaryPane.add(btnSubmitChange,0,4);
-            
-            updated = "name";
-          });
-        //Edit Vendor Addres
-         btnEditVendorAddress.setOnAction(e -> {
-            primaryPane.getChildren().clear();
-            primaryPane.setAlignment(Pos.CENTER);
-            lblMenu.setText("Please type in the updated version:");
-            primaryPane.add(lblMenu, 0, 0);
-            primaryPane.add(inputField2,0,3);
-            primaryPane.add(btnSubmitChange,0,4);
-            
-            updated = "address";
-          });
-          
-        
-          //Edit Phone number of vendor
-          btnEditVendorPhone.setOnAction(e -> {
-            primaryPane.getChildren().clear();
-            primaryPane.setAlignment(Pos.CENTER);
-            lblMenu.setText("Please type in the updated version:");
-            primaryPane.add(lblMenu, 0, 0);
-            primaryPane.add(inputField2,0,3);
-            primaryPane.add(btnSubmitChange,0,4);
-            
-            updated = "phone";
-          });
-           
-        
-        
         //Create vendor button
         btnCreateVendor.setOnAction(e -> {
             primaryPane.getChildren().clear();
@@ -402,7 +364,7 @@ public class GUI extends Application {
         
           //vendor edit screen
           btnNext4.setOnAction(e -> {
-              int chk = checkInput(cmboVendor);
+              int chk = checkInputVendors(cmboVendor);
               if (chk == 1) {
                   inputField.clear();
                   cmboVendor.getSelectionModel().clearSelection();
@@ -410,8 +372,11 @@ public class GUI extends Application {
                   primaryPane.setAlignment(Pos.CENTER);
                   lblMenu.setText("Please select edit option");
                   primaryPane.add(lblMenu, 0 , 0);
-                  primaryPane.add(btnEditVendor,0,1);
-                  primaryPane.add(btnEditAddress,0,3);
+                   primaryPane.add(btnEditVendorName,0,1);
+                 primaryPane.add(btnEditVendorPhone,0,3);
+                 primaryPane.add(btnEditFname,0,4);
+                 primaryPane.add(btnPhoneNumber,0,5);
+                  primaryPane.add(btnEditAddress,0,2);
                    /*for(int i = 0; i < vendorList.length; i++)
                  {
                      if(vendorList[i].vendorId.equals(activeId))
@@ -858,6 +823,23 @@ public class GUI extends Application {
                 if( customerList[i].comboBoxFormat().equals(cmboCustomers.getSelectionModel().getSelectedItem()))
                    {
                       activeId = customerList[i].customerId;
+                      checker = 1;
+                      return checker;
+                   }
+                
+             }
+        return checker;
+    } 
+    
+    public static int checkInputVendors(ComboBox cmboVendors)
+    {
+        
+        int checker = 0;
+        for(int i =0 ; i < vendorList.length; i++)
+             {
+                if( vendorList[i].comboBoxFormat().equals(cmboVendors.getSelectionModel().getSelectedItem()))
+                   {
+                      activeVendor = vendorList[i].vendorId;
                       checker = 1;
                       return checker;
                    }
