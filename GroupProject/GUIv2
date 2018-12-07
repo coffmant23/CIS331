@@ -61,6 +61,7 @@ public class GuiV2 extends Application {
         Button btnCreateVendor2 = new Button("Create Vendor");
         Button btnCreateItem = new Button("Create Item");
         Button btnEditItem = new Button("Edit Item");
+        Button nextButt = new Button("Next");
         Button btnMain = new Button("Main Menu");
         Button btnEditFname = new Button("First Name:");
         Button btnEditLname = new Button("Last Name");
@@ -203,11 +204,12 @@ public class GuiV2 extends Application {
            
            primaryPane.add(lblQuantity, 0, 3);
            primaryPane.add(qField, 0, 4);
+           primaryPane.add(nextButt,0,5);
            }
            });
            
         
-           qField.setOnAction(e -> {
+           nextButt.setOnAction(e -> {
                
           
            int temp  = 0;
