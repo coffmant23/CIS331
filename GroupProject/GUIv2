@@ -108,6 +108,7 @@ public class GUI extends Application {
         TextField reportOneField = new TextField();
         TextField reportTwoField = new TextField();
         TextField reportThreeField = new TextField();
+        TextField qField = new TextField();
         Label lblItemName = new Label("Item Name");
         Label lblItemWeight = new Label("Item Weight");
         Label lblItemQuantity = new Label("Item Quantity");
