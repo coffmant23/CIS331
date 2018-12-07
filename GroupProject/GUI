@@ -16,18 +16,20 @@ public class GUI extends Application {
     static Item[] itemList;
     static Sale[] saleList;
     static Vendor[] vendorList;
+    static Item itemSold;
     static int vendorTracker = 0;
     static int customerTracker = 4;
     static int bCustomerTracker = 0;
     static int itemTracker =0;
     static int choiceSelector = 0;
     static int saleTracker = 5;
-    static int transaction = 2;
+    static int transaction = 3;
     static int sales = 0;
     static double editNum;
     static String updated ="";
     static String activeId = "";
     static String activeItem = "";
+    static String tempID = "";
     
     
             
@@ -118,6 +120,7 @@ public class GUI extends Application {
         TextField vendorName = new TextField();
         TextField vendorAddress = new TextField();
         TextField vendorPhone = new TextField();
+        TextField qField = new TextField();
        
         TextArea itemDisplay = new TextArea();
         ScrollPane scrollPane = new ScrollPane(itemDisplay);
@@ -154,6 +157,7 @@ public class GUI extends Application {
         ComboBox cmboVendor = new ComboBox(Vendor.obsVendorlist);
         ComboBox cmboItems = new ComboBox(Item.obsItemList);
         ComboBox cmboItemReport = new ComboBox(Item.obsItemList);
+        ComboBox cmboSale = new ComboBox(Sale.obsSalelist);
         TextArea txtNotes = new TextArea();
         TextArea txtNotesField = new TextArea();
         
@@ -181,6 +185,63 @@ public class GUI extends Application {
         primaryPane.setHgap(10);
         primaryPane.setVgap(15);
        
+       btnSale.setOnAction(e ->{
+           primaryPane.getChildren().clear();
+           primaryPane.setAlignment(Pos.CENTER);
+           lblMenu.setText("Please select the customer");
+           primaryPane.add(lblMenu,0,0);
+           primaryPane.add(cmboCustomerReport,0,1);
+           primaryPane.add(extra, 0, 3);
+           primaryPane.add(btnNext4,0,4);
+        });
+        btnNext4.setOnAction( e ->{
+           int checker  = checkInput(cmboCustomerReport);
+           if (checker != 1){
+               extra.setText("Please select a customer");
+           }
+           else{
+           tempID = activeId;
+           primaryPane.getChildren().clear();
+           primaryPane.setAlignment(Pos.CENTER);
+           lblMenu.setText("Please select an item");
+           primaryPane.add(lblMenu,0,0);
+           primaryPane.add(cmboItemReport,0,1);
+           
+           primaryPane.add(lblQuantity, 0, 3);
+           primaryPane.add(qField, 0, 4);
+           primaryPane.add(btnSaleMore, 0, 5);//keeps current
+           primaryPane.add(btnNext5,1,5); // ends transactions
+           }
+        });
+        
+        btnSaleMore.setOnAction( e ->{
+           int checker = checkInputItems(cmboItemReport);
+           for(int i = 0; i<itemList.length;){
+               if(activeId == itemList[i].itemId){
+                   itemSold = itemList[i];
+               }
+           }
+           double quantity = Double.parseDouble(qField.getText());
+           
+           saleList = addSale(saleTracker, transaction,tempID, itemSold, quantity);
+           
+           cmboItemReport.getSelectionModel().clearSelection();
+           qField.clear();
+           primaryPane.getChildren().clear();
+           primaryPane.setAlignment(Pos.CENTER);
+           lblMenu.setText("Please select an item");
+           primaryPane.add(lblMenu,0,0);
+           primaryPane.add(cmboItemReport,0,1);
+           
+           primaryPane.add(lblQuantity, 0, 3);
+           primaryPane.add(qField, 0, 4);
+           primaryPane.add(btnSaleMore, 0, 5);
+           primaryPane.add(btnNext5,1,5); //method will add sale id but keep in same transaction
+        });
+        
+        btnNext5.setOnAction(e ->{ //this button ends the transaction
+           
+        });
         btnPrint.setOnAction(e ->{
            primaryPane.getChildren().clear();
            display2.setText(" Please select the report you would like to view");
@@ -986,7 +1047,20 @@ public class GUI extends Application {
              } 
     }
     
+    public static Sale[] addSale(int saleTracker, int transaction, String custID, Item itemSold, double numSold)
+    {
+    Sale[] newArray = new Sale[saleList.length+1];
+    for (int i = 0 ;i < saleList.length; i++ )
+        {
+          Sale tempSale = saleList[i];
+          newArray[i] = tempSale;
+        }
     
+    newArray[newArray.length - 1]  = new Sale(itemSold,numSold, custID,transaction);
+    //newArray[newArray.length-1].itemSold.quantity =- numSold; -- Taken out by Nick, wasnt working. Made a method in constructor.
+    return newArray;
+    
+    }
     
     
       public static Customer[] createCustomer( Customer[] customerArray, String fname,String lname, String address, 
