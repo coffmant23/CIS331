@@ -1036,7 +1036,7 @@ public class GuiV2 extends Application {
           newArray[i] = tempSale;
         }
     
-    //newArray[newArray.length - 1]  = new Sale(itemSold,numSold, custID,transaction);
+    newArray[newArray.length - 1]  = new Sale(itemSold,numSold, custID,transaction);
     //newArray[newArray.length-1].itemSold.quantity =- numSold; -- Taken out by Nick, wasnt working. Made a method in constructor.
     return newArray;
     
