@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class GuiV2 extends Application {
 
@@ -162,6 +164,9 @@ public class GuiV2 extends Application {
         
         Button btnEditNotes = new Button("Edit Notes");
         Button btnClearNotes = new Button("Clear Notes");
+          Alert alert = new Alert(AlertType.INFORMATION);
+              alert.setTitle("Error!");
+              alert.setHeaderText("Please Enter Data");
 
         //Creating a Pane
         GridPane primaryPane = new GridPane();
@@ -303,9 +308,7 @@ public class GuiV2 extends Application {
                 primaryPane.getChildren().clear();
                 cmboCustomers.getSelectionModel().clearSelection();
 
-                System.out.println("TESTING----------------");
-                System.out.println(activeId);
-                System.out.println("TESTING----------------");
+              
                 primaryPane.setAlignment(Pos.CENTER);
                 lblMenu.setText("");
                 primaryPane.add(lblMenu, 0, 0);
@@ -331,10 +334,6 @@ public class GuiV2 extends Application {
             String ID = checkInputItemsReport(cmboItemReport);
             
                 primaryPane.getChildren().clear();
-               
-
-                System.out.println("TESTING----------sdfg-------");
-                System.out.println(ID);
 
                 primaryPane.setAlignment(Pos.CENTER);
                 lblMenu.setText("");
@@ -398,10 +397,18 @@ public class GuiV2 extends Application {
 
         });
 
-        btnCreateVendor2.setOnAction(e -> {
+       btnCreateVendor2.setOnAction(e -> {
+            //.trim().length() == 0 ||
+            if(vendorName.getText().trim().length() == 0 || vendorPhone.getText().trim().length() == 0 || vendorAddress.getText().trim().length() == 0 )
+            {
+                alert.showAndWait();
+            }
+            else
+            {
+               createVendor(vendorName.getText(), vendorPhone.getText(), vendorAddress.getText());
+               showMainMenu(lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane); 
+            }
 
-            createVendor(vendorName.getText(), vendorPhone.getText(), vendorAddress.getText());
-            showMainMenu(lblWelcome, lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane);
         });
 
         btnCreateCust.setOnAction(e -> {
@@ -460,7 +467,20 @@ public class GuiV2 extends Application {
         });
 
         submit.setOnAction(e -> {
-            if (businessCust.isSelected()) {
+            //.trim().length() == 0 ||
+            if(firstName.getText().trim().length() == 0 ||lastName.getText().trim().length() == 0 
+                    || address.getText().trim().length() == 0 || 
+                    phoneNumber.getText().trim().length() == 0 || 
+                    email.getText().trim().length() == 0 || 
+                    busName.getText().trim().length() == 0 ||
+                    contractorNumber.getText().trim().length() == 0 
+                    || txtNotes.getText().trim().length() == 0)
+            {
+                alert.showAndWait();
+            }
+            else
+            {
+              if (businessCust.isSelected()) {
                 customerList = createCustomer(customerList, firstName.getText(), lastName.getText(), address.getText(),
                         phoneNumber.getText(), email.getText(), businessCust.isSelected(), busName.getText(), contractorNumber.getText(), txtNotes.getText());
                 customerTracker++;
@@ -481,7 +501,9 @@ public class GuiV2 extends Application {
             primaryPane.getChildren().clear();
             lblMenu.setText("Successful\nSelect to return to main menu");
             primaryPane.add(btnMain, 0, 2);
-            primaryPane.add(lblMenu, 0, 1);
+            primaryPane.add(lblMenu, 0, 1);  
+            }
+            
         });
 
         //Edit vendor button
@@ -532,11 +554,20 @@ public class GuiV2 extends Application {
             updated = "phone";
         });
         editVendor.setOnAction(e -> {
-            checkInputVendor(cmboVendor);
+            if(inputField2.getText().trim().length() == 0)
+            {
+                alert.showAndWait();
+            }
+            else
+            {
+              checkInputVendor(cmboVendor);
             updateInfoVendor(updated, vendorInputField);
             primaryPane.getChildren().clear();
             primaryPane.setAlignment(Pos.CENTER);
-            showMainMenu(lblWelcome, lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane);
+            showMainMenu(lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane);  
+            }
+            
+            
         });
 
         btnNextV.setOnAction(e -> {
@@ -688,12 +719,21 @@ public class GuiV2 extends Application {
         });
 
         btnSubmitChange.setOnAction(e -> {
-            updateInfo(updated, inputField2);
+            
+            if(inputField2.getText().trim().length() == 0)
+            {
+                alert.showAndWait();
+            }
+            else
+            {
+              updateInfo(updated, inputField2);
             //checkInputVendor(cmboVendor);
             //updateInfoVendor(updated,inputField2);
             primaryPane.getChildren().clear();
             primaryPane.setAlignment(Pos.CENTER);
-            showMainMenu(lblWelcome, lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane);
+            showMainMenu(lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane);  
+            }
+            
         });
         //Create Item Section of menu
         btnItem.setOnAction(e -> {
@@ -727,7 +767,19 @@ public class GuiV2 extends Application {
 
     
         submitCreateItem.setOnAction(e -> {
-              checkInputVendor(cmboVendor2);
+            //.trim().length() == 0 ||
+            if(itemName.getText().trim().length() == 0 ||
+                    itemWeight.getText().trim().length() == 0 || 
+                    itemDescription.getText().trim().length() == 0 ||
+                    itemQuantity.getText().trim().length() == 0 || 
+                    itemPurchPrice.getText().trim().length() == 0 || 
+                    itemSalePrice.getText().trim().length() == 0)
+            {
+                alert.showAndWait();
+            }
+            else
+            {
+               checkInputVendor(cmboVendor2);
               createItem(itemName.getText(),Double.parseDouble(itemWeight.getText())
                       ,itemDescription.getText(),Double.parseDouble(itemQuantity.getText())
                       , Double.parseDouble(itemPurchPrice.getText()),
@@ -742,7 +794,9 @@ public class GuiV2 extends Application {
             primaryPane.getChildren().clear();
             lblMenu.setText("Successful\nSelect to return to main menu");
             primaryPane.add(btnMain,0,2);
-            primaryPane.add(lblMenu,0,1);    
+            primaryPane.add(lblMenu,0,1);     
+            }
+              
         });
 
      btnEditItem.setOnAction(e -> { 
@@ -835,10 +889,19 @@ public class GuiV2 extends Application {
         });
 
         btnSubmitChangeItem.setOnAction(e -> {
+            if(inputField3.getText().trim().length() == 0)
+            {
+                alert.showAndWait();
+            }
+            else
+            {
             checkInputItems(cmboItems);
             updateInfoItem(updated, inputField3,cmboVendorEditItem);
             cmboItems.getSelectionModel().clearSelection();
-            showMainMenu(lblWelcome, lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane);
+            showMainMenu(lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane);
+            }
+            
+            
         });
 
         //create main menu
