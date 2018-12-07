@@ -249,17 +249,26 @@ public class GuiV2 extends Application {
            double quantity = Double.parseDouble(qField.getText());
            qField.clear();
            saleList = addSale(saleTracker, transaction,tempID, itemSold, quantity);
-           transaction++;
+           //create receipt
+           primaryPane.getChildren().clear();
+           primaryPane.setAlignment(Pos.CENTER);
            
-           primaryPane.getChildren().clear();
-           primaryPane.setAlignment(Pos.CENTER);
-           showMainMenu(lblMenu,btnCus,btnItem,btnSale,btnVendor,btnPrint,btnExit,primaryPane);
+           primaryPane.add(lblMenu,0,0);
+           String receipt = "";
+           receipt += String.format("\n-----------------------------------------------------------------\n");
+           receipt += String.format("|Item Name|\t |Quantity|\t|Sale Price|\t|Total Cost|\t|Date|\n");
+           receipt += String.format("-----------------------------------------------------------------\n");
+           for(int i = 0; i<saleList.length;i++){
+               if(saleList[i].transaction == transaction){
+                   receipt += Sale.printReceipt(saleList[i]);
+               }
            }
-           else{
-           primaryPane.getChildren().clear();
-           primaryPane.setAlignment(Pos.CENTER);
-           showMainMenu(lblMenu,btnCus,btnItem,btnSale,btnVendor,btnPrint,btnExit,primaryPane);
+           lblMenu.setText(receipt);
+           primaryPane.add(btnMain, 0, 5);
+           transaction++;
            }
+           
+           
         });
 
         btnPrint.setOnAction(e -> {
