@@ -12,7 +12,6 @@ import javafx.scene.control.TextArea;
 
 public class GUIv2 extends Application {
 
-public class GUI extends Application {
     static Customer[] customerList;
     static Item[] itemList;
     static Sale[] saleList;
