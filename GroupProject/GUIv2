@@ -29,6 +29,7 @@ public class GUIv2 extends Application {
     static String updated ="";
     static String activeId = "";
     static String activeItem = "";
+    static String tempID = "";
 
     @Override
     public void start(Stage primaryStage) {
