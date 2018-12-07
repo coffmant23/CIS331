@@ -332,12 +332,12 @@ public class GUI extends Application {
             
             extra.setText("");
             primaryPane.add(extra, 0, 4);
-            primaryPane.add(btnNext4, 0, 5);
+            primaryPane.add(btnNext1, 0, 5);
             primaryPane.add(cmboVendor, 0 , 1);
         });
         
           //vendor edit screen
-          btnNext4.setOnAction(e -> {
+          btnNext1.setOnAction(e -> {
               int chk = checkInput(cmboVendor);
               if (chk == 1) {
                   inputField.clear();
