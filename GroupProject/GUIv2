@@ -74,6 +74,7 @@ public class GUIv2 extends Application {
         Button btnReport2 = new Button("Purchase History of an Item");
         Button btnReport3 = new Button("Current Inventory Levels");
         Button btnReport4 = new Button("Purchase History of a Vendor");
+        Button btnSaleMore = new Button("Add more items to the sale?");
         Button editVendorName = new Button("Edit Vendor Name");
         Button editVendorAdd = new Button("Edit Vendor Address");
         Button editVendorPhone = new Button("Edit Vendor Phone");
@@ -132,7 +133,7 @@ public class GUIv2 extends Application {
         Button btnNextV = new Button("Next");
         Button btnNextVend = new Button("Next");
         Button btnNext4 = new Button("Next");
-//        Button btnNext5 = new Button("Next");
+        Button btnNext5 = new Button("Next");
         Button btnSubmitChange = new Button("Submit Change");
         Button btnSubmitChangeItem = new Button("Submit Change");
         Button btnSubmitChangeCust = new Button("Submit Change");
