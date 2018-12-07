@@ -19,6 +19,7 @@ public class Vendor {
             this.address = address;
             this.phoneNumber = phoneNumber;
             this.vendorId= "v"+counter;
+            obsVendorlist.add(vendorId + " " + this.name);
             counter++;
     }
     
