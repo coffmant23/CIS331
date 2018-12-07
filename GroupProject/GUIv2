@@ -37,7 +37,7 @@ public class GUIv2 extends Application {
         addInfo();
         Label lblMenu = new Label("Please select a menu option");
         Label lblVendorName = new Label("Vendor Name:");
-        Label lblFirstName = new Label("First Name");
+        Label lblFirstName = new Label("First Name:");
         Label lblLastName = new Label("Last Name:");
         Label lblPhone = new Label("Phone Number:");
         Label lblAddress = new Label("Address: ");
@@ -1061,7 +1061,7 @@ public class GUIv2 extends Application {
         for (int i = 0; i < saleList.length; i++) {
             if (cChoice.equalsIgnoreCase(saleList[i].custID)) {
                 tCost += saleList[i].itemSold.salePrice * saleList[i].quantity;
-                current += String.format("%-24s\t%-18.0f\t$%-12.2f\t%-8s\n", saleList[i].itemSold.itemName, saleList[i].quantity, ((saleList[i].quantity) * (saleList[i].itemSold.salePrice)), saleList[i].date);
+                current += String.format("%-24s\t%-18.0f$%-12.2f%-8s\n", saleList[i].itemSold.itemName, saleList[i].quantity, ((saleList[i].quantity) * (saleList[i].itemSold.salePrice)), saleList[i].date);
             }
         }
         lblMenu.setText(current);
@@ -1106,7 +1106,7 @@ public class GUIv2 extends Application {
         current += String.format("%s\t\t%s\t\t\t%s\t\t%s\t\t%s\n", "Item Id:", "Item Name:", "Item Quantity:", "Purchase:", "Sale Price");
         for (int i = 0; i < itemList.length; i++) {
 
-            current += String.format("%-5s\t\t\t%-30s\t\t%-10.2f\t\t$%-10.2f\t\t$%-10.2f\n", itemList[i].itemId, itemList[i].itemName, itemList[i].quantity, itemList[i].getPrice(), itemList[i].salePrice);
+            current += String.format("%-5s\t\t\t%-30s\t\t%-10.0f\t\t$%-10.2f\t\t$%-10.2f\n", itemList[i].itemId, itemList[i].itemName, itemList[i].quantity, itemList[i].getPrice(), itemList[i].salePrice);
 
         }
         itemDisplay.setText(current);
