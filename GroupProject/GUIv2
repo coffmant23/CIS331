@@ -313,21 +313,19 @@ public class GuiV2 extends Application {
         });
 
         btnNext3.setOnAction(e -> {
-            int check = checkInputItems(cmboItemReport);
-            if (check == 1) {
+            String ID = checkInputItemsReport(cmboItemReport);
+            
                 primaryPane.getChildren().clear();
-                cmboItemReport.getSelectionModel().clearSelection();
+               
 
-                System.out.println("TESTING-----------------");
-                System.out.println(activeItem);
+                System.out.println("TESTING----------sdfg-------");
+                System.out.println(ID);
 
                 primaryPane.setAlignment(Pos.CENTER);
                 lblMenu.setText("");
                 primaryPane.add(lblMenu, 0, 0);
-                reportTwo(activeItem, primaryPane, lblMenu, btnMain, reportOneField);
-            } else {
-                extra.setText("Not found. Please try again");
-            }
+                reportTwo(ID, primaryPane, lblMenu, btnMain, reportOneField);
+                 cmboItemReport.getSelectionModel().clearSelection();
         });
         btnReport3.setOnAction(e -> {
             primaryPane.getChildren().clear();
@@ -923,6 +921,20 @@ public class GuiV2 extends Application {
 
         }
 
+    }
+    public static String checkInputItemsReport(ComboBox cmboItems) {
+
+        int checker = 0;
+        for (int i = 0; i < itemList.length; i++) {
+            if (itemList[i].comboBoxFormat().equals(cmboItems.getSelectionModel().getSelectedItem())) {
+                
+                activeId = itemList[i].itemId;
+                
+                
+                return itemList[i].itemId;
+            }
+        }
+        return "";
     }
 
     public static void updateInfo(String updated, TextField input) {
