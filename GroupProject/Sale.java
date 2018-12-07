@@ -32,7 +32,9 @@ public class Sale {
         this.custID = custID;
         this.transaction = transaction;
         this.saleID = "s" + saleTracker;
+        itemSold.sale(quantity);
         saleTracker++;
+        
     }
     public Sale(Item itemSold, double quantity, String date, String custID, int transaction){
         this.quantity = quantity;
@@ -41,6 +43,7 @@ public class Sale {
         this.custID = custID;
         this.transaction = transaction;
         this.saleID = "s" + saleTracker;
+        itemSold.sale(quantity);
         saleTracker++;
     }
 
