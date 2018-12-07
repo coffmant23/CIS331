@@ -12,20 +12,22 @@ import javafx.scene.control.TextArea;
 
 public class GUIv2 extends Application {
 
+public class GUI extends Application {
     static Customer[] customerList;
     static Item[] itemList;
     static Sale[] saleList;
     static Vendor[] vendorList;
+    static Item itemSold;
     static int vendorTracker = 0;
     static int customerTracker = 4;
     static int bCustomerTracker = 0;
-    static int itemTracker = 0;
+    static int itemTracker =0;
     static int choiceSelector = 0;
     static int saleTracker = 5;
-    static int transaction = 2;
+    static int transaction = 3;
     static int sales = 0;
     static double editNum;
-    static String updated = "";
+    static String updated ="";
     static String activeId = "";
     static String activeItem = "";
 
@@ -41,6 +43,7 @@ public class GUIv2 extends Application {
         Label lblAddress = new Label("Address: ");
         Label lblemail = new Label("Email: ");
         Label lblbusName = new Label("Business Name: ");
+        Label lblQuantity = new Label("How many?");
         Label lblcontractorNumber = new Label("Contractor Number: ");
         Button btnCus = new Button("Manage Customers");
         Button btnItem = new Button("Manage Items");
@@ -140,6 +143,7 @@ public class GUIv2 extends Application {
         ComboBox cmboVendorReport = new ComboBox(Vendor.obsVendorlist);
         ComboBox cmboItems = new ComboBox(Item.obsItemList);
         ComboBox cmboItemReport = new ComboBox(Item.obsItemList);
+        omboBox cmboSale = new ComboBox(Sale.obsSalelist);
         TextArea txtNotes = new TextArea();
         TextArea txtNotesField = new TextArea();
 
@@ -887,7 +891,21 @@ public class GUIv2 extends Application {
             }
         }
     }
-
+    
+    public static Sale[] addSale(int saleTracker, int transaction, String custID, Item itemSold, double numSold)
+    {
+    Sale[] newArray = new Sale[saleList.length+1];
+    for (int i = 0 ;i < saleList.length; i++ )
+        {
+          Sale tempSale = saleList[i];
+          newArray[i] = tempSale;
+        }
+    
+    newArray[newArray.length - 1]  = new Sale(itemSold,numSold, custID,transaction);
+    //newArray[newArray.length-1].itemSold.quantity =- numSold; -- Taken out by Nick, wasnt working. Made a method in constructor.
+    return newArray;
+    
+    }
     public static Customer[] createCustomer(Customer[] customerArray, String fname, String lname, String address,
             String phoneNumber, String email, boolean businessCustomer, String notesText) {
         Customer[] newArray = new Customer[customerTracker + 1];
