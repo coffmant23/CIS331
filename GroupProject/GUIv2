@@ -406,7 +406,7 @@ public class GuiV2 extends Application {
             else
             {
                createVendor(vendorName.getText(), vendorPhone.getText(), vendorAddress.getText());
-               showMainMenu(lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane); 
+               showMainMenu(lblWelcome, lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane); 
             }
 
         });
@@ -564,7 +564,7 @@ public class GuiV2 extends Application {
             updateInfoVendor(updated, vendorInputField);
             primaryPane.getChildren().clear();
             primaryPane.setAlignment(Pos.CENTER);
-            showMainMenu(lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane);  
+            showMainMenu(lblWelcome, lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane);  
             }
             
             
@@ -731,7 +731,7 @@ public class GuiV2 extends Application {
             //updateInfoVendor(updated,inputField2);
             primaryPane.getChildren().clear();
             primaryPane.setAlignment(Pos.CENTER);
-            showMainMenu(lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane);  
+            showMainMenu(lblWelcome, lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane);  
             }
             
         });
@@ -898,7 +898,7 @@ public class GuiV2 extends Application {
             checkInputItems(cmboItems);
             updateInfoItem(updated, inputField3,cmboVendorEditItem);
             cmboItems.getSelectionModel().clearSelection();
-            showMainMenu(lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane);
+            showMainMenu(lblWelcome, lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane);
             }
             
             
