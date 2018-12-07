@@ -813,16 +813,14 @@ public class GUI extends Application {
         saleList[4] = new Sale(itemList[4], 2, "11/1/18", "c3", 2);
         
     }
-    public static void displayCurrentCustomers( TextArea display)
-    {
+    public static void displayCurrentCustomers(TextArea display) {
         String current = "";
-       current += String.format("%s\t\t%s\t\t%s\t\t\t\t%s\n","Customer Name:","ID Number:","E-mail:","Phone:");
-                  
-        for ( int i = 0; i < customerList.length; i++)
-        { 
-            current += String.format("%-30s\t\t%-10s\t%20s\t%20s\n",
-                  customerList[i].fname+" "+customerList[i].lname,
-                    customerList[i].customerId,customerList[i].email,customerList[i].phoneNumber);        
+        current += String.format("%s\t\t%s\t\t%s\t\t\t\t\t%s\n", "Customer Name:", "ID Number:", "E-mail:", "Phone:");
+
+        for (int i = 0; i < customerList.length; i++) {
+            current += String.format("%-30s\t%-10s\t%20s\t\t%20s\n",
+                    customerList[i].fname + " " + customerList[i].lname,
+                    customerList[i].customerId, customerList[i].email, customerList[i].phoneNumber);
         }
         display.setText(current);
     }
