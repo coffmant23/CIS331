@@ -247,6 +247,7 @@ public class GUI extends Application {
             primaryPane.add(lblVendorPhone, 0, 3);
             primaryPane.add(lblVendorAddress, 0, 4);
             primaryPane.add(btnMain, 0,9);
+            primaryPane.add(submit,1,9);
           
             
         });
