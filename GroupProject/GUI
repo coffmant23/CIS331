@@ -63,6 +63,9 @@ public class GUI extends Application {
         Button btnEditLname = new Button("Last Name");
         Button btnEditAddress = new Button("Address");
         Button btnPhoneNumber = new Button("Phone Number");
+        Button btnEditVendorName = new Button("Edit Vendor Name");
+        Button btnEditVendorAddress = new Button("Edit Vendor Address");
+        Button btnEditVendorPhone = new Button("Edit Vendor Phone Number");
         Button btnEditIName = new Button("Item Name");
         Button btnEditIWeight = new Button("Item Weight");
         Button btnEditIDesc = new Button("Item Description");
@@ -103,7 +106,7 @@ public class GUI extends Application {
         Button btnNext1 = new Button("Next");
         Button btnNext2 = new Button("Next");
         Button btnNext3 = new Button("Next");
-//        Button btnNext4 = new Button("Next");
+        Button btnNext4 = new Button("Next");
 //        Button btnNext5 = new Button("Next");
         Button btnSubmitChange = new Button("Submit Change");
         ComboBox cmboCustomers = new ComboBox(Customer.obsCustomerlist);
@@ -334,12 +337,12 @@ public class GUI extends Application {
             
             extra.setText("");
             primaryPane.add(extra, 0, 4);
-            primaryPane.add(btnNext1, 0, 5);
+            primaryPane.add(btnNext4, 0, 5);
             primaryPane.add(cmboVendor, 0 , 1);
         });
         
           //vendor edit screen
-          btnNext1.setOnAction(e -> {
+          btnNext4.setOnAction(e -> {
               int chk = checkInput(cmboVendor);
               if (chk == 1) {
                   inputField.clear();
@@ -366,9 +369,9 @@ public class GUI extends Application {
  
               }
               else{
-                  extra.setText("Not found. Please try again");
+                  extra.setText("Not found. Please try again");*/
               }
-          }); */
+          }); 
         
         
         
@@ -427,6 +430,52 @@ public class GUI extends Application {
                   extra.setText("Not found. Please try again");
               }
           }); 
+          
+          
+          
+          
+              //Update vendor Name
+          btnEditVendorName.setOnAction(e -> {
+            primaryPane.getChildren().clear();
+            primaryPane.setAlignment(Pos.CENTER);
+            lblMenu.setText("Please type in the updated version:");
+            primaryPane.add(lblMenu, 0, 0);
+            primaryPane.add(inputField2,0,3);
+            primaryPane.add(btnSubmitChange,0,4);
+            
+            updated = "name";
+            
+          });
+          
+          //Update vendor address
+          btnEditVendorAddress.setOnAction(e -> {
+              primaryPane.getChildren().clear();
+            primaryPane.setAlignment(Pos.CENTER);
+            lblMenu.setText("Please type in the updated version:");
+            primaryPane.add(lblMenu, 0, 0);
+            primaryPane.add(inputField2,0,3);
+            primaryPane.add(btnSubmitChange,0,4);
+            
+            updated = "address";
+            
+          });
+          
+          //Update vendor phone number
+          btnEditVendorPhone.setOnAction(e -> {
+              primaryPane.getChildren().clear();
+            primaryPane.setAlignment(Pos.CENTER);
+            lblMenu.setText("Please type in the updated version:");
+            primaryPane.add(lblMenu, 0, 0);
+            primaryPane.add(inputField2,0,3);
+            primaryPane.add(btnSubmitChange,0,4);
+            
+            updated = "phone number";
+            
+          });
+          
+          
+          
+          
           btnEditFname.setOnAction(e -> {
             primaryPane.getChildren().clear();
             primaryPane.setAlignment(Pos.CENTER);
