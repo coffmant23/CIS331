@@ -36,7 +36,13 @@ public class GuiV2 extends Application {
         //Create your controls
         addInfo();
         Label lblWelcome = new Label("Welcome to Valley Depot!");
-        Label lblMenu = new Label("Please select a menu option");
+        lblWelcome.setStyle("-fx-font: 24 arial;");
+        Label lblMenu = new Label("Please select a menu option:");
+        lblMenu.setStyle("-fx-font: 14 arial;");
+        Label lblHeader = new Label("Manage Customers");
+        lblHeader.setStyle("-fx-font: 20 arial;");
+        Label lblManageItems = new Label("Manage Items");
+        lblManageItems.setStyle("-fx-font: 20 arial;");
         Label lblVendorName = new Label("Vendor Name:");
         Label lblFirstName = new Label("First Name:");
         Label lblLastName = new Label("Last Name:");
@@ -61,7 +67,6 @@ public class GuiV2 extends Application {
         Button btnCreateVendor2 = new Button("Create Vendor");
         Button btnCreateItem = new Button("Create Item");
         Button btnEditItem = new Button("Edit Item");
-        Button nextButt = new Button("Next");
         Button btnMain = new Button("Main Menu");
         Button btnEditFname = new Button("First Name:");
         Button btnEditLname = new Button("Last Name");
@@ -129,7 +134,7 @@ public class GuiV2 extends Application {
         ScrollPane customerScrollPane = new ScrollPane(customerDisplay);
         TextArea vendorDisplay = new TextArea();
         ScrollPane vendorScrollPane = new ScrollPane(vendorDisplay);
-        Label ohno = new Label("Not enough in inventory");
+
         //Testing
         Button btnNext1 = new Button("Next");
         Button btnNext2 = new Button("Next");
@@ -199,48 +204,15 @@ public class GuiV2 extends Application {
            lblMenu.setText("Please select an item");
            primaryPane.add(lblMenu,0,0);
            primaryPane.add(cmboItemReport,0,1);
-           ohno.setText("");
-           primaryPane.add(ohno,1,4);
            
            primaryPane.add(lblQuantity, 0, 3);
            primaryPane.add(qField, 0, 4);
-           primaryPane.add(nextButt,0,5);
-           }
-           });
-           
-        
-           nextButt.setOnAction(e -> {
-               
-          
-           int temp  = 0;
-           for(int i=0;i< itemList.length; i++)
-           {
-               if (itemList[i].itemId == tempID)
-               {
-                   temp = i;
-               }
-               
-           }
-           if (itemList[temp].quantity > Double.parseDouble(qField.getText()))
-           {
-           primaryPane.getChildren().clear();
            primaryPane.add(btnSaleMore, 0, 5);//keeps current
-           primaryPane.add(btnNext5,1,5);
-           btnNext5.setText("Process Sale");// ends transactions
-           
+           primaryPane.add(btnNext5,1,5); // ends transactions
            }
-           else
-               
-               ohno.setText("Not enough in stock");
-            
-           
         });
         
-        
-        
-        btnSaleMore.setOnAction( e ->{ 
-            //add more sales
-            ohno.setText("");
+        btnSaleMore.setOnAction( e ->{                                          //add more sales
            int checker = checkInputItems(cmboItemReport);
            if (checker != 1){
                extra.setText("Please select an item and quantity");
@@ -268,8 +240,8 @@ public class GuiV2 extends Application {
            
            primaryPane.add(lblQuantity, 0, 3);
            primaryPane.add(qField, 0, 4);
-           //primaryPane.add(btnSaleMore, 0, 5);
-          // primaryPane.add(btnNext5,1,5); //method will add sale id but keep in same transaction
+           primaryPane.add(btnSaleMore, 0, 5);
+           primaryPane.add(btnNext5,1,5); //method will add sale id but keep in same transaction
         });
          btnNext5.setOnAction(e ->{ //this button ends the transaction
            int checker = checkInputItems(cmboItemReport);
@@ -390,19 +362,26 @@ public class GuiV2 extends Application {
 
             extra.setText("");
         });
+        //Create and Edit Customer
         btnCus.setOnAction(e -> {
             primaryPane.getChildren().clear();
             primaryPane.setAlignment(Pos.CENTER);   //Set alignment for the form
-            primaryPane.add(btnManCust, 0, 1);
-            primaryPane.add(btnCreateCust, 0, 2);
+            primaryPane.add(lblHeader, 0,0);
+            lblMenu.setText("Please select an option:");
+            primaryPane.add(lblMenu, 0,1);
+            primaryPane.add(btnManCust, 0, 4);
+            primaryPane.add(btnCreateCust, 0, 5);
         });
 
         //Edit and Create Vendor
         btnVendor.setOnAction(e -> {
             primaryPane.getChildren().clear();
             primaryPane.setAlignment(Pos.CENTER);
-            primaryPane.add(btnEditVendor, 0, 1);
-            primaryPane.add(btnCreateVendor, 0, 2);
+            lblHeader.setText("Manage Vendor");
+            primaryPane.add(lblHeader, 0, 0);
+            primaryPane.add(lblMenu, 0,1);
+            primaryPane.add(btnEditVendor, 0, 2);
+            primaryPane.add(btnCreateVendor, 0, 3);
         });
 
         //Create vendor button
@@ -422,7 +401,7 @@ public class GuiV2 extends Application {
         btnCreateVendor2.setOnAction(e -> {
 
             createVendor(vendorName.getText(), vendorPhone.getText(), vendorAddress.getText());
-            showMainMenu(lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane);
+            showMainMenu(lblWelcome, lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane);
         });
 
         btnCreateCust.setOnAction(e -> {
@@ -557,7 +536,7 @@ public class GuiV2 extends Application {
             updateInfoVendor(updated, vendorInputField);
             primaryPane.getChildren().clear();
             primaryPane.setAlignment(Pos.CENTER);
-            showMainMenu(lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane);
+            showMainMenu(lblWelcome, lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane);
         });
 
         btnNextV.setOnAction(e -> {
@@ -705,7 +684,7 @@ public class GuiV2 extends Application {
             //updateInfoVendor(updated,inputField2);
             primaryPane.getChildren().clear();
             primaryPane.setAlignment(Pos.CENTER);
-            showMainMenu(lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane);
+            showMainMenu(lblWelcome, lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane);
         });
 
         btnSubmitChange.setOnAction(e -> {
@@ -714,7 +693,7 @@ public class GuiV2 extends Application {
             //updateInfoVendor(updated,inputField2);
             primaryPane.getChildren().clear();
             primaryPane.setAlignment(Pos.CENTER);
-            showMainMenu(lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane);
+            showMainMenu(lblWelcome, lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane);
         });
         //Create Item Section of menu
         btnItem.setOnAction(e -> {
@@ -859,7 +838,7 @@ public class GuiV2 extends Application {
             checkInputItems(cmboItems);
             updateInfoItem(updated, inputField3,cmboVendorEditItem);
             cmboItems.getSelectionModel().clearSelection();
-            showMainMenu(lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane);
+            showMainMenu(lblWelcome, lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane);
         });
 
         //create main menu
@@ -917,7 +896,7 @@ public class GuiV2 extends Application {
         current += String.format("%s\t\t%s\t\t%s\t\t\t\t\t%s\n", "Customer Name:", "ID Number:", "E-mail:", "Phone:");
 
         for (int i = 0; i < customerList.length; i++) {
-            current += String.format("%-30s\t%-10s\t%20s\t\t%20s\n",
+            current += String.format("%-20s\t%-3s\t\t\t\t%-20s\t\t%-12s\n",
                     customerList[i].fname + " " + customerList[i].lname,
                     customerList[i].customerId, customerList[i].email, customerList[i].phoneNumber);
         }
@@ -1195,9 +1174,9 @@ public class GuiV2 extends Application {
 
         System.out.println(customerList[pos1].notes);
 
-        current += String.format("\n------------------------------------------------------------------------\n");
+        current += String.format("\n--------------------------------------------------------------------------------------------------\n");
         current += String.format("|Item Name|\t\t |Quantity Bought|\t\t|Total Cost|\t\t|Date|\n");
-        current += String.format("------------------------------------------------------------------------\n");
+        current += String.format("--------------------------------------------------------------------------------------------------\n");
         for (int i = 0; i < saleList.length; i++) {
             if (cChoice.equalsIgnoreCase(saleList[i].custID)) {
                 tCost += saleList[i].itemSold.salePrice * saleList[i].quantity;
@@ -1215,12 +1194,12 @@ public class GuiV2 extends Application {
         System.out.println("Testing item report, the current itemid is " + activeItem);
         String current = "";
         reportTwoField.clear();
-        current += String.format("-----------------------------------------------------------------\n");
-        current += String.format("|Item Name|\t|CustomerID|\t|Date|\t |Quantity|\n");
-        current += String.format("-----------------------------------------------------------------\n");
+        current += String.format("---------------------------------------------------------------------------------------------\n");
+        current += String.format("|Item Name|\t\t|CustomerID|\t\t|Date|\t\t |Quantity|\n");
+        current += String.format("----------------------------------------------------------------------------------------------\n");
         for (int i = 0; i < saleList.length; i++) {
             if (iChoice.equalsIgnoreCase(saleList[i].itemSold.itemId)) {
-                current += String.format("%-30s%-10s%-13s%3.0f\n", saleList[i].itemSold.itemName, saleList[i].custID, saleList[i].date, saleList[i].quantity);
+                current += String.format("%-30s\t%-10s\t\t%-13s\t\t%3.0f\n", saleList[i].itemSold.itemName, saleList[i].custID, saleList[i].date, saleList[i].quantity);
             }
         }
         lblMenu.setText(current);
@@ -1230,8 +1209,8 @@ public class GuiV2 extends Application {
 
     public static void reportThree(GridPane primaryPane, Label lblMenu, Button btnMain) {
         String current = "";
-        current += String.format("----------------------------------\nItem Name\t\t\tQuantity\n"
-                + "----------------------------------\n");
+        current += String.format("------------------------------------------------\nItem Name\t\t\tQuantity\n"
+                + "------------------------------------------------\n");
         for (int i = 0; i < itemList.length; i++) {
             current += String.format("%-15s\t\t\t%-4.0f\n", itemList[i].itemName, itemList[i].quantity);
         }
@@ -1248,7 +1227,7 @@ public class GuiV2 extends Application {
           for (int i = 0; i < itemList.length; i++)
           {
          
-              current += String.format("%-5s\t\t\t%-30s\t\t%-10.2f\t\t$%-10.2f\t\t$%-10.2f\t\t%s\n",itemList[i].itemId, itemList[i].itemName,itemList[i].quantity,itemList[i].getPrice(),itemList[i].salePrice,itemList[i].vendor.name);
+              current += String.format("%-5s\t\t\t%-15s\t\t\t%-3.0f\t\t\t\t$%-5.2f\t\t\t$%-10.2f\t\t%s\n",itemList[i].itemId, itemList[i].itemName,itemList[i].quantity,itemList[i].getPrice(),itemList[i].salePrice,itemList[i].vendor.name);
               
           }
           itemDisplay.setText(current);
@@ -1271,3 +1250,4 @@ public class GuiV2 extends Application {
     }
 
 }
+
