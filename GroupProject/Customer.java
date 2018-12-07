@@ -16,6 +16,8 @@ public class Customer {
     public static ObservableList obsCustomerlist = FXCollections.observableArrayList();
     public String notes;
     
+    
+    
     public Customer(String fname, String lname, String email, String address , String phoneNumber)      
     {
         this.fname = fname;
