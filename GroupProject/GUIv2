@@ -1,3 +1,11 @@
+/*
+Nicholas Coffman
+Jonathan Doan
+Manfred Hueskes
+Pierre Giaon
+Shuvam Mishra
+*/
+
 package GroupProject;
 
 import javafx.application.Application;
