@@ -35,7 +35,7 @@ public class GUI extends Application {
         //Create your controls
         addInfo();
         Label lblMenu = new Label("Please select a menu option");
-        Label lblVendorName = new Label("Vendor Name");
+        Label lblVendorName = new Label("Vendor Name:");
         Label lblFirstName = new Label("First Name");
         Label lblLastName = new Label("Last Name:");
         Label lblPhone = new Label("Phone Number:");
