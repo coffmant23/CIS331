@@ -142,7 +142,7 @@ public class GUI extends Application {
         Button btnNext3 = new Button("Next");
         Button btnNextV = new Button("Next");
         Button btnNextVend = new Button("Next");
-//        Button btnNext4 = new Button("Next");
+        Button btnNext4 = new Button("Next");
 //        Button btnNext5 = new Button("Next");
         Button btnSubmitChange = new Button("Submit Change");
         Button btnSubmitChangeItem = new Button("Submit Change");
@@ -150,6 +150,7 @@ public class GUI extends Application {
         Button submitCreateItem = new Button("Create Item");
         ComboBox cmboCustomers = new ComboBox(Customer.obsCustomerlist);
         ComboBox cmboCustomerReport = new ComboBox(Customer.obsCustomerlist);
+        ComboBox cmboVendor = new ComboBox(Vendor.obsVendorlist);
         ComboBox cmboVendor = new ComboBox(Vendor.obsVendorlist);
         ComboBox cmboItems = new ComboBox(Item.obsItemList);
         ComboBox cmboItemReport = new ComboBox(Item.obsItemList);
