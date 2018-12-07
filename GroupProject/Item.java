@@ -22,7 +22,7 @@ public class Item  {
    {
    this.itemName = itemName;
    this.weight= weight;
-   this.description=description;
+   this.description = description;
    this.quantity = quantity;
    this.pricePaid=pricePaid;
    this.salePrice=salePrice;
@@ -63,6 +63,12 @@ public class Item  {
   {
       this.quantity = this.quantity - quantity;
   }
+  
+  public double getPrice()
+  {
+      return this.pricePaid;
+  }
+  
   
   public String comboBoxFormat()
   {
