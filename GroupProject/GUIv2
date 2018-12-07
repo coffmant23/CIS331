@@ -1175,10 +1175,10 @@ public class GuiV2 extends Application {
 
     public static void reportThree(GridPane primaryPane, Label lblMenu, Button btnMain) {
         String current = "";
-        current += String.format("-----------------------------\nItem Name\tQuantity\n"
-                + "-----------------------------\n");
+        current += String.format("----------------------------------\nItem Name\t\t\tQuantity\n"
+                + "----------------------------------\n");
         for (int i = 0; i < itemList.length; i++) {
-            current += String.format("%-18s%-4.0f\n", itemList[i].itemName, itemList[i].quantity);
+            current += String.format("%-15s\t\t\t%-4.0f\n", itemList[i].itemName, itemList[i].quantity);
         }
         lblMenu.setText(current);
         primaryPane.add(btnMain, 0, 5);
