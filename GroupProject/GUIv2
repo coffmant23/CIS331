@@ -144,7 +144,7 @@ public class GUIv2 extends Application {
         ComboBox cmboVendorReport = new ComboBox(Vendor.obsVendorlist);
         ComboBox cmboItems = new ComboBox(Item.obsItemList);
         ComboBox cmboItemReport = new ComboBox(Item.obsItemList);
-        omboBox cmboSale = new ComboBox(Sale.obsSalelist);
+        ComboBox cmboSale = new ComboBox(Sale.obsSalelist);
         TextArea txtNotes = new TextArea();
         TextArea txtNotesField = new TextArea();
 
