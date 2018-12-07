@@ -35,6 +35,7 @@ public class GuiV2 extends Application {
     public void start(Stage primaryStage) {
         //Create your controls
         addInfo();
+        Label lblWelcome = new Label("Welcome to Valley Depot!");
         Label lblMenu = new Label("Please select a menu option");
         Label lblVendorName = new Label("Vendor Name:");
         Label lblFirstName = new Label("First Name:");
@@ -159,13 +160,14 @@ public class GuiV2 extends Application {
         //Creating a Pane
         GridPane primaryPane = new GridPane();
         primaryPane.setAlignment(Pos.CENTER);   //Set alignment for the form
-        primaryPane.add(lblMenu, 0, 0);    //first number is column, second is row
-        primaryPane.add(btnCus, 0, 1);
-        primaryPane.add(btnItem, 0, 2);
-        primaryPane.add(btnSale, 0, 3);
-        primaryPane.add(btnVendor, 0, 4);
-        primaryPane.add(btnPrint, 0, 5);
-        primaryPane.add(btnExit, 0, 6);
+        primaryPane.add(lblWelcome, 0,0);
+        primaryPane.add(lblMenu, 0, 1);    //first number is column, second is row
+        primaryPane.add(btnCus, 0, 2);
+        primaryPane.add(btnItem, 0, 3);
+        primaryPane.add(btnSale, 0, 4);
+        primaryPane.add(btnVendor, 0, 5);
+        primaryPane.add(btnPrint, 0, 6);
+        primaryPane.add(btnExit, 0, 7);
         //Create a Scene
         Scene primaryScene = new Scene(primaryPane, 700, 600);
         //Set properties for the stage
