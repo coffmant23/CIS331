@@ -79,6 +79,11 @@ public class Customer {
        {
            return customerId + "  " +lname;
        }
+      
+       public String setNotes(String notes)
+       {
+        return   this.notes = notes;
+       }
        
 }
 
