@@ -10,7 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TextArea;
 
-public class GUIv2 extends Application {
+public class GuiV2 extends Application {
 
     static Customer[] customerList;
     static Item[] itemList;
@@ -80,7 +80,8 @@ public class GUIv2 extends Application {
         Button editVendorAdd = new Button("Edit Vendor Address");
         Button editVendorPhone = new Button("Edit Vendor Phone");
         Button editVendor = new Button("Complete Edit");
-
+         Button editItemVendor = new Button("Edit Item's Vendor");
+        Label  lbleditItemVendor = new Label("Edit Item's Vendor: ");
         CheckBox businessCust = new CheckBox("Business Customer");
         CheckBox addNotes = new CheckBox("Add Notes");
         Button submit = new Button("Submit");
@@ -143,12 +144,15 @@ public class GUIv2 extends Application {
         ComboBox cmboCustomerReport = new ComboBox(Customer.obsCustomerlist);
         ComboBox cmboVendor = new ComboBox(Vendor.obsVendorlist);
         ComboBox cmboVendorReport = new ComboBox(Vendor.obsVendorlist);
+        ComboBox cmboVendor2 = new ComboBox(Vendor.obsVendorlist);
+        ComboBox cmboVendorEditItem = new ComboBox(Vendor.obsVendorlist);
         ComboBox cmboItems = new ComboBox(Item.obsItemList);
         ComboBox cmboItemReport = new ComboBox(Item.obsItemList);
         ComboBox cmboSale = new ComboBox(Sale.obsSalelist);
         TextArea txtNotes = new TextArea();
         TextArea txtNotesField = new TextArea();
-
+        Label lblSelectVendor = new Label("Select a Vendor:");
+        
         Button btnEditNotes = new Button("Edit Notes");
         Button btnClearNotes = new Button("Clear Notes");
 
@@ -651,61 +655,75 @@ public class GUIv2 extends Application {
         });
 
         //Create Item
-        btnCreateItem.setOnAction(e -> {
-            primaryPane.getChildren().clear();
-            primaryPane.setAlignment(Pos.CENTER);   //Set alignment for the form
-            primaryPane.add(itemName, 1, 2);
-            primaryPane.add(itemWeight, 1, 3);
-            primaryPane.add(itemDescription, 1, 5);
-            primaryPane.add(itemQuantity, 1, 4);
-            primaryPane.add(itemPurchPrice, 1, 6);
-            primaryPane.add(itemSalePrice, 1, 7);
-            primaryPane.add(submitCreateItem, 1, 9);
-            primaryPane.add(btnMain, 0, 9);
-            primaryPane.add(lblItemName, 0, 2);
-            primaryPane.add(lblItemWeight, 0, 3);
-            primaryPane.add(lblItemQuantity, 0, 4);
-            primaryPane.add(lblItemDescription, 0, 5);
-            primaryPane.add(lblItemPurchPrice, 0, 6);
-            primaryPane.add(lblItemSalePrice, 0, 7);
-            //Make ComboBox for Entering Vendor
-
+       btnCreateItem.setOnAction(e -> {
+          primaryPane.getChildren().clear();
+          primaryPane.setAlignment(Pos.CENTER);   
+          primaryPane.add(itemName, 1, 2);
+          primaryPane.add(itemWeight, 1, 3);
+          primaryPane.add(itemDescription, 1, 5);
+          primaryPane.add(itemQuantity, 1, 4);
+          primaryPane.add(itemPurchPrice, 1, 6);
+          primaryPane.add(itemSalePrice, 1, 7);
+          primaryPane.add(submitCreateItem,1,9);
+          primaryPane.add(btnMain, 0,9);
+          primaryPane.add(lblItemName,0,2);
+          primaryPane.add(lblItemWeight,0,3);
+          primaryPane.add(lblItemQuantity,0,4);
+          primaryPane.add(lblItemDescription,0,5);
+          primaryPane.add(lblItemPurchPrice,0,6);
+          primaryPane.add(lblItemSalePrice,0,7);
+          primaryPane.add(cmboVendor2,1,8);
+          primaryPane.add(lblSelectVendor,0,8);
         });
 
+    
         submitCreateItem.setOnAction(e -> {
-
-            createItem(itemName.getText(), Double.parseDouble(itemWeight.getText()), itemDescription.getText(), Double.parseDouble(itemQuantity.getText()), Double.parseDouble(itemPurchPrice.getText()), Double.parseDouble(itemSalePrice.getText()));
-
+              checkInputVendor(cmboVendor2);
+              createItem(itemName.getText(),Double.parseDouble(itemWeight.getText())
+                      ,itemDescription.getText(),Double.parseDouble(itemQuantity.getText())
+                      , Double.parseDouble(itemPurchPrice.getText()),
+                      Double.parseDouble(itemSalePrice.getText()),activeId);
             itemName.clear();
             itemWeight.clear();
             itemDescription.clear();
             itemQuantity.clear();
             itemPurchPrice.clear();
             itemSalePrice.clear();
-            //add for vendor part
+            cmboVendor2.getSelectionModel().clearSelection();
             primaryPane.getChildren().clear();
             lblMenu.setText("Successful\nSelect to return to main menu");
-            primaryPane.add(btnMain, 0, 2);
-            primaryPane.add(lblMenu, 0, 1);
+            primaryPane.add(btnMain,0,2);
+            primaryPane.add(lblMenu,0,1);    
         });
 
-        btnEditItem.setOnAction(e -> {
+     btnEditItem.setOnAction(e -> { 
+          primaryPane.getChildren().clear();
+          primaryPane.setAlignment(Pos.CENTER);
+          displayItems(itemDisplay);
+          primaryPane.add(scrollPane,0,0);
+          primaryPane.add(cmboItems,0,3);
+          primaryPane.add(btnEditIName,0,4);
+          primaryPane.add(btnEditIWeight,0,5);
+          primaryPane.add(btnEditIDesc,0,6);
+          primaryPane.add(btnEditIQuantity,0,7); 
+          primaryPane.add(btnEditIPurchPrice,0,8);
+          primaryPane.add(btnEditISalePrice,0,9);         
+          primaryPane.add(editItemVendor,0,10);
+          extra.setText("");
+          primaryPane.add(extra,0,10);
+          
+          });
+     
+        editItemVendor.setOnAction( e -> {
             primaryPane.getChildren().clear();
             primaryPane.setAlignment(Pos.CENTER);
-            displayItems(itemDisplay);
-
-            primaryPane.add(scrollPane, 0, 0);
-            primaryPane.add(cmboItems, 0, 3);
-            primaryPane.add(btnEditIName, 0, 4);
-            primaryPane.add(btnEditIWeight, 0, 5);
-            primaryPane.add(btnEditIDesc, 0, 6);
-            primaryPane.add(btnEditIQuantity, 0, 7);
-            primaryPane.add(btnEditIPurchPrice, 0, 8);
-            primaryPane.add(btnEditISalePrice, 0, 9);
-            extra.setText("");
-            primaryPane.add(extra, 0, 10);
-
-        });
+            primaryPane.add(lbleditItemVendor, 0, 0);
+            primaryPane.add(cmboVendorEditItem,1,0);
+            primaryPane.add(btnSubmitChangeItem,0,2);
+            updated = "vendor";
+            
+            
+          });
 
         btnEditIName.setOnAction(e -> {
             primaryPane.getChildren().clear();
@@ -769,7 +787,7 @@ public class GUIv2 extends Application {
 
         btnSubmitChangeItem.setOnAction(e -> {
             checkInputItems(cmboItems);
-            updateInfoItem(updated, inputField3);
+            updateInfoItem(updated, inputField3,cmboVendorEditItem);
             cmboItems.getSelectionModel().clearSelection();
             showMainMenu(lblMenu, btnCus, btnItem, btnSale, btnVendor, btnPrint, btnExit, primaryPane);
         });
@@ -807,13 +825,13 @@ public class GUIv2 extends Application {
         customerList[2] = new Customer("Shu", "Mishra", "mishra@dukes.com", "23 peach wood", "654-456-8765");
         customerList[3] = new Customer("Manfred", "Hueskes", "h@dukes.com", "34 duke way", "654-345-7654");
         itemList[0] = new Item("Whiskey", 5.0, "Drink of Choice", 10, 10.0, 15.0, vendorList[0]);
-        itemList[1] = new Item("Gin", 3.0, "Drink of Choice", 10, 10.0, 15.0, vendorList[0]);
-        itemList[2] = new Item("Vodka", 4.2, "Drink of Choice", 10, 10.0, 15.0, vendorList[0]);
-        itemList[3] = new Item("Hennesy", 2.1, "Drink of Choice", 10, 10.0, 15.0, vendorList[0]);
+        itemList[1] = new Item("Gin", 3.0, "Drink of Choice", 10, 10.0, 15.0, vendorList[1]);
+        itemList[2] = new Item("Vodka", 4.2, "Drink of Choice", 10, 10.0, 15.0, vendorList[2]);
+        itemList[3] = new Item("Hennesy", 2.1, "Drink of Choice", 10, 10.0, 15.0, vendorList[1]);
         itemList[4] = new Item("Jack Daniels", 2.7, "Drink of Choice", 10, 10.0, 15.0, vendorList[0]);
-        itemList[5] = new Item("Captain Morgan", 3.1, "Drink of Choice", 10, 10.0, 15.0, vendorList[0]);
+        itemList[5] = new Item("Captain Morgan", 3.1, "Drink of Choice", 10, 10.0, 15.0, vendorList[2]);
         itemList[6] = new Item("Cider", 8.4, "Drink of Choice", 10, 10.0, 15.0, vendorList[0]);
-        itemList[7] = new Item("Beer", 5.0, "Drink of Choice", 10, 10.0, 15.0, vendorList[0]);
+        itemList[7] = new Item("Beer", 5.0, "Drink of Choice", 10, 10.0, 15.0, vendorList[1]);
         itemList[8] = new Item("Turkey", 3.0, "Thanksgiving bird", 10, 10.0, 15.0, vendorList[0]);
         itemList[9] = new Item("Apples", 1.0, "Quality healthy snack", 10, 10.0, 15.0, vendorList[0]);
         saleList[0] = new Sale(itemList[0], 2, "7/30/18", "c0", 1);
@@ -923,33 +941,61 @@ public class GUIv2 extends Application {
         }
     }
 
-    public static void updateInfoItem(String updated, TextField input) {
-        for (int i = 0; i < itemList.length; i++) {
-
-            if (itemList[i].itemId.equals(activeId)) {
-                if (updated.equals("name")) {
-                    itemList[i].itemName = input.getText();
-                    Item.obsItemList.set(i, itemList[i].itemId + "  " + input.getText());
-                    input.clear();
-                } else if (updated.equals("weight")) {
-                    itemList[i].weight = Double.parseDouble(input.getText());
-                    input.clear();
-                    System.out.println(itemList[i].weight);
-                } else if (updated.equals("description")) {
-                    itemList[i].description = (input.getText());
-                    input.clear();
-                } else if (updated.equals("quantity")) {
-                    itemList[i].quantity = Double.parseDouble(input.getText());
-                    input.clear();
-                } else if (updated.equals("salePrice")) {
-                    itemList[i].salePrice = Double.parseDouble(input.getText());
-                    input.clear();
-                } else if (updated.equals("purchasePrice")) {
-                    itemList[i].setPricePaid(Double.parseDouble(input.getText()));
-                    input.clear();
-                }
-            }
-        }
+    public static void updateInfoItem(String updated, TextField input, ComboBox comboBox)
+    {
+        for(int i =0 ; i < itemList.length; i++)
+             {
+                
+                if( itemList[i].itemId.equals(activeId))
+                  {
+                      if (updated.equals("name"))
+                      {
+                      itemList[i].itemName = input.getText();
+                      Item.obsItemList.set(i,itemList[i].itemId + "  " +input.getText());
+                     input.clear();
+                      }
+                      else if (updated.equals("weight"))
+                      {
+                      itemList[i].weight = Double.parseDouble(input.getText());
+                     input.clear();
+                     System.out.println(itemList[i].weight);
+                      }
+                      else if (updated.equals("description"))
+                      {
+                      itemList[i].description=(input.getText());
+                     input.clear();
+                      }
+                      else if (updated.equals( "quantity"))
+                      {
+                      itemList[i].quantity=Double.parseDouble(input.getText());
+                     input.clear();
+                      } 
+                      else if (updated.equals( "salePrice"))
+                      {
+                      itemList[i].salePrice=Double.parseDouble(input.getText());
+                     input.clear();
+                      } 
+                       else if (updated.equals( "purchasePrice"))
+                      {
+                      itemList[i].setPricePaid(Double.parseDouble(input.getText()));
+                     input.clear();
+                      } 
+                       else if (updated.equals( "vendor"))
+                       {
+                          for(int j =0 ; j < vendorList.length; j++)
+             {
+                if( vendorList[j].comboBoxFormat().equals(comboBox.getSelectionModel().getSelectedItem()))
+                   {
+                      itemList[i].vendor = vendorList[j];
+                      
+                     
+                   }
+                
+             } 
+                           
+                       }
+                   }
+             } 
     }
     
     public static Sale[] addSale(int saleTracker, int transaction, String custID, Item itemSold, double numSold)
@@ -961,7 +1007,7 @@ public class GUIv2 extends Application {
           newArray[i] = tempSale;
         }
     
-    newArray[newArray.length - 1]  = new Sale(itemSold,numSold, custID,transaction);
+    //newArray[newArray.length - 1]  = new Sale(itemSold,numSold, custID,transaction);
     //newArray[newArray.length-1].itemSold.quantity =- numSold; -- Taken out by Nick, wasnt working. Made a method in constructor.
     return newArray;
     
@@ -998,17 +1044,27 @@ public class GUIv2 extends Application {
     }
 
     public static void createItem(String itemName, double itemWeight, String itemDescription,
-            double itemQuantity, double itemPurchPrice, double itemSalePrice) {
-        Item[] newArray = new Item[itemList.length + 1];
-
-        for (int i = 0; i < itemList.length; i++) {
-            newArray[i] = itemList[i];
+              double itemQuantity, double itemPurchPrice, double itemSalePrice, String vendorId)
+    {
+        Item[] newArray = new Item[itemList.length+1];
+        int checker = 0 ;
+        for (int i = 0 ;i < itemList.length; i++ )
+        {
+          newArray[i] = itemList[i];
         }
-
+        
+        for (int i= 0; i < vendorList.length; i++)
+        {
+            if ( vendorList[i].vendorId.equals(vendorId))
+            {
+                checker = i;
+            }
+        }
+        
         newArray[itemList.length] = new Item(itemName, itemWeight, itemDescription, itemQuantity,
-                itemPurchPrice, itemSalePrice, vendorList[0]);
-        itemList = newArray;
-    }
+            itemPurchPrice, itemSalePrice, vendorList[checker] );
+       itemList = newArray;
+        }
 
     public static void createVendor(String itemName, String address, String phoneNumber) {
         Vendor[] newArray = new Vendor[vendorList.length + 1];
@@ -1100,18 +1156,22 @@ public class GUIv2 extends Application {
 
     }
 
-    public static void displayItems(TextArea itemDisplay) {
-        System.out.println(itemList.length);
-        String current = "";
-        current += String.format("%s\t\t%s\t\t\t%s\t\t%s\t\t%s\n", "Item Id:", "Item Name:", "Item Quantity:", "Purchase:", "Sale Price");
-        for (int i = 0; i < itemList.length; i++) {
-
-            current += String.format("%-5s\t\t\t%-30s\t\t%-10.0f\t\t$%-10.2f\t\t$%-10.2f\n", itemList[i].itemId, itemList[i].itemName, itemList[i].quantity, itemList[i].getPrice(), itemList[i].salePrice);
-
-        }
-        itemDisplay.setText(current);
-
-    }
+    public static void displayItems(TextArea itemDisplay)
+      {
+          System.out.println(itemList.length);
+          String current = "";
+          current += String.format("%s\t\t%s\t\t\t%s\t\t%s\t\t%s\t\t%s\n", "Item Id:","Item Name:","Item Quantity:","Purchase:", "Sale Price","Vendor:");
+          for (int i = 0; i < itemList.length; i++)
+          {
+         
+              current += String.format("%-5s\t\t\t%-30s\t\t%-10.2f\t\t$%-10.2f\t\t$%-10.2f\t\t%s\n",itemList[i].itemId, itemList[i].itemName,itemList[i].quantity,itemList[i].getPrice(),itemList[i].salePrice,itemList[i].vendor.name);
+              
+          }
+          itemDisplay.setText(current);
+          
+          
+          
+      }
 
     public static void displayVendors(TextArea itemDisplay) {
         System.out.println(vendorList.length);
