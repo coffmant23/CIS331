@@ -909,7 +909,7 @@ public class GUI extends Application {
                       } 
                       else if (updated.equals( "notes"))
                       {
-                      //customerList[i].setNotes(input.getText());
+                      customerList[i].setNotes(input.getText());
                      input.clear();
                       } 
                    }
