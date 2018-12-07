@@ -1176,7 +1176,7 @@ public class GUI extends Application {
                            if(cChoice.equalsIgnoreCase(saleList[i].custID))
                             {
                                 tCost += saleList[i].itemSold.salePrice * saleList[i].quantity;
-                               current +=String.format("%-24s%-18.0f$%-12.2f%-8s\n",saleList[i].itemSold.itemName,saleList[i].quantity, ( (saleList[i].quantity)* (saleList[i].itemSold.salePrice)), saleList[i].date);
+                               current +=String.format("%-24s\t%-18.0f\t$%-12.2f\t%-8s\n",saleList[i].itemSold.itemName,saleList[i].quantity, ( (saleList[i].quantity)* (saleList[i].itemSold.salePrice)), saleList[i].date);
                             } 
                           }
                           lblMenu.setText(current);
