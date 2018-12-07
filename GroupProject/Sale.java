@@ -6,6 +6,10 @@ Pierre Giaon
 Shuvam Mishra
 */
 package GroupProject;
+import java.util.*;
+import java.text.SimpleDateFormat;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Sale {
     public Item itemSold;
@@ -14,18 +18,32 @@ public class Sale {
     public String date;
     public String custID;
     public int transaction;
-    public int saleNumber;
+    public int saleTracker;
+    public static ObservableList obsSalelist = FXCollections.observableArrayList();
     
 
+    public Sale(Item itemSold, double quantity, String custID, int transaction){
+        this.quantity = quantity;
+        this.itemSold = itemSold;
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        
+        this.date = sdf.format(cal.getTime());
+        this.custID = custID;
+        this.transaction = transaction;
+        this.saleID = "s" + saleTracker;
+        this.itemSold.sale(quantity);
+        saleTracker++;
+    }
     public Sale(Item itemSold, double quantity, String date, String custID, int transaction){
         this.quantity = quantity;
         this.itemSold = itemSold;
         this.date = date;
         this.custID = custID;
         this.transaction = transaction;
-        this.saleID = "s" + saleNumber;
+        this.saleID = "s" + saleTracker;
         this.itemSold.sale(quantity);
-        saleNumber++;
+        saleTracker++;
     }
 
     public static void printSale(Sale sale){//might need to fix the formatting here
@@ -41,4 +59,8 @@ public class Sale {
         saleString += itemSold.itemName + " " + saleID + " " + quantity + " " + date + " " + custID + " " + transaction;
         return saleString;
     }
-}
+    public String comboBoxFormat()
+       {
+           return saleID + "  " +itemSold.itemName;
+       }
+}   
