@@ -35,6 +35,7 @@ public class GUI extends Application {
         //Create your controls
         addInfo();
         Label lblMenu = new Label("Please select a menu option");
+        Label lblVendorName = new Label("Vendor Name");
         Label lblFirstName = new Label("First Name");
         Label lblLastName = new Label("Last Name:");
         Label lblPhone = new Label("Phone Number:");
@@ -235,9 +236,9 @@ public class GUI extends Application {
         btnCreateVendor.setOnAction(e -> {
             primaryPane.getChildren().clear();
             primaryPane.setAlignment(Pos.CENTER);
-            primaryPane.add(lblVendorName,0,2);
-            primaryPane.add(lblPhone,0,3);
-            primaryPane.add(lblAddress,0,4);
+            primaryPane.add(lblVendorName, 0, 2);
+            primaryPane.add(lblPhone, 0, 3);
+            primaryPane.add(lblAddress, 0, 4);
           
             
         });
