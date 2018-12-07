@@ -128,7 +128,7 @@ public class GuiV2 extends Application {
         ScrollPane customerScrollPane = new ScrollPane(customerDisplay);
         TextArea vendorDisplay = new TextArea();
         ScrollPane vendorScrollPane = new ScrollPane(vendorDisplay);
-
+        Label ohno = new Label("Not enough in inventory");
         //Testing
         Button btnNext1 = new Button("Next");
         Button btnNext2 = new Button("Next");
@@ -198,15 +198,47 @@ public class GuiV2 extends Application {
            lblMenu.setText("Please select an item");
            primaryPane.add(lblMenu,0,0);
            primaryPane.add(cmboItemReport,0,1);
+           ohno.setText("");
+           primaryPane.add(ohno,1,4);
            
            primaryPane.add(lblQuantity, 0, 3);
            primaryPane.add(qField, 0, 4);
-           primaryPane.add(btnSaleMore, 0, 5);//keeps current
-           primaryPane.add(btnNext5,1,5); // ends transactions
            }
+           });
+           
+        
+           qField.setOnAction(e -> {
+               
+          
+           int temp  = 0;
+           for(int i=0;i< itemList.length; i++)
+           {
+               if (itemList[i].itemId == tempID)
+               {
+                   temp = i;
+               }
+               
+           }
+           if (itemList[temp].quantity > Double.parseDouble(qField.getText()))
+           {
+           primaryPane.getChildren().clear();
+           primaryPane.add(btnSaleMore, 0, 5);//keeps current
+           primaryPane.add(btnNext5,1,5);
+           btnNext5.setText("Process Sale");// ends transactions
+           
+           }
+           else
+               
+               ohno.setText("Not enough in stock");
+            
+           
         });
         
-        btnSaleMore.setOnAction( e ->{                                          //add more sales
+        
+        
+        btnSaleMore.setOnAction( e ->{ 
+            //add more sales
+            ohno.setText("");
            int checker = checkInputItems(cmboItemReport);
            if (checker != 1){
                extra.setText("Please select an item and quantity");
@@ -234,8 +266,8 @@ public class GuiV2 extends Application {
            
            primaryPane.add(lblQuantity, 0, 3);
            primaryPane.add(qField, 0, 4);
-           primaryPane.add(btnSaleMore, 0, 5);
-           primaryPane.add(btnNext5,1,5); //method will add sale id but keep in same transaction
+           //primaryPane.add(btnSaleMore, 0, 5);
+          // primaryPane.add(btnNext5,1,5); //method will add sale id but keep in same transaction
         });
          btnNext5.setOnAction(e ->{ //this button ends the transaction
            int checker = checkInputItems(cmboItemReport);
