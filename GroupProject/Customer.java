@@ -37,8 +37,8 @@ public class Customer {
         this.fname = fname;
         this.lname = lname;
         this.email = email;
-        this.customerId= "b"+bCounter;
-        bCounter++;
+        this.customerId= "b"+counter;
+        counter++;
         obsCustomerlist.add(customerId + "  " +this.lname);
         notes = "";
     }
