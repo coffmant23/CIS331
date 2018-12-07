@@ -204,18 +204,22 @@ public class GuiV2 extends Application {
            }
         });
         
-        btnSaleMore.setOnAction( e ->{
+        btnSaleMore.setOnAction( e ->{                                          //add more sales
            int checker = checkInputItems(cmboItemReport);
            for(int i = 0; i<itemList.length; i++){
-               if(activeId == itemList[i].itemId){
+               if(activeId.equals(itemList[i].itemId)){
                    itemSold = itemList[i];
+                   System.out.println(itemSold);
+                  
                }
            }
            double quantity = Double.parseDouble(qField.getText());
            
            saleList = addSale(saleTracker, transaction,tempID, itemSold, quantity);
+            System.out.println(itemSold);
            
            cmboItemReport.getSelectionModel().clearSelection();
+           System.out.println(itemSold);
            qField.clear();
            primaryPane.getChildren().clear();
            primaryPane.setAlignment(Pos.CENTER);
@@ -228,7 +232,6 @@ public class GuiV2 extends Application {
            primaryPane.add(btnSaleMore, 0, 5);
            primaryPane.add(btnNext5,1,5); //method will add sale id but keep in same transaction
         });
-        
         btnNext5.setOnAction(e ->{ //this button ends the transaction
            
         });
