@@ -16,6 +16,7 @@ public class GUI extends Application {
     static Item[] itemList;
     static Sale[] saleList;
     static Vendor[] vendorList;
+    static int vendorTracker = 0;
     static int customerTracker = 4;
     static int bCustomerTracker = 0;
     static int itemTracker =0;
@@ -816,6 +817,18 @@ public class GUI extends Application {
         newArray[customerTracker].notes = notesText;
        return newArray;
         }  
+        
+        
+       public static Vendor[] createVendor(Vendor[] vendorArray, String vendorName, String address, String phoneNumber)
+      {
+          Vendor[] newArray = new Vendor[vendorTracker+1];
+          for (int i = 0; i < vendorArray.length; i++)
+          {
+              newArray[i] = vendorArray[i];
+          }
+          return newArray;
+      }
+      
       
       public static Item[] createItem( Item[] itemArray, String itemName, String itemWeight, String itemDescription,
               String itemQuantity, String itemPurchPrice, String itemSalePrice, Vendor[] vendorArray)
