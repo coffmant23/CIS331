@@ -52,6 +52,8 @@ public class GUI extends Application {
         Button btnCreateCust = new Button("Create Customer");
         Button btnBusCust = new Button("Business Customer");
         Button btnIndCust = new Button("Individual Customer");
+        Button btnEditVendor = new Button("Edit Vendor");          
+        Button btnCreateVendor = new Button("Create Vendor");
         Button btnCreateItem = new Button("Create Item");
         Button btnEditItem = new Button("Edit Item");
         Button btnMain = new Button("Main Menu");
@@ -67,7 +69,8 @@ public class GUI extends Application {
         Button btnEditISalePrice = new Button("Sale Price");
         Button btnReport1 = new Button("Purchase History for a Customer");
         Button btnReport2 = new Button("Purchase History of an Item");
-        Button btnReport3 = new Button("Current Inventory Levels");     
+        Button btnReport3 = new Button("Current Inventory Levels");    
+        Button btnReport4 = new Button("Purchase History of a Vendor");
         CheckBox businessCust = new CheckBox("Business Customer");
         CheckBox addNotes = new CheckBox("Add Notes");
         Button submit = new Button("Submit");
@@ -102,6 +105,7 @@ public class GUI extends Application {
 //        Button btnNext5 = new Button("Next");
         Button btnSubmitChange = new Button("Submit Change");
         ComboBox cmboCustomers = new ComboBox(Customer.obsCustomerlist);
+        ComboBox cmboVendor = new ComboBox(Vendor.obsVendorlist);
         ComboBox cmboCustomerReport = new ComboBox(Customer.obsCustomerlist);
         ComboBox cmboItems = new ComboBox(Item.obsItemList);
         ComboBox cmboItemReport = new ComboBox(Item.obsItemList);
@@ -218,6 +222,28 @@ public class GUI extends Application {
           primaryPane.add(btnManCust, 0, 1);  
         primaryPane.add(btnCreateCust, 0, 2);
         }); 
+        
+        //Edit and Create Vendor
+         btnVendor.setOnAction(e -> {
+            primaryPane.getChildren().clear();
+            primaryPane.setAlignment(Pos.CENTER);
+            primaryPane.add(btnEditVendor, 0, 1);
+            primaryPane.add(btnCreateVendor, 0, 2);
+        });
+        
+        //Create vendor button
+        btnCreateVendor.setOnAction(e -> {
+            primaryPane.getChildren().clear();
+            primaryPane.setAlignment(Pos.CENTER);
+            primaryPane.add(lblVendorName,0,2);
+            primaryPane.add(lblPhone,0,3);
+            primaryPane.add(lblAddress,0,4);
+          
+            
+        });
+        
+        
+        
         btnCreateCust.setOnAction(e -> {
           primaryPane.getChildren().clear();
           primaryPane.setAlignment(Pos.CENTER);   //Set alignment for the form
@@ -296,6 +322,52 @@ public class GUI extends Application {
             primaryPane.add(btnMain,0,2);
             primaryPane.add(lblMenu,0,1);    
         });
+        
+        //Edit vendor button
+        btnEditVendor.setOnAction(e -> {
+            primaryPane.getChildren().clear();
+            primaryPane.setAlignment(Pos.CENTER);
+            lblMenu.setText("Please the ID of the vendor to edit:");
+            primaryPane.add(lblMenu, 0, 0);
+            
+            extra.setText("");
+            primaryPane.add(extra, 0, 4);
+            primaryPane.add(btnNext4, 0, 5);
+            primaryPane.add(cmboVendor, 0 , 1);
+        });
+        
+          //vendor edit screen
+          btnNext4.setOnAction(e -> {
+              int chk = checkInput(cmboVendor);
+              if (chk == 1) {
+                  inputField.clear();
+                  cmboVendor.getSelectionModel().clearSelection();
+                  primaryPane.getChildren().clear();
+                  primaryPane.setAlignment(Pos.CENTER);
+                  lblMenu.setText("Please select edit option");
+                  primaryPane.add(lblMenu, 0 , 0);
+                  primaryPane.add(btnEditVendor,0,1);
+                  primaryPane.add(btnEditAddress,0,3);
+                   /*for(int i = 0; i < vendorList.length; i++)
+                 {
+                     if(vendorList[i].vendorId.equals(activeId))
+                     {
+                         txtNotesField.setText(vendorList[i].notes);
+                         if(vendorList[i].notes.equals(""))
+                         {
+                             primaryPane.getChildren().remove(txtNotesField);
+                         }
+                         
+                         
+                     }
+                 }
+ 
+              }
+              else{
+                  extra.setText("Not found. Please try again");
+              }
+          }); */
+        
         
         
         //edit customers button 
