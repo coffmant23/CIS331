@@ -260,6 +260,19 @@ public class GUI extends Application {
           
           
           });
+          
+          btnReport4.setOnAction( e-> {
+          primaryPane.getChildren().clear();
+          primaryPane.setAlignment(Pos.CENTER);
+          lblMenu.setText("Please select the ID of the vendor:");
+          primaryPane.add(lblMenu,0,0);
+          primaryPane.add(cmboVendorReport,0,1);
+
+            primaryPane.add(extra,0,4);
+            primaryPane.add(btnNext4,0,5);
+        
+            extra.setText("");
+        });
         btnCus.setOnAction(e -> {
           primaryPane.getChildren().clear();
           primaryPane.setAlignment(Pos.CENTER);   //Set alignment for the form
