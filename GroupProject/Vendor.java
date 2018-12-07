@@ -1,5 +1,5 @@
 package GroupProject;
-import java.util.ArrayList;
+
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 
@@ -10,8 +10,8 @@ public class Vendor {
     private String phoneNumber;
     public String vendorId; 
     public static int counter;
-    public static ArrayList<Vendor> vendorList = new ArrayList<>();
     public static ObservableList obsVendorlist = FXCollections.observableArrayList();
+    
     
     public Vendor(String name, String address, String phoneNumber)
     {
@@ -19,7 +19,7 @@ public class Vendor {
             this.address = address;
             this.phoneNumber = phoneNumber;
             this.vendorId= "v"+counter;
-            obsVendorlist.add(vendorId + " " + this.name);
+            obsVendorlist.add(vendorId + "  " + this.name);
             counter++;
     }
     
@@ -53,7 +53,15 @@ public class Vendor {
            return vendorId + "  " +name;
        }
 
-    
+    public String getPhone()
+       {
+           return this.phoneNumber;
+       }
+    public String getAddress()
+       {
+           return this.address;
+       }
+     
     
 }
 
