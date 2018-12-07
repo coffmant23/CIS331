@@ -101,6 +101,7 @@ public class GUI extends Application {
         TextField reportOneField = new TextField();
         TextField reportTwoField = new TextField();
         TextField reportThreeField = new TextField();
+        TextField reportFourField = new TextField();
         
         //Testing
         Button btnNext1 = new Button("Next");
@@ -250,6 +251,44 @@ public class GUI extends Application {
             primaryPane.add(btnEditVendor, 0, 1);
             primaryPane.add(btnCreateVendor, 0, 2);
         });
+        
+        //EditName
+         btnEditVendorName.setOnAction(e -> {
+            primaryPane.getChildren().clear();
+            primaryPane.setAlignment(Pos.CENTER);
+            lblMenu.setText("Please type in the updated version:");
+            primaryPane.add(lblMenu, 0, 0);
+            primaryPane.add(inputField2,0,3);
+            primaryPane.add(btnSubmitChange,0,4);
+            
+            updated = "name";
+          });
+        //Edit Vendor Addres
+         btnEditVendorAddress.setOnAction(e -> {
+            primaryPane.getChildren().clear();
+            primaryPane.setAlignment(Pos.CENTER);
+            lblMenu.setText("Please type in the updated version:");
+            primaryPane.add(lblMenu, 0, 0);
+            primaryPane.add(inputField2,0,3);
+            primaryPane.add(btnSubmitChange,0,4);
+            
+            updated = "address";
+          });
+          
+        
+          //Edit Phone number of vendor
+          btnEditVendorPhone.setOnAction(e -> {
+            primaryPane.getChildren().clear();
+            primaryPane.setAlignment(Pos.CENTER);
+            lblMenu.setText("Please type in the updated version:");
+            primaryPane.add(lblMenu, 0, 0);
+            primaryPane.add(inputField2,0,3);
+            primaryPane.add(btnSubmitChange,0,4);
+            
+            updated = "phone";
+          });
+           
+        
         
         //Create vendor button
         btnCreateVendor.setOnAction(e -> {
