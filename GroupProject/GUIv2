@@ -20,7 +20,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
-public class GuiV2 extends Application {
+public class GUIv2 extends Application {
 
     static Customer[] customerList;
     static Item[] itemList;
@@ -199,11 +199,13 @@ public class GuiV2 extends Application {
         btnSale.setOnAction(e ->{
            primaryPane.getChildren().clear();
            primaryPane.setAlignment(Pos.CENTER);
+           lblHeader.setText("Enter Sale");
+           primaryPane.add(lblHeader,0,0);
            lblMenu.setText("Please select the customer");
-           primaryPane.add(lblMenu,0,0);
-           primaryPane.add(cmboCustomerReport,0,1);
-           primaryPane.add(extra, 0, 3);
-           primaryPane.add(btnNext4,0,4);
+           primaryPane.add(lblMenu,0,1);
+           primaryPane.add(cmboCustomerReport,0,2);
+           primaryPane.add(extra, 0, 4);
+           primaryPane.add(btnNext4,0,5);
         });
         btnNext4.setOnAction( e ->{
            int checker  = checkInput(cmboCustomerReport);
@@ -274,9 +276,9 @@ public class GuiV2 extends Application {
            
            primaryPane.add(lblMenu,0,0);
            String receipt = "";
-           receipt += String.format("\n-----------------------------------------------------------------\n");
-           receipt += String.format("|Item Name|\t |Quantity|\t|Sale Price|\t|Total Cost|\t|Date|\n");
-           receipt += String.format("-----------------------------------------------------------------\n");
+           receipt += String.format("\n------------------------------------------------------------------------------------------------------\n");
+           receipt += String.format("|Item Name|\t\t|Quantity|\t\t|Sale Price|\t|Total Cost|\t|Date|\n");
+           receipt += String.format("------------------------------------------------------------------------------------------------------\n");
            for(int i = 0; i<saleList.length;i++){
                if(saleList[i].transaction == transaction){
                    receipt += Sale.printReceipt(saleList[i]);
@@ -292,6 +294,8 @@ public class GuiV2 extends Application {
 
         btnPrint.setOnAction(e -> {
             primaryPane.getChildren().clear();
+            lblHeader.setText("Print Report");
+            primaryPane.add(lblHeader, 0, 0);
             display2.setText(" Please select the report you would like to view");
             primaryPane.add(display2, 0, 1);
             primaryPane.add(btnReport1, 0, 2);
@@ -386,6 +390,7 @@ public class GuiV2 extends Application {
             primaryPane.setAlignment(Pos.CENTER);
             lblHeader.setText("Manage Vendor");
             primaryPane.add(lblHeader, 0, 0);
+            lblMenu.setText("Please select an option:");
             primaryPane.add(lblMenu, 0,1);
             primaryPane.add(btnEditVendor, 0, 2);
             primaryPane.add(btnCreateVendor, 0, 3);
@@ -395,6 +400,8 @@ public class GuiV2 extends Application {
         btnCreateVendor.setOnAction(e -> {
             primaryPane.getChildren().clear();
             primaryPane.setAlignment(Pos.CENTER);
+            lblHeader.setText("Create Vendor");
+            primaryPane.add(lblHeader, 0, 0);
             primaryPane.add(lblVendorName, 0, 2);
             primaryPane.add(lblPhone, 0, 3);
             primaryPane.add(lblAddress, 0, 4);
@@ -422,6 +429,8 @@ public class GuiV2 extends Application {
         btnCreateCust.setOnAction(e -> {
             primaryPane.getChildren().clear();
             primaryPane.setAlignment(Pos.CENTER);   //Set alignment for the form
+            lblHeader.setText("Create Customer");
+            primaryPane.add(lblHeader, 0, 0);
             primaryPane.add(businessCust, 0, 1);
             primaryPane.add(addNotes, 1, 1);
             primaryPane.add(firstName, 1, 2);
@@ -747,14 +756,20 @@ public class GuiV2 extends Application {
         btnItem.setOnAction(e -> {
             primaryPane.getChildren().clear();
             primaryPane.setAlignment(Pos.CENTER);   //Set alignment for the form
-            primaryPane.add(btnCreateItem, 0, 1);
-            primaryPane.add(btnEditItem, 0, 2);
+            lblHeader.setText("Manage Item");
+            primaryPane.add(lblHeader, 0, 0);
+            lblMenu.setText("Please select an option:");
+            primaryPane.add(lblMenu, 0, 1);
+            primaryPane.add(btnCreateItem, 0, 2);
+            primaryPane.add(btnEditItem, 0, 3);
         });
 
         //Create Item
        btnCreateItem.setOnAction(e -> {
           primaryPane.getChildren().clear();
           primaryPane.setAlignment(Pos.CENTER);   
+          lblHeader.setText("Create Item");
+          primaryPane.add(lblHeader, 0, 0);
           primaryPane.add(itemName, 1, 2);
           primaryPane.add(itemWeight, 1, 3);
           primaryPane.add(itemDescription, 1, 5);
