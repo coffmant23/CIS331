@@ -917,13 +917,14 @@ public class GuiV2 extends Application {
             primaryPane.getChildren().clear();
             lblMenu.setText("Please select a menu option");
             primaryPane.setAlignment(Pos.CENTER);   //Set alignment for the form
-            primaryPane.add(lblMenu, 0, 0);    //first number is column, second is row
-            primaryPane.add(btnCus, 0, 1);
-            primaryPane.add(btnItem, 0, 2);
-            primaryPane.add(btnSale, 0, 3);
-            primaryPane.add(btnVendor, 0, 4);
-            primaryPane.add(btnPrint, 0, 5);
-            primaryPane.add(btnExit, 0, 6);
+            primaryPane.add(lblWelcome, 0, 0);
+            primaryPane.add(lblMenu, 0, 1);    //first number is column, second is row
+            primaryPane.add(btnCus, 0, 2);
+            primaryPane.add(btnItem, 0, 3);
+            primaryPane.add(btnSale, 0, 4);
+            primaryPane.add(btnVendor, 0, 5);
+            primaryPane.add(btnPrint, 0, 6);
+            primaryPane.add(btnExit, 0, 7);
         });
     }
 
