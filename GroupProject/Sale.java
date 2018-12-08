@@ -60,7 +60,7 @@ public class Sale {
         String name = sale.itemSold.itemName;
         double salePrice = sale.itemSold.salePrice;
         double total = q1*salePrice ;
-        receipt += String.format("%-11s\t%-7.0f\t$%-10.2f\t$%-9.2f\t%-8s\n",name,q1,salePrice,total,sale.date);
+        receipt += String.format("%-15s\t\t%-5.0f\t\t\t$%-10.2f\t$%-9.2f\t\t%-8s\n",name,q1,salePrice,total,sale.date);
         return receipt;
     }
 
